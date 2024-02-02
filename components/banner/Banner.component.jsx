@@ -70,7 +70,8 @@ export default function Banner({ songCount }) {
         <Image
           loader={imageLoader}
           className={styles.avatar}
-          src="./assets/images/banner_image.webp"
+          alt="banner_image"
+          src="./assets/images/banner_image.jpg"
           width={250}
           height={250}
         />
@@ -78,7 +79,7 @@ export default function Banner({ songCount }) {
           {config.Name}
         </h1>
         <h1 className={"display-6 text-center " + styles.grandTitle}>
-          已收录的蝶歌 <b>{songCount}</b> 首
+          已收录的歌曲 <b>{songCount}</b> 首
         </h1>
         <p className="text-center py-3 mb-xl-5 text-muted">
           可以点击歌名复制哦

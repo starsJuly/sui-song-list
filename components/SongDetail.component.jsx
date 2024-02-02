@@ -2,6 +2,8 @@ import styles from "../styles/Home.module.css";
 
 import { Button } from "react-bootstrap";
 
+import Image from 'next/image'
+
 export default function SongDetail({
   filteredSongList,
   handleClickToCopy,
@@ -32,22 +34,20 @@ export default function SongDetail({
     >
       <td className={styles.tableIconTd}>
         {song.sticky_top == 1 ? (
-          <img
+          <Image
             src="/assets/icon/up_arrow.png"
             alt="置顶"
             className={styles.tableIcons}
-            title="置顶曲目"
-          ></img>
+            title="置顶曲目" />
         ) : (
           <div></div>
         )}
         {song.paid == 1 ? (
-          <img
+          <Image
             src="/assets/icon/orb.png"
             alt="付费"
             className={styles.tableIcons}
-            title="付费曲目"
-          ></img>
+            title="付费曲目" />
         ) : (
           <div></div>
         )}

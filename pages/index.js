@@ -25,6 +25,8 @@ import { config } from '../config/constants'
 
 import { Analytics } from '@vercel/analytics/react';
 
+import iconGithub from '../public/assets/images/github.png'
+
 export default function Home() {
   //状态保存: 类别选择, 搜索框, 回到顶部按钮, 移动端自我介绍, 试听窗口
   const [categorySelection, setCategorySelection] = useState({
@@ -92,7 +94,7 @@ export default function Home() {
   //改变首字母过滤状态
   const setInitialState = (initial) => {
     setCategorySelection({
-      lang: "国语",
+      lang: "华语",
       initial: initial,
       paid: false,
       remark: "",
@@ -121,11 +123,9 @@ export default function Home() {
   };
 
   //移动端自我介绍off canvas开关
-  const handleCloseIntro = () => setShowIntro(false);
+  const handleCloseIntro = () => setShowIntro(false)
   // const handleShowIntro = () => setShowIntro(true);
-  const handleShowIntro = () => {
-    window.open('https://vrp.live/member/Ameki')
-  }
+  const handleShowIntro = () => window.open(config.VRMember)
 
   //滚动到顶部
   const scrollToTop = () => {
@@ -278,9 +278,9 @@ export default function Home() {
         ) : (
           <div></div>
         )}
-        <Link href={"https://github.com/Rndlab/vup-song-list-main"} passHref>
+        <Link href={ config.Repository } passHref>
           <footer className={styles.footer}>
-            <img src="assets/images/github.png"></img>
+            <Image loader={imageLoader} alt='' src={iconGithub} />
             <a>{config.Footer}</a>
           </footer>
         </Link>

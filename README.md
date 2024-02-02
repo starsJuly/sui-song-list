@@ -1,71 +1,74 @@
-# vup 歌单站(雨纪ameki)
+# SUI的歌单网站
 
-[雨纪ameki的歌单](https://www.ameki.online)
+岁己SUI的歌单网站。也可用于简单构建其他vup/vtb的个人歌单网站。
 
-### 零编程基础，就可以更新歌单列表
+> Fork自 [雨纪Ameki的歌单](https://www.ameki.online/)
 
-1.告诉我你的github用户名，之后确认接受管理项目的邀请。b站 【爪哇莫斯】联系我。
+## Features
 
-2.去这里下载 github 桌面端软件: https://desktop.github.com/
-安装完成后就可以用桌面端登陆账号啦。
+```
+# sui-song-list
+rules:
 
-3.打开桌面端软件，如果你已经获取项目的管理权限，就可以在右侧列表看到项目了，选择它点击Clone。
+features:
 
-![](/steps/1.png)
+# Provided by the vup-song-list-main
+rules:
++ 响应式页面
 
-4. 在local path选择一个合适的本地目录存放项目，点击Clone。
+features:
++ 从xlsx歌单文件自动获取歌单信息
+  - 需要手动调用 converter.exe/converter.py 进行更新
 
-![](/steps/2.png)
++ 基础歌单信息显示
+  - 支持单页歌单信息显示
 
-5.等待下载完成，桌面端界面变成下面的样子，说明可以开始编辑歌单了。
++ 基础歌单信息检索
+  - 支持通过歌曲名检索
+  = 支持通过歌曲语言检索
+  - 支持通过歌曲名首字拼音检索
 
-![](/steps/3.png)
++ 歌曲音视频播放
+  - Bilibili/video: playable
+  - 网易云/audio: linkable
 
-6.在本地打开你刚才设置的本地目录，打开 vup-song-list-main ，打开里面的scripts文件夹，music.xlsx就可以编辑了。
++ 点击歌单自动复制选中歌曲名
 
-![](/steps/4.png)
++ 显示vup信息
+  - vup头像
+  - Bilibili链接
+  - Bilibili直播房间链接
+  - 微博链接
+  - VirtuaReal官网介绍链接
+  - Twitter链接
 
-7.表格填写格式参考已有内容自行领会一下，BV号如果是分p歌切，则需要在bv号后面加上形如【&p=1】
++ 单图背景
 
-![](/steps/5.png)
-
-8.运行music.xlsx同目录的程序 converter.exe，等待完成。
-
-9.打开桌面端软件，它会知道你已经更新了项目内容，按下图填写说明，点击commit to main。之后就可以等待几分钟，网站就会更新了。
-
-![](/steps/6.png)
-
-10.日常如果想再做修改更新，先点一下Fetch origin，同步目前项目的最新状态。
-
-![](/steps/7.png)
-
-
-### 启动开发环境
-如果只是想更新歌单表music.xlsx，则可以不用做这一步。
-
-如果想要本地调试web页面，需要先安装nodejs： https://nodejs.org/en
-
-之后运行：
-```bash
-npm install
-npm run dev
 ```
 
-### 发布到网站
+当前版本用于基础构建并试运行。后续拟添加功能包括但不限于，
 
-项目已部署在vercel，会监听到提交代码时自动构建后在线发布
++ 基于 *岁己SUI* 个人特色的页面风格
++ 完善歌单信息，显示xlsx歌单文件中的更多内容
++ 添加更多歌单显示和检索功能，如显示上一次演唱时间，显示总演唱频次，列表项隐藏，和快捷操作等
++ 优化页面
++ 完善文档
++ ...
 
+另外，会尽可能同步更新 *岁己SUI* 最新歌单信息。如有歌单方面的遗漏或错误，或者使用时出现BUG，欢迎发issue和pull-request。
 
-## 修改相关
+感谢每一位贡献者。
 
-修改自项目:
+## Related Repositories
 
 [song-list-of-nanakaie](https://github.com/alan314m/song-list-of-nanakaie)
 
-
 [vup-song-list](https://github.com/Akegarasu/vup-song-list)
 
-感谢以上项目的开源贡献。
-修改了若干处使项目更低门槛可以部署、编辑、发布。
+[vup-song-list-main](https://github.com/Rndlab/vup-song-list-main)
 
-本项目遵守 MIT License
+## License
+
+见LICENSE文件
+
+> 本项目仅源码部分，当下及未来均遵循开源协议；本项目，当下及未来均不用于任何商业用途。

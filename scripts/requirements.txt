@@ -1,0 +1,2 @@
+pandas==2.2.0
+pypinyin==0.50.0
