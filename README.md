@@ -9,23 +9,21 @@
 ```
 # sui-song-list
 rules:
-
-features:
-
-# Provided by the vup-song-list-main
-rules:
 + 响应式页面
 
 features:
 + 从xlsx歌单文件自动获取歌单信息
-  - 需要手动调用 converter.exe/converter.py 进行更新
+  - 通过 converter.js 构建时 (dev, build) 自动更新
+    - base
+      - 需要手动调用 converter.exe/converter.py 进行更新
+        - source: vup-song-list-main
 
 + 基础歌单信息显示
   - 支持单页歌单信息显示
 
 + 基础歌单信息检索
   - 支持通过歌曲名检索
-  = 支持通过歌曲语言检索
+  - 支持通过歌曲语言检索
   - 支持通过歌曲名首字拼音检索
 
 + 歌曲音视频播放
