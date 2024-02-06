@@ -25,8 +25,6 @@ import { config } from '../config/constants'
 
 import { Analytics } from '@vercel/analytics/react';
 
-import iconGithub from '../public/assets/images/github.png'
-
 export default function Home() {
   //状态保存: 类别选择, 搜索框, 回到顶部按钮, 移动端自我介绍, 试听窗口
   const [categorySelection, setCategorySelection] = useState({
@@ -280,7 +278,7 @@ export default function Home() {
         )}
         <Link href={ config.Repository } passHref>
           <footer className={styles.footer}>
-            <Image loader={imageLoader} alt='' src={iconGithub} />
+            <Image loader={imageLoader} alt='' width={32} height={32} src='assets/images/github.png' />
             <a>{config.Footer}</a>
           </footer>
         </Link>

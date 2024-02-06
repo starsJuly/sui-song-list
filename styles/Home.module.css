@@ -195,7 +195,6 @@
 }
 
 .categorySelectionContainer {
-  border: 3px solid #1d0c26;
   border-radius: 1rem;
   padding: 1rem;
 }
@@ -258,7 +257,7 @@
 
 @media (max-width: 1200px) {
   .outerContainer {
-    background: url("/assets/images/background.png") center center no-repeat fixed;
+    background: url('/assets/images/background.webp') center center no-repeat fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
