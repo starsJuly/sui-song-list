@@ -1,9 +1,17 @@
-let path = require('path')
-let fs = require('fs')
-let ExcelJS = require('exceljs')
 const assert = require('assert')
+const path = require('path')
+const fs = require('fs')
+const ExcelJS = require('exceljs')
 
-const indexToExcelRow = index => (index + 1)
+const cnchar = require('cnchar');
+
+([ 'cnchar-poly',
+   'cnchar-trad', ]).map(id => require(id))
+                    .forEach(f => cnchar.use(f));
+;
+
+const getPinyinFirstLetter = str => cnchar.spell(str);
+const cnpy1st = getPinyinFirstLetter;
 
 const src = path.resolve(__dirname, './music.xlsx')
 const dest = path.resolve(__dirname, '../public/music_list.json')
@@ -33,7 +41,11 @@ const loadMusicList = async ({src, dest}) => {
             song_data.remarks = r.getCell(6).text || ''
 
             assert(song_data.song_name.length > 0, JSON.stringify(song_data.song_name))
-            song_data.initial = 'A'  // TODO
+            song_data.initial = cnpy1st(song_name).toUpperCase()[0]
+
+            if (song_data.initial.toLowerCase() === song_data.initial) {
+                song_data.initial = ''
+            }
 
             song_data.sticky_top = 0
             song_data.paid = 0
