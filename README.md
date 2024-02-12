@@ -14,33 +14,56 @@ rules:
 features:
 + 从xlsx歌单文件自动获取歌单信息
   - 通过 converter.js 构建时 (dev, build) 自动更新
-    - base
-      - 需要手动调用 converter.exe/converter.py 进行更新
-        - source: vup-song-list-main
+  - base
+    - 需要手动调用 converter.exe/converter.py 进行更新
+      - source: vup-song-list-main
+
++ 歌单信息
+  - 支持 序号，歌曲名，歌名翻译，原唱，语言，备注，次数，歌切 列数据
+    - 歌曲名为空的数据行，被视为空行忽略
+    - 歌切支持B站BV号，B站合集BV号
+      `BV[0-9a-zA-Z]{10}` `BV[0-9a-zA-Z]{10}&p=[0-9]+`
+      Reference [https://player.bilibili.com/](https://player.bilibili.com/)
+  - base
+    - source: vup-song-list-main
 
 + 基础歌单信息显示
   - 支持单页歌单信息显示
+    - 支持显示 序号，歌曲名，原唱，语言， 备注 数据
+  - base
+    - source: vup-song-list-main
 
 + 基础歌单信息检索
-  - 支持通过歌曲名检索
-  - 支持通过歌曲语言检索
-  - 支持通过歌曲名首字拼音检索
+  - 
+    - 支持通过歌曲名检索
+    - 支持通过歌曲语言检索
+    - 支持通过歌曲名首字拼音检索
+  - base
+    - source: vup-song-list-main
 
 + 歌曲音视频播放
-  - Bilibili/video: playable
-  - 网易云/audio: linkable
+  - 
+    - Bilibili/video: playable
+    - 网易云/audio: linkable
+  - base
+    - source: vup-song-list-main
 
 + 点击歌单自动复制选中歌曲名
 
 + 显示vup信息
-  - vup头像
-  - Bilibili链接
-  - Bilibili直播房间链接
-  - 微博链接
-  - VirtuaReal官网介绍链接
-  - Twitter链接
+  - 
+    - vup头像
+    - Bilibili链接
+    - Bilibili直播房间链接
+    - 微博链接
+    - VirtuaReal官网介绍链接
+    - Twitter链接
+  - base
+    - source: vup-song-list-main
 
 + 单图背景
+  - base
+    - source: vup-song-list-main
 
 ```
 
