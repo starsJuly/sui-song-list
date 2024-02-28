@@ -16,6 +16,7 @@ import MusicList from '../public/music_list.json'
 import Banner from '../components/banner/Banner.component'
 import BannerMobile from '../components/banner/BannerMobile.component'
 import SongDetail from '../components/SongDetail.component'
+import { song_list_ui} from '../components/SongDetail.component'
 import BiliPlayerModal from '../components/BiliPlayerModal.component'
 import SongListFilter from '../components/SongListFilter.component'
 
@@ -24,6 +25,93 @@ import * as utils from '../utils/utils'
 import { config } from '../config/constants'
 
 import { Analytics } from '@vercel/analytics/react';
+
+/*
+           
+     ____/    __/ 
+    /                      /       /         /
+  _ _         /           /       /         /
+       /     /          _/      _/         /
+ _____/   __/            _____/         __/
+                                        
+                                    __/
+
+
+
+     ____/ x
+    /      x
+  _ _      x
+       /   x
+ _____/    x
+
+
+
+              x
+   /       /  x
+  /       /   x
+_/      _/    x
+ _____/       x
+
+
+
+    __/ x
+        x   
+    /   x
+   /    x
+__/     x
+
+
+             x
+          /  x
+         /   x
+        /    x
+     __/     x
+     
+ __/
+
+     ____/ x
+    /      x
+  _ _      x
+       /   x
+ _____/    x
+              x
+   /       /  x
+  /       /   x
+_/      _/    x
+ _____/       x
+    __/ x
+        x   
+    /   x
+   /    x
+__/     x
+             x
+          /  x
+         /   x
+        /    x
+     __/     x
+     
+   __/
+    __/ x
+        x   
+    /   x
+   /    x
+__/     x
+     ____/ x
+    /      x
+  _ _      x
+       /   x
+ _____/    x
+              x
+   /       /  x
+  /       /   x
+_/      _/    x
+ _____/       x
+    __/ x
+        x   
+    /   x
+   /    x
+__/     x
+*/
 
 export default function Home() {
   //状态保存: 类别选择, 搜索框, 回到顶部按钮, 移动端自我介绍, 试听窗口
@@ -74,7 +162,7 @@ export default function Home() {
   );
 
   //处理用户复制行为
-  const handleClickToCopy = (song) => {
+  const handleClickToCopy = (song) => {  // TODO: enable dragging on PC
     if (song.paid == 1) {
       copy("点歌 ￥" + song.song_name);
       toast.success(`付费曲目 ${song.song_name} 成功复制到剪贴板!`);
@@ -177,33 +265,24 @@ export default function Home() {
           </b>
         </div>
       </div>
-      <Container>
-        <Head>
-          <title>{config.Name}的歌单</title>
-          <meta name="keywords" content="B站,bilibili,哔哩哔哩,电台唱见,歌单" />
-          <meta name="description" content={`${config.Name}的歌单`} />
-          <link rel="icon" type="image/x-icon" href="/favicon.png"></link>
-        </Head>
+      <Head>
+        <title>{config.Name}的歌单</title>
+        <meta name="keywords" content="B站,bilibili,哔哩哔哩,电台唱见,歌单" />
+        <meta name="description" content={`${config.Name}的歌单`} />
+        <link rel="icon" type="image/x-icon" href="/favicon.png"></link>
+      </Head>
 
         <section className={styles.main}>
           {/** 头像和标题 */}
-          <Row>
-            <Banner
-              songCount={filteredSongList.length}
+          <div>
+          <Banner
+              songCount={MusicList.length}
             />
-          </Row>
+          </div>
+
           {/** 过滤器控件 */}
-          <Row>
-            <SongListFilter
-              categorySelection={categorySelection}
-              setLanguageState={setLanguageState}
-              setRemarkState={setRemarkState}
-              setPaidState={setPaidState}
-              setInitialState={setInitialState}
-            />
-          </Row>
-          <Row>
-            <Col xs={12} md={9}>
+          <div>
+          <Col xs={12} md={12}>
               <Form.Control
                 className={styles.filters}
                 type="search"
@@ -212,46 +291,29 @@ export default function Home() {
                 onChange={(e) => setSearchBox(e.target.value)}
               />
             </Col>
-            <Col xs={12} md={3}>
-              <div className="d-grid">
-                <Button
-                  title="从下面的歌单里随机挑一首"
-                  className={styles.customRandomButton}
-                  onClick={handleRandomSong}
-                >
-                  随便听听
-                </Button>
-              </div>
-            </Col>
-          </Row>
+            
+          </div>
+          <div>
+          <SongListFilter
+              categorySelection={categorySelection}
+              setLanguageState={setLanguageState}
+              setRemarkState={setRemarkState}
+              setPaidState={setPaidState}
+              setInitialState={setInitialState}
+              handleRandomSong={handleRandomSong}
+            />
+          </div>
+
           {/** 歌单表格 */}
-          <Row>
-            <Col>
-              <div className={styles.songListMarco}>
-                <Container fluid>
-                  <Table responsive>
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th>歌名</th>
-                        <th></th>
-                        <th>原唱歌手</th>
-                        <th>语言</th>
-                        <th>备注</th>
-                      </tr>
-                    </thead>
-                    <tbody className="songList">
-                      <SongDetail
+          <Container fluid>
+            <div className={styles.songListMarco}>
+              <SongDetail
                         filteredSongList={filteredSongList}
                         handleClickToCopy={handleClickToCopy}
                         showBiliPlayer={showBiliPlayer}
                       />
-                    </tbody>
-                  </Table>
-                </Container>
-              </div>
-            </Col>
-          </Row>
+            </div>
+          </Container>
         </section>
         {showToTopButton ? (
           <button
@@ -282,7 +344,6 @@ export default function Home() {
             <a>{config.Footer}</a>
           </footer>
         </Link>
-      </Container>
 
       <Offcanvas show={showIntro} onHide={handleCloseIntro}>
         <Offcanvas.Header closeButton>
