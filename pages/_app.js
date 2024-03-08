@@ -14,16 +14,9 @@ function MyApp ({ Component, pageProps }) {
     } catch (e) {}
   })
 
-  const getAnalyticsTag = () => {
-    return {
-      __html: `var _hmt = _hmt || [];`,
-    }
-  }
-
   return (
     <>
       <Head>
-        {/* <script dangerouslySetInnerHTML={getAnalyticsTag()} /> */}
       </Head>
       <Component {...pageProps} />
       <ToastContainer

@@ -24,8 +24,6 @@ import imageLoader from '../utils/ImageLoader'
 import * as utils from '../utils/utils'
 import { config } from '../config/constants'
 
-import { Analytics } from '@vercel/analytics/react';
-
 /*
            
      ____/    __/ 
@@ -360,7 +358,6 @@ export default function Home() {
         bvid={BVID}
         modalPlayerSongName={modalPlayerSongName}
       />
-      <Analytics />
     </div>
   );
 }
