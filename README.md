@@ -9,6 +9,7 @@
 ```
 # sui-song-list
 rules:
++ 永久禁用后台数据统计工具的支持
 + 响应式页面
 
 features:
