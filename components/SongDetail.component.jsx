@@ -4,11 +4,7 @@ import { Button } from "react-bootstrap";
 
 import Image from 'next/image'
 
-const html_class_list = (...vs) => {
-  let class_list = ''
-  vs.forEach( v => class_list+= v+' ' )
-  return class_list
-};
+const _joinSp = (...vs) => vs.join(' ');
 
 const copy_icon = () => {
   return (<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
@@ -27,125 +23,85 @@ const netease_icon = () => {
             <path d="M645.125 177.875a156.75 156.75 0 0 1 58.875 28.5 43.875 43.875 0 0 1 15 18.375 37.5 37.5 0 0 1-3.375 34.875 37.5 37.5 0 0 1-51.375 11.625c-4.125-2.625-7.125-6.375-11.25-8.625a67.875 67.875 0 0 0-37.5-12.375 37.5 37.5 0 0 0-24 12.375 26.625 26.625 0 0 0-7.125 24l13.875 52.125a201 201 0 0 1 94.5 27.75 269.625 269.625 0 0 1 72.375 64.875 225 225 0 0 1 37.5 75A249.375 249.375 0 0 1 812 593a275.25 275.25 0 0 1-15 72 282 282 0 0 1-112.5 138 300 300 0 0 1-124.125 43.5 310.5 310.5 0 0 1-91.125 0 300 300 0 0 1-164.25-87 322.5 322.5 0 0 1-85.125-297.375 316.5 316.5 0 0 1 189.75-225 50.25 50.25 0 0 1 42 2.25A37.5 37.5 0 0 1 467 274.625a37.5 37.5 0 0 1-24 30.75 241.5 241.5 0 0 0-153.375 193.5 246 246 0 0 0 13.5 119.25 242.25 242.25 0 0 0 112.5 129.75A219.375 219.375 0 0 0 518 772.625a255.75 255.75 0 0 0 85.875-15.375 203.625 203.625 0 0 0 111-95.25 166.5 166.5 0 0 0 14.25-33.75 187.5 187.5 0 0 0 0-104.25 158.25 158.25 0 0 0-47.625-73.125A208.5 208.5 0 0 0 650 428a120.375 120.375 0 0 0-31.5-12c7.5 30 15.75 60 23.625 90.375l3.75 21.75a127.875 127.875 0 0 1-103.125 129.75 122.625 122.625 0 0 1-90-16.875 135.375 135.375 0 0 1-53.25-69 163.875 163.875 0 0 1-9-49.125 169.5 169.5 0 0 1 28.5-103.5 187.5 187.5 0 0 1 104.25-72l-9-34.875a103.5 103.5 0 0 1 5.625-75 108.375 108.375 0 0 1 27-34.125A110.25 110.25 0 0 1 587 178.625a112.5 112.5 0 0 1 58.125-0.75z" fill="#D81E06"></path>
             <path d="M490.25 451.625a87.75 87.75 0 0 0-22.125 42 112.5 112.5 0 0 0 0 43.5 64.875 64.875 0 0 0 24.75 40.5 47.625 47.625 0 0 0 37.5 7.125A52.5 52.5 0 0 0 572.75 536a135 135 0 0 0-3.375-17.25L543.5 420.875a119.625 119.625 0 0 0-53.25 30.75z" fill="#FFFFFF"></path>
           </svg>);
-};
+}
 
-export const song_list_ui = (song_info, {showBiliPlayer, handleClickToCopy}) => {
-  let out = {};
-  if (typeof song_info.song_translated_name === 'string') {
-    const name = song_info.song_translated_name.trim();
-    if (name.length) {
-      out.translated_name = (
-        <div className={styles.lyt_box}>
-          <div className={html_class_list(styles.text2)}>{name}</div>
-          <div className={html_class_list(styles.icon)}>{copy_icon()}</div>
-        </div>)
-    }
-  }
-  
-  if (typeof song_info.date_list === 'string') {
-    let date_list = song_info.date_list.trim().split(/，/g).map(a => Date.parse(a)).filter(a => !isNaN(a));
-    if (date_list.length) {
-      date_list.sort();
-      const last = new Date(date_list[date_list.length - 1]);
-      out.last_date = (<div className="last_sung_date">{`${last.getFullYear()}/${last.getMonth() + 1}/${last.getDate()} * ${song_info.song_count}`}</div>)
-    }
-  }
+export default function SongDetail({filteredSongList, showBiliPlayer, handleClickToCopy}) {
+  const song_table_default = () => (
+    <table>
+      <tbody>
+        <tr>
+          <td>歌单里没有诶~隐藏歌单碰碰运气!</td>
+        </tr>
+      </tbody>
+    </table>
+  )
 
-  if (typeof song_info.BVID === 'string') {
-    let bvid = song_info.BVID.trim();
-    if (bvid.length) {
-      out.bili2_icon = (
-        <div className={html_class_list(styles.button, styles.lyt_auto_box)} onClick={e => void(e.stopPropagation(), showBiliPlayer(song_info))}>
-        <span className={styles.nb_text2}>BiliBili</span>
-        <div className={styles.icon}>{bili2_icon()}</div>
-      </div>
-      )
-    }
-  }
-
-  const ui = (
-    <div className={styles.song} key={ song_info.index } onClick={() => handleClickToCopy(song_info) }>
-      <div className={styles.lyt_box2}>
-        <div className={styles.lyt_inline}><span className={html_class_list(styles.text)}>{song_info.song_name.replace(/\s/g, '  ')}</span><div className={html_class_list(styles.icon,styles.lyt_inline)}>{copy_icon()}</div></div>
-        {out.bili2_icon}
-      </div>
-      { out.translated_name }
-      <div className={styles.text3}>{song_info.remarks}</div>
-      <div className={styles.text4}>{song_info.artist}</div>
-      { out.last_date }
-    </div>
-  );
-  return ui;
-};
-
-const _bc = (cond, x, y) => cond ? x : y ;
-
-export default function SongDetail({ filteredSongList, handleClickToCopy, showBiliPlayer }) {
-  if (0 === filteredSongList.length)
-    return (<tr><td className="display-6 text-center" colSpan="6" id="noSongInList">
-                歌单里没有诶~隐藏歌单碰碰运气!
-            </td></tr>);
-
-  const ui = filteredSongList.map((song) => (
-    <tr className={ _bc(song.paid,
-                        styles.songRowPaid,
-                        _bc(song.sticky_top,
-                            styles.songRowTop,
-                            styles.songRow)) }
-        key={ song.index }
-        onClick={ () => void(handleClickToCopy(song)) } >
-      <td className={ styles.tableIconTd }>
-        { 
-          _bc(1 === song.sticky_top,
-              (<Image src="/assets/icon/up_arrow.png"
-                      alt="置顶"
-                      className={styles.tableIcons}
-                      title="置顶曲目"/>),
-              (<div></div>)
-          )  
-        } {
-          _bc(1 === song.paid,
-              (<Image src="/assets/icon/orb.png"
-                      alt="付费"
-                      className={styles.tableIcons}
-                      title="付费曲目" />),
-              (<div></div>)
-          ) 
-        }
-      </td>
-      <td className={ styles.noWrapForce } id={ _bc(song.paid, `paid ${song.index}`, song.index) }>
-        { song.song_name }
-      </td>
-      <td className={ styles.tableIconTd }>
-        { _bc(song.BVID || song.url, 
-              (<Button className={styles.customRandomButton}
-                        title="投稿歌切试听"
-                        style={{ marginTop: 0, padding: "0.25rem" }}
-                        onClick={e => void(e.stopPropagation(), showBiliPlayer(song))}>
-                  <div className="d-flex">
-                    {
-                      _bc(song.url,
-                          (<svg className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
-                            <path d="M350.375 62h323.25C774.5 62 812 72.5 846.875 92A204.375 204.375 0 0 1 932 177.125c19.5 34.875 30 72.375 30 173.25v323.25c0 100.125-10.5 136.5-30 173.25A204.375 204.375 0 0 1 846.875 932c-37.5 19.5-73.125 30-173.25 30h-323.25C249.5 962 212 951.5 177.125 932A204.375 204.375 0 0 1 92 846.875C72.5 812 62 774.5 62 673.625v-323.25C62 249.5 72.5 212 92 177.125A204.375 204.375 0 0 1 177.125 92C212 72.5 249.5 62 350.375 62z" fill="#FFFFFF"></path>
-                            <path d="M645.125 177.875a156.75 156.75 0 0 1 58.875 28.5 43.875 43.875 0 0 1 15 18.375 37.5 37.5 0 0 1-3.375 34.875 37.5 37.5 0 0 1-51.375 11.625c-4.125-2.625-7.125-6.375-11.25-8.625a67.875 67.875 0 0 0-37.5-12.375 37.5 37.5 0 0 0-24 12.375 26.625 26.625 0 0 0-7.125 24l13.875 52.125a201 201 0 0 1 94.5 27.75 269.625 269.625 0 0 1 72.375 64.875 225 225 0 0 1 37.5 75A249.375 249.375 0 0 1 812 593a275.25 275.25 0 0 1-15 72 282 282 0 0 1-112.5 138 300 300 0 0 1-124.125 43.5 310.5 310.5 0 0 1-91.125 0 300 300 0 0 1-164.25-87 322.5 322.5 0 0 1-85.125-297.375 316.5 316.5 0 0 1 189.75-225 50.25 50.25 0 0 1 42 2.25A37.5 37.5 0 0 1 467 274.625a37.5 37.5 0 0 1-24 30.75 241.5 241.5 0 0 0-153.375 193.5 246 246 0 0 0 13.5 119.25 242.25 242.25 0 0 0 112.5 129.75A219.375 219.375 0 0 0 518 772.625a255.75 255.75 0 0 0 85.875-15.375 203.625 203.625 0 0 0 111-95.25 166.5 166.5 0 0 0 14.25-33.75 187.5 187.5 0 0 0 0-104.25 158.25 158.25 0 0 0-47.625-73.125A208.5 208.5 0 0 0 650 428a120.375 120.375 0 0 0-31.5-12c7.5 30 15.75 60 23.625 90.375l3.75 21.75a127.875 127.875 0 0 1-103.125 129.75 122.625 122.625 0 0 1-90-16.875 135.375 135.375 0 0 1-53.25-69 163.875 163.875 0 0 1-9-49.125 169.5 169.5 0 0 1 28.5-103.5 187.5 187.5 0 0 1 104.25-72l-9-34.875a103.5 103.5 0 0 1 5.625-75 108.375 108.375 0 0 1 27-34.125A110.25 110.25 0 0 1 587 178.625a112.5 112.5 0 0 1 58.125-0.75z" fill="#D81E06"></path>
-                            <path d="M490.25 451.625a87.75 87.75 0 0 0-22.125 42 112.5 112.5 0 0 0 0 43.5 64.875 64.875 0 0 0 24.75 40.5 47.625 47.625 0 0 0 37.5 7.125A52.5 52.5 0 0 0 572.75 536a135 135 0 0 0-3.375-17.25L543.5 420.875a119.625 119.625 0 0 0-53.25 30.75z" fill="#FFFFFF"></path>
-                          </svg>),
-                          (<svg className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
-                            <path d="M450.803484 456.506027l-120.670435 23.103715 10.333298 45.288107 119.454151-23.102578-9.117014-45.289244z m65.04448 120.060586c-29.483236 63.220622-55.926329 15.502222-55.926328 15.502223l-19.754098 12.768142s38.90176 53.192249 75.986489 12.764729c43.770311 40.42752 77.203911-13.068516 77.203911-13.068516l-17.934791-11.55072c0.001138-0.304924-31.305956 44.983182-59.575183-16.415858z m59.57632-74.773617L695.182222 524.895573l10.029511-45.288106-120.364373-23.103716-9.423076 45.289245z m237.784178-88.926436c-1.905778-84.362809-75.487004-100.540871-75.487004-100.540871s-57.408853-0.316302-131.944676-0.95232l54.237867-52.332089s8.562916-10.784996-6.026809-22.834062c-14.592-12.051342-15.543182-6.660551-20.615396-3.487289-4.441884 3.169849-69.462471 66.920676-80.878933 78.340551-29.494613 0-60.2624-0.319716-90.075591-0.319716h10.466418s-77.705671-76.754489-82.781298-80.241777c-5.075627-3.488427-5.709369-8.56064-20.616533 3.487289-14.589724 12.05248-6.026809 22.8352-6.026809 22.8352l55.504213 53.919288c-60.261262 0-112.280462 0.319716-136.383147 1.268623-78.025387 22.521173-71.99744 100.859449-71.99744 100.859449s0.950044 168.100978 0 253.103217c8.562916 85.00224 73.899804 98.636231 73.899805 98.636231s26.007324 0.63488 45.357511 0.63488c1.900089 5.391929 3.486151 32.034133 33.302756 32.034134 29.495751 0 33.30048-32.034133 33.30048-32.034134s217.263218-0.950044 235.340231-0.950044c0.953458 9.196658 5.394204 33.619058 35.207395 33.303893 29.494613-0.636018 31.714418-35.20512 31.714418-35.20512s10.151253-0.95232 40.280747 0c70.413653-13.005938 74.534684-95.468658 74.534684-95.468657s-1.265209-169.689316-0.312889-254.056676zM752.628622 681.8304c0 13.319964-10.467556 24.102684-23.471218 24.102684H300.980907c-13.003662 0-23.47008-10.78272-23.47008-24.102684V397.961671c0-13.32224 10.467556-24.106098 23.47008-24.106098h428.176497c13.003662 0 23.471218 10.783858 23.471218 24.106098v283.868729z" fill="#1296db"></path>
-                          </svg>)
-                        )
-                    }
-                  </div>
-                </Button>),
-              (<div></div>)
+  const song_table_normal = () => {
+    const song_table_row = (song_info) => {
+      let out = {};
+      if (typeof song_info.song_translated_name === 'string') {
+        const name = song_info.song_translated_name.trim();
+        if (name.length) {
+          out.translated_name = (
+            <div>
+              <span>{name}</span>
+              <span className="icon-copy"></span>
+            </div>
           )
         }
-      </td>
-      <td className={styles.noWrapForce}>{song.artist}</td>
-      <td className={styles.noWrapForce}>{song.language}</td>
-      <td className={styles.noWrapForce}>{song.remarks}</td>
-    </tr>
-  ));
+      }
+      
+      if (typeof song_info.date_list === 'string') {
+        let date_list = song_info.date_list.trim().split(/，/g).map(a => Date.parse(a)).filter(a => !isNaN(a));
+        if (date_list.length) {
+          date_list.sort();
+          const last = new Date(date_list[date_list.length - 1]);
+          out.last_date = (`${last.getFullYear()}-${last.getMonth() + 1}-${last.getDate()} / ${song_info.song_count}`)
+        }
+      }
+    
+      if (typeof song_info.BVID === 'string') {
+        let bvid = song_info.BVID.trim();
+        if (bvid.length) {
+          out.bili2_icon = (<span>BiliBili <span className="icon-bili"></span></span>)
+        }
+      }
+    
+      return (
+        <tr className={styles.song} key={ song_info.index }>
+          <td className="song_table__name" onClick={() => handleClickToCopy(song_info.song_name) }>
+              <span>{song_info.song_name.replace(/\s/g, '  ')}</span>
+              <span className="icon-copy"></span>
+          </td>
+          <td className="song_table__translated_name" onClick={() => handleClickToCopy(song_info.song_translated_name) }>{out.translated_name}</td>
+          <td className="song_table__note">{song_info.remarks}</td>
+          <td className="song_table__artist">{song_info.artist}</td>
+          <td className="song_table__date_count">{out.last_date}</td>
+          {/* <td>{song_info.language}</td> */}
+          <td className="song_table__BVID" onClick={e => void(e.stopPropagation(), showBiliPlayer(song_info))}>{out.bili2_icon}</td>
+        </tr>
+      )
+    }
 
-  return filteredSongList.map(x => song_list_ui(x, arguments[0]));
+    return (
+      <table className="song_table">
+        <thead className="song_table__thead">
+          <tr>
+            <th>歌名</th>
+            <th>歌名翻译</th>
+            <th>备注</th>
+            <th>原唱</th>
+            <th>最新/次数</th>
+            {/* <th>语言</th> */}
+            <th>歌切</th>
+          </tr>
+        </thead>
+        <tbody className="song_table__tbody">
+          {filteredSongList.map(x => song_table_row(x))}
+        </tbody>
+      </table>
+    )
+  }
+
+  return 0 < filteredSongList.length ? song_table_normal() : song_table_default()
 }

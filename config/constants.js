@@ -9,7 +9,7 @@ let config = {
 
     Repository: "https://github.com/starsJuly/sui-song-list.git",
   
-    Cursor: false, // 使用自定义光标图片
+    Cursor: true, // 使用自定义光标图片
   
     LanguageCategories: ["日语", "英语"], // 语言分类
     RemarkCategories: [], // 标签分类

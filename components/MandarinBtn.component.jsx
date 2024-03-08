@@ -10,7 +10,9 @@ MusicList.forEach((x) => {
   if (x.initial.length === 1 && availableAlphabets.indexOf(x.initial) === -1) {
     availableAlphabets.push(x.initial)
   }
-})
+});
+
+availableAlphabets.sort()  // sorted by default
 
 export default function MandarinBtn({
   languageFilter,

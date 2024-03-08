@@ -21,6 +21,9 @@
 
 .main {
   min-height: 86vh;
+  min-width: min-content;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .grandTitle {
@@ -30,8 +33,11 @@
 
 .songListMarco {
   background-color: rgba(255, 255, 255, 0.7);
-  margin: 1rem 0 2rem;
-  border-radius: 8px;
+  margin: 1rem auto 2rem;
+  border-radius: .8em;
+  max-width: 1200px;
+  min-width: min-content;
+  padding: 10px 0 0 10px;
 }
 
 .noWrapForce {
@@ -73,7 +79,7 @@
   border-radius: 1rem;
   margin: 0 auto;
   cursor: url("/assets/cursor/text.png"), text;
-  max-width: 500px;
+  max-width: 561px;
 }
 
 .filters:focus {
@@ -208,7 +214,8 @@
   background-size: 40px 100%;
   background-clip: content-box;
   border-bottom: 4px dotted white;
-  /* border-top: 4px dotted white; */
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 @media(min-width:425px) {
@@ -300,6 +307,14 @@
   -o-background-size: cover;
   background-size: cover;
   background-position: top;
+  min-width: min-content;
+  min-height: 100vh;
+}
+
+@media(max-width:1024px) {
+  .outerContainer {
+    background-image: url("/assets/images/background.webp");
+  }
 }
 
 .categorySelectionTitle {
@@ -350,82 +365,11 @@
   margin: 0 0.5rem;
 }
 
-.song {
-  /* border: lightblue solid 0;
-  border-top-width: 2px; */
-  /* background: transparent; */
-  /* display: grid; */
-  padding: 5px 0 0 10px;
-}
+.song { padding: 5px 0 0 10px; }
 
 .song + .song {
   margin-bottom: 5px;
   border-top: #fff dotted 2px;
-}
-
-.button {
-  background: lightblue;
-  padding: 0 .6em;
-  color: #00AEEC;
-  border-radius: .8em 0 0 .8em;
-  cursor:pointer;
-  height: 1.5em;
-}
-
-.lyt_inline {
-  display: inline-block;
-}
-
-.lyt_box {
-  display: flex;
-  align-items: center;
-}
-
-.lyt_box2 {
-  display: flex;
-  justify-content: space-between;
-}
-
-.lyt_auto_box {
-  display: inline-flex;
-  align-items: center;
-}
-
-.lyt_auto_box > * + * {
-  margin-left: 10px;
-}
-
-.text {
-  word-break: break-all;
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-.text2 {
-  word-break: break-all;
-  font-size: 1.2em;
-}
-
-.text3 {
-  word-break: break-all;
-  font-size: 1em;
-  color: #8393a0;
-}
-
-.text4 {
-  word-break: break-all;
-  font-size: 0.8em;
-  color: #a5b5c2;
-}
-
-.nb_text2 {
-  font-size: 1.2em;
-}
-
-@media (max-width: 320px) {
-  .nb_text2 {
-    display: none;
-  }
 }
 
 .icon {

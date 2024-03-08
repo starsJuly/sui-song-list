@@ -1586,6 +1586,7 @@ export default function Banner({ songCount }) {
         <h1 className={"display-6 text-center " + styles.grandTitle}>
           已收录的歌曲 <b>{songCount}</b> 首
         </h1>
+        <p>{'可以点击歌名复制哦 ~'}</p>
       </div>
       <div className={styles.introHomeList }>
             {config.HomeList.map((src) => iconComponent(src))}

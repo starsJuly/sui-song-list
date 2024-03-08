@@ -16,100 +16,12 @@ import MusicList from '../public/music_list.json'
 import Banner from '../components/banner/Banner.component'
 import BannerMobile from '../components/banner/BannerMobile.component'
 import SongDetail from '../components/SongDetail.component'
-import { song_list_ui} from '../components/SongDetail.component'
 import BiliPlayerModal from '../components/BiliPlayerModal.component'
 import SongListFilter from '../components/SongListFilter.component'
 
 import imageLoader from '../utils/ImageLoader'
 import * as utils from '../utils/utils'
 import { config } from '../config/constants'
-
-/*
-           
-     ____/    __/ 
-    /                      /       /         /
-  _ _         /           /       /         /
-       /     /          _/      _/         /
- _____/   __/            _____/         __/
-                                        
-                                    __/
-
-
-
-     ____/ x
-    /      x
-  _ _      x
-       /   x
- _____/    x
-
-
-
-              x
-   /       /  x
-  /       /   x
-_/      _/    x
- _____/       x
-
-
-
-    __/ x
-        x   
-    /   x
-   /    x
-__/     x
-
-
-             x
-          /  x
-         /   x
-        /    x
-     __/     x
-     
- __/
-
-     ____/ x
-    /      x
-  _ _      x
-       /   x
- _____/    x
-              x
-   /       /  x
-  /       /   x
-_/      _/    x
- _____/       x
-    __/ x
-        x   
-    /   x
-   /    x
-__/     x
-             x
-          /  x
-         /   x
-        /    x
-     __/     x
-     
-   __/
-    __/ x
-        x   
-    /   x
-   /    x
-__/     x
-     ____/ x
-    /      x
-  _ _      x
-       /   x
- _____/    x
-              x
-   /       /  x
-  /       /   x
-_/      _/    x
- _____/       x
-    __/ x
-        x   
-    /   x
-   /    x
-__/     x
-*/
 
 export default function Home() {
   //状态保存: 类别选择, 搜索框, 回到顶部按钮, 移动端自我介绍, 试听窗口
@@ -160,14 +72,14 @@ export default function Home() {
   );
 
   //处理用户复制行为
-  const handleClickToCopy = (song) => {  // TODO: enable dragging on PC
-    if (song.paid == 1) {
-      copy("点歌 ￥" + song.song_name);
-      toast.success(`付费曲目 ${song.song_name} 成功复制到剪贴板!`);
-    } else {
-      copy("宝宝 可以点一首【" + song.song_name + '】吗');
-      toast.success(`${song.song_name} 成功复制到剪贴板!`);
-    }
+  const copy_show_text_max_count = 100;
+  const handleClickToCopy = text => {
+    if (typeof text !== 'string' || !text.length) return;
+    copy(`${text}`);
+    toast.success( `${ (text.length < copy_show_text_max_count)
+                        ?text
+                        :text.substring(0, copy_show_text_max_count) + '...'
+                    } 成功复制到剪贴板!` );
   };
 
   //改变语言过滤状态
@@ -203,7 +115,7 @@ export default function Home() {
   //随便听听
   const handleRandomSong = () => {
     let random = Math.floor(Math.random() * MusicList.length);
-    handleClickToCopy(MusicList[random])
+    handleClickToCopy(MusicList[random].song_name)
   };
 
   //移动端自我介绍off canvas开关
@@ -303,7 +215,7 @@ export default function Home() {
           </div>
 
           {/** 歌单表格 */}
-          <Container fluid>
+          <Container fluid style={{minWidth: 'min-content'}}>
             <div className={styles.songListMarco}>
               <SongDetail
                         filteredSongList={filteredSongList}

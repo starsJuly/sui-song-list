@@ -1,9 +1,11 @@
-import '../styles/globals.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import '../styles/globals.css'
+import '../styles/table_tmp.css'
+import '../styles/icons/style.css'
 
-import Link from 'next/link'
-import Head from 'next/head'
 import { Router } from 'next/router'
+import Head from 'next/head'
+import Link from 'next/link'
 
 import { ToastContainer } from 'react-toastify'
 
