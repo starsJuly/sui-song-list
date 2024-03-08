@@ -79,7 +79,8 @@
     
 @media(min-width:620px) {
     .song_table tr>td {
-        padding-top: 1.5rem;
+        padding-top: .8rem;
+        padding-bottom: .8rem;
         text-align: center;
     }
 
