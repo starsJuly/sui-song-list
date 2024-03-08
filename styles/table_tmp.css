@@ -119,7 +119,6 @@
     .song_table tr>td:empty:hover, .song_table tr>td:empty:hover::before {
         background: #AFAFAF;
     }
-    .song_table tr>td:empty:hover::after { content: '空'; }
     
     .song_table tr>.song_table__name:hover,
     .song_table tr>.song_table__name:hover::before {
@@ -127,22 +126,12 @@
         background: #45BEEA;
         color: #26292b;
     }
-    
-    .song_table tr>.song_table__name:hover::after { content: '复制'; }
 
     .song_table tr>.song_table__translated_name:hover,
     .song_table tr>.song_table__translated_name:hover::before {
         cursor: url("/assets/cursor/pointer.png"), pointer;
         background: #45BEEA;
     }
-    
-    .song_table tr>.song_table__translated_name:hover::after { content: '复制'; }
-    
-    .song_table tr>.song_table__note:hover::after { content: '备注'; }
-    
-    .song_table tr>.song_table__artist:hover::after { content: '原唱'; }
-    
-    .song_table tr>.song_table__date_count:hover::after { content: '最新/次数'; }
     
     .song_table tr>.song_table__BVID:hover,
     .song_table tr>.song_table__BVID:hover::before {
@@ -151,8 +140,6 @@
     }
     
     .song_table tr>.song_table__BVID:hover > * { color: black !important; }
-    
-    .song_table tr>.song_table__BVID:hover::after { content: '歌切'; }
 }
 
 /* } song_table */
