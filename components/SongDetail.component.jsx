@@ -61,8 +61,12 @@ export default function SongDetail({filteredSongList, showBiliPlayer, handleClic
       }
     
       if (typeof song_info.BVID === 'string') {
-        let bvid = song_info.BVID.trim();
+        let bvid_list_plain = song_info.BVID.trim();
+        // The support for multiple BVID list feature is in development.
+        // Here is temporarily compatible with the single BVID feature.
+        let bvid = bvid_list_plain.split(/，/g)[0];
         if (bvid.length) {
+          out.bvid_default = bvid;
           out.bili2_icon = (<span>BiliBili <span className="icon-bili"></span></span>)
         }
       }
@@ -78,7 +82,7 @@ export default function SongDetail({filteredSongList, showBiliPlayer, handleClic
           <td className="song_table__artist">{song_info.artist}</td>
           <td className="song_table__date_count">{out.last_date}</td>
           {/* <td>{song_info.language}</td> */}
-          <td className="song_table__BVID" onClick={e => void(e.stopPropagation(), showBiliPlayer(song_info))}>{out.bili2_icon}</td>
+          <td className="song_table__BVID" onClick={e => void(e.stopPropagation(), showBiliPlayer({title: song_info.song_name, bvid: out.bvid_default}))}>{out.bili2_icon}</td>
         </tr>
       )
     }

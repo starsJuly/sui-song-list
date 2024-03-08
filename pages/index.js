@@ -131,13 +131,13 @@ export default function Home() {
     });
   };
 
-  const showBiliPlayer = (song) => {
-    if (song.BVID) {
-      setBVID(song.BVID);
+  const showBiliPlayer = ({title, bvid, url}) => {
+    if (bvid) {
+      setBVID(bvid);
       setPlayerModalShow(true);
-      setPlayerModalSongName(song.song_name);
-    } else if (song.url) {
-      window.open('https://music.163.com/#/dj?id=' + song.url)
+      setPlayerModalSongName(title);
+    } else if (url) {
+      window.open('https://music.163.com/#/dj?id=' + url)
     }
   }
 
