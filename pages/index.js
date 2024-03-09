@@ -38,6 +38,15 @@ export default function Home() {
   const [modalPlayerSongName, setPlayerModalSongName] = useState("");
   const [BVID, setBVID] = useState("");
 
+  const bvid_list_selector = (([list, set_list], [selected, set_selected]) => {
+    return {
+      list,
+      set_list,
+      selected,
+      set_selected: (text) => (text && selected !== text) && set_selected(text)
+    }
+  }) (useState([]), useState(''));
+
   useEffect(() => {
     //检测窗口滚动
     window.addEventListener("scroll", () => {
@@ -132,8 +141,11 @@ export default function Home() {
   };
 
   const showBiliPlayer = ({title, bvid, url}) => {
-    if (bvid) {
+    if (BVID !== bvid) {
       setBVID(bvid);
+      const list = bvid.split(/，/g);
+      bvid_list_selector.set_list(list);
+      bvid_list_selector.set_selected(list[0]);
       setPlayerModalShow(true);
       setPlayerModalSongName(title);
     } else if (url) {
@@ -264,11 +276,14 @@ export default function Home() {
         </Offcanvas.Body>
       </Offcanvas>
 
-      <BiliPlayerModal
-        show={modalPlayerShow}
-        onHide={() => setPlayerModalShow(false)}
-        bvid={BVID}
-        modalPlayerSongName={modalPlayerSongName}
+      <BiliPlayerModal // BVIDList, SelectedBVID, OnSelectedChanged
+        props = {[  modalPlayerSongName,
+                    {
+                      visible: modalPlayerShow,
+                      on_hide: () => setPlayerModalShow(false)
+                    },
+                    bvid_list_selector,
+                ]}
       />
     </div>
   );

@@ -62,9 +62,12 @@ export default function SongDetail({filteredSongList, showBiliPlayer, handleClic
     
       if (typeof song_info.BVID === 'string') {
         let bvid_list_plain = song_info.BVID.trim();
+        
         // The support for multiple BVID list feature is in development.
         // Here is temporarily compatible with the single BVID feature.
-        let bvid = bvid_list_plain.split(/，/g)[0];
+        // let bvid = bvid_list_plain.split(/，/g)[0];
+        
+        let bvid = bvid_list_plain;
         if (bvid.length) {
           out.bvid_default = bvid;
           out.bili2_icon = (<span>BiliBili <span className="icon-bili"></span></span>)
