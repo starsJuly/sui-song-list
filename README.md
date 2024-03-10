@@ -116,6 +116,23 @@ features:
 
 [vup-song-list-main](https://github.com/Rndlab/vup-song-list-main)
 
+## Project Contributors
+
+为尽可能不遗漏贡献者，此处提供贡献者列表，如包含在Github之外为此项目做出贡献者，包括，
+1) 提交代码
+2) 提供非源码资源
+3) 网站维护
+4) 提供错误/BUG的说明
+5) 以其他形式提供有效协助
+
+> 如果贡献者希望匿名，不会出现在列表中。
+
+此处工作会存在遗漏，欢迎反馈，会及时进行添加/修改/删除。
+
++ RinSchomburg
++ starsJuly
++ 蜜柑教信徒
+
 ## License
 
 见LICENSE文件
