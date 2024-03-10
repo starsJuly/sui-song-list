@@ -58,6 +58,7 @@ features:
 + 歌曲音视频播放
   - 
     - Bilibili/video: playable
+      - 支持多BVID切换
     - 网易云/audio: linkable
   - base
     - source: vup-song-list-main
@@ -82,7 +83,9 @@ features:
 ```
 
 当前版本用于基础构建并试运行。后续拟添加功能包括但不限于，
-+ 多BVID播放支持
++ 修复title的SVG加载问题
++ 优化背景图加载机制
++ 重构并移除冗余/混淆代码
 + 添加更多歌单显示和检索功能，如列表项隐藏，和快捷操作等
 + ...
 
@@ -93,7 +96,7 @@ features:
 + 完善文档
 + ...
 
-另外，会尽可能同步更新 *岁己SUI* 最新歌单信息。如有歌单方面的遗漏或错误，或者使用时出现BUG，欢迎发issue和pull-request。
+另外，会尽可能同步更新 *岁己SUI* 最新歌单信息。如有歌单方面的遗漏或错误，或者使用时出现BUG，欢迎发issue和pull-request，或者加入Collaborator！
 
 感谢每一位贡献者。
 
