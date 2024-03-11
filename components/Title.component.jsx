@@ -5,9 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { Col } from "react-bootstrap";
 
-import { getCursor } from "../utils/utils";
-
-import config from "../config/constants";
+import { default as config, theme } from "../config/constants";
 
 import { song_list } from "../config/song_list";
 
@@ -29,7 +27,7 @@ export default function Title() {
     return (<a target="_blank" rel="noreferrer" href={url}
       className={styles.introHomeList__item}
       style={{
-        cursor: getCursor(),
+        cursor: theme.cursor.pointer,
         width: '24px',
         height: '24px',
         background: `0 / 24px 24px url(${icon})`

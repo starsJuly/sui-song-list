@@ -15,7 +15,6 @@ import BiliPlayerModal from '../components/BiliPlayerModal.component'
 import SongListFilter from '../components/SongListFilter.component'
 
 import imageLoader from '../utils/ImageLoader'
-import * as utils from '../utils/utils'
 
 import config from '../config/constants'
 
@@ -73,7 +72,7 @@ export default function Home() {
 
       <section className = { styles.main }>
         <Title />
-        <FilteredList props={[ EffThis, ]} />
+        <FilteredList props={[ EffThis ]} />
       </section>
 
       <FixedTool />
@@ -92,7 +91,9 @@ export default function Home() {
       </Link>
 
       <BiliPlayerModal
-        props = {[ bili_player_title, bili_player_visibility, bvid_list, bvid_selected, EffThis, ]}
+        props = {[
+          bili_player_title, bili_player_visibility, bvid_list, bvid_selected, EffThis
+        ]}
       />
     </div>
   );
@@ -138,10 +139,11 @@ function CornerIcons () {
 }
 
 import { song_list } from '../config/song_list'
+import { content_contains } from '../utils/search_engine'
 
 /** 过滤器控件 */
 function FilteredList({ props: [ EffThis ] }) {
-  //状态保存: 类别选择, 搜索框, 回到顶部按钮, 移动端自我介绍, 试听窗口
+  // state variables
   const [filter_state] = EffThis.filter_state = useState({
     lang: "",
     initial: "",
@@ -151,6 +153,7 @@ function FilteredList({ props: [ EffThis ] }) {
   
   const [searchBox, setSearchBox] = EffThis.searchBox = useState('');
 
+  // EffThis.functions
   useEffect(() => {
     //语言过滤
     EffThis.do_filter_lang = (lang) => eff_set(EffThis, 'filter_state', {
@@ -167,17 +170,20 @@ function FilteredList({ props: [ EffThis ] }) {
       paid: false,
       remark: "",
     });
-    
+
   }, [ EffThis ]);
 
   //过滤歌单列表
   const filteredSongList = song_list.filter(
     (song) =>
       //搜索
-      ( utils.include(song.song_name, searchBox)
-        || utils.include(song.language, searchBox)
-        || utils.include(song.remarks, searchBox)
-        || utils.include(song.artist, searchBox) )
+      content_contains([
+        song.language,
+        song.song_name,
+        song.song_translated_name,
+        song.artist,
+        song.remark,
+      ], searchBox)
       //语言
       && (filter_state.lang != ""
           ? song.language?.includes(filter_state.lang)
@@ -210,7 +216,7 @@ function FilteredList({ props: [ EffThis ] }) {
         </Col>
       </div>
       <div>
-        <SongListFilter props = {[ filter_state, EffThis, ]}/>
+        <SongListFilter props = {[ filter_state, EffThis ]}/>
       </div>
       <SongListWrapper props = {[ filteredSongList, EffThis ]}/>
     </>
@@ -218,7 +224,7 @@ function FilteredList({ props: [ EffThis ] }) {
 }
 
 /** 歌单表格 */
-function SongListWrapper ({ props: [ List, EffThis, ] }) {
+function SongListWrapper ({ props: [ List, EffThis ] }) {
   return (
     <Container fluid style = {{ minWidth: 'min-content' }}>
      <div className = { styles.songListMarco }>
