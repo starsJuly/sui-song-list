@@ -142,12 +142,13 @@ import MusicList from '../public/music_list.json'
 /** 过滤器控件 */
 function FilteredList({ props: [ EffThis ] }) {
   //状态保存: 类别选择, 搜索框, 回到顶部按钮, 移动端自我介绍, 试听窗口
-  const [filter_state, set_filter_state] = EffThis.filter_state = useState({
+  const [filter_state] = EffThis.filter_state = useState({
     lang: "",
     initial: "",
     paid: false,
     remark: "",
   });
+  
   const [searchBox, setSearchBox] = EffThis.searchBox = useState('');
 
   //过滤歌单列表
@@ -190,7 +191,7 @@ function FilteredList({ props: [ EffThis ] }) {
         </Col>
       </div>
       <div>
-        <SongListFilter props = {[ filter_state, set_filter_state ]}/>
+        <SongListFilter props = {[ filter_state, EffThis, ]}/>
       </div>
       <SongListWrapper props = {[ filteredSongList, EffThis ]}/>
     </>

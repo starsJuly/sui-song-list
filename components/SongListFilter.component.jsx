@@ -8,6 +8,8 @@ import global_controllers from "../config/controllers";
 
 import MusicList from "../public/music_list.json";
 
+import { eff_get, eff_set } from "../config/controllers";
+
 let availableAlphabets = [];
 MusicList.forEach((x) => {
   if (x.initial.length === 1 && availableAlphabets.indexOf(x.initial) === -1) {
@@ -29,19 +31,20 @@ const switchState = (setter, selected, execpt) => {
 
 export default function SongListFilter({ props: [ filter_state, EffThis, ] }) {
   //语言过滤
-  const do_filter_lang = (lang) => {
-    set_filter_state({ lang: lang, initial: "", paid: false, remark: "" });
-  };
+  const do_filter_lang = (lang) => eff_set(EffThis, 'filter_state', {
+    lang: lang,
+    initial: "",
+    paid: false,
+    remark: ""
+  });
 
   //首字母过滤
-  const do_filter_initial = (initial) => {
-    set_filter_state({
-      lang: "华语",
-      initial: initial,
-      paid: false,
-      remark: "",
-    });
-  };
+  const do_filter_initial = (initial) => eff_set(EffThis, 'filter_state', {
+    lang: "华语",
+    initial: initial,
+    paid: false,
+    remark: "",
+  });
 
   return (
     <Col>
