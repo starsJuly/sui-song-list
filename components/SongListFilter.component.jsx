@@ -58,6 +58,7 @@ export default function SongListFilter({
                   <div className="d-grid">
                     <Button
                       className={isActive(categorySelection.lang, language)}
+                      style={{ cursor: 'url("/assets/cursor/pointer.png"), pointer' }}
                       onClick={(e) => {
                         switchState(
                           setLanguageState,

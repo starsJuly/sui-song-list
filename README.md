@@ -58,6 +58,7 @@ features:
 + 歌曲音视频播放
   - 
     - Bilibili/video: playable
+      - 支持多BVID切换
     - 网易云/audio: linkable
   - base
     - source: vup-song-list-main
@@ -75,6 +76,13 @@ features:
   - base
     - source: vup-song-list-main
 
++ 支持自定义光标
+  - 支持 custom-normal, custom-pointer, custom-text 自定义光标
+    - normal, pointer, text, ... 即 css 对应的光标类型，如果不存在，使用对应默认光标
+    - 尚未支持自动配置
+  - base
+    - source: vup-song-list-main
+
 + 单图背景
   - base
     - source: vup-song-list-main
@@ -82,8 +90,11 @@ features:
 ```
 
 当前版本用于基础构建并试运行。后续拟添加功能包括但不限于，
-+ 多BVID播放支持
++ 优化背景图加载机制
 + 添加更多歌单显示和检索功能，如列表项隐藏，和快捷操作等
++ 优化git objects体积
+  + 至少50MB左右的大小，当前及未来是无用的 (来自历史提交的二进制可执行文件)
++ 重构并移除冗余/混淆代码 
 + ...
 
 持续更新，
@@ -93,7 +104,7 @@ features:
 + 完善文档
 + ...
 
-另外，会尽可能同步更新 *岁己SUI* 最新歌单信息。如有歌单方面的遗漏或错误，或者使用时出现BUG，欢迎发issue和pull-request。
+另外，会尽可能同步更新 *岁己SUI* 最新歌单信息。如有歌单方面的遗漏或错误，或者使用时出现BUG，欢迎发issue和pull-request，或者加入Collaborator！
 
 感谢每一位贡献者。
 
@@ -104,6 +115,23 @@ features:
 [vup-song-list](https://github.com/Akegarasu/vup-song-list)
 
 [vup-song-list-main](https://github.com/Rndlab/vup-song-list-main)
+
+## Project Contributors
+
+为尽可能不遗漏贡献者，此处提供贡献者列表，如包含在Github之外为此项目做出贡献者，包括，
+1) 提交代码
+2) 提供非源码资源
+3) 网站维护
+4) 提供错误/BUG的说明
+5) 以其他形式提供有效协助
+
+> 如果贡献者希望匿名，不会出现在列表中。
+
+此处工作会存在遗漏，欢迎反馈，会及时进行添加/修改/删除。
+
++ RinSchomburg
++ starsJuly
++ 蜜柑教信徒
 
 ## License
 
