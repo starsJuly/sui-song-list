@@ -325,10 +325,9 @@
   background: #AFAFAF;
 }
 
-
 .outerContainer {
   background-color: #6caae3;
-  background: url("/assets/images/background_2x.webp") center center no-repeat fixed;
+  background: url("/assets/images/background_2x_opt.webp") center center no-repeat fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -336,12 +335,6 @@
   background-position: top;
   min-width: min-content;
   min-height: 100vh;
-}
-
-@media(max-width:1024px) {
-  .outerContainer {
-    background-image: url("/assets/images/background.webp");
-  }
 }
 
 .categorySelectionTitle {

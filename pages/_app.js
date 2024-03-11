@@ -19,6 +19,7 @@ function MyApp ({ Component, pageProps }) {
   return (
     <>
       <Head>
+        <link rel='preload' href='/assets/images/background_2x_opt.webp' as='image'/>
       </Head>
       <Component {...pageProps} />
       <ToastContainer
