@@ -14,8 +14,6 @@ const config = {
   LanguageCategories: ["日语", "英语"], // 语言分类
   RemarkCategories: [], // 标签分类
 
-  BannerTitle: "岁己SUI", // banner 标题
-
   // 自定义按钮 （可以复制生成更多）
   HomeList: [
     {

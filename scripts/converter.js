@@ -16,7 +16,7 @@ const cnpy1st = getPinyinFirstLetter;
 const src = path.resolve(__dirname, './music.xlsx')
 const dest = path.resolve(__dirname, '../public/music_list.json')
 
-const loadMusicList = async ({src, dest}) => {
+const loadSongList = async ({src, dest}) => {
     const map_title_name = {
         '序号': 'index',
         '歌名': 'song_name',
@@ -126,4 +126,4 @@ const loadMusicList = async ({src, dest}) => {
     console.log('生成歌单完成')
 }
 
-loadMusicList({src, dest})
+loadSongList({src, dest})

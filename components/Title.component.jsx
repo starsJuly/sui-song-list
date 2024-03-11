@@ -9,7 +9,7 @@ import { getCursor } from "../utils/utils";
 
 import config from "../config/constants";
 
-import MusicList from '../public/music_list.json'
+import { song_list } from "../config/song_list";
 
 /** 头像和标题 */
 export default function Title() {
@@ -45,7 +45,7 @@ export default function Title() {
           {config.Name}
         </h1>
         <h1 className={"display-6 text-center " + styles.grandTitle}>
-          已收录的歌曲 <b>{ MusicList.length }</b> 首
+          已收录的歌曲 <b>{ song_list.length }</b> 首
         </h1>
         <p>{'可以点击歌名复制哦 ~'}</p>
       </div>

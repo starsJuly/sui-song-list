@@ -5,9 +5,8 @@ import { getCursor } from "../utils/utils";
 
 export default function MandarinBtn({ props: [
   filter_state,
-  do_filter_lang,
-  do_filter_initial,
   alphabets,
+  EffThis,
 ]}) {
   const lang = '华语';
   const active_color = "#BEA5C1";
@@ -16,13 +15,13 @@ export default function MandarinBtn({ props: [
       <SplitButton
         title = {lang}
         className = { lang === filter_state.lang ? styles.mandarinBtnActive : styles.mandarinBtn }
-        onClick={ () => do_filter_lang(lang === filter_state.lang ? '' : lang) }
+        onClick={ () => EffThis.do_filter_lang(lang === filter_state.lang ? '' : lang) }
       >
         {
           alphabets.map(
             (alphabet) => (
               <Dropdown.Item
-                onClick = { () => do_filter_initial(alphabet === filter_state.initial ? '' : alphabet) }
+                onClick = { () => EffThis.do_filter_initial(alphabet === filter_state.initial ? '' : alphabet) }
                 
                 style = {{
                   backgroundColor: alphabet === filter_state.initial ? active_color : undefined,

@@ -137,7 +137,7 @@ function CornerIcons () {
   );
 }
 
-import MusicList from '../public/music_list.json'
+import { song_list } from '../config/song_list'
 
 /** 过滤器控件 */
 function FilteredList({ props: [ EffThis ] }) {
@@ -151,8 +151,27 @@ function FilteredList({ props: [ EffThis ] }) {
   
   const [searchBox, setSearchBox] = EffThis.searchBox = useState('');
 
+  useEffect(() => {
+    //语言过滤
+    EffThis.do_filter_lang = (lang) => eff_set(EffThis, 'filter_state', {
+      lang: lang,
+      initial: "",
+      paid: false,
+      remark: ""
+    });
+
+    //首字母过滤
+    EffThis.do_filter_initial = (initial) => eff_set(EffThis, 'filter_state', {
+      lang: "华语",
+      initial: initial,
+      paid: false,
+      remark: "",
+    });
+    
+  }, [ EffThis ]);
+
   //过滤歌单列表
-  const filteredSongList = MusicList.filter(
+  const filteredSongList = song_list.filter(
     (song) =>
       //搜索
       ( utils.include(song.song_name, searchBox)
