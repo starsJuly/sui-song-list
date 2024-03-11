@@ -5,7 +5,6 @@ import '../styles/icons/style.css'
 
 import { Router } from 'next/router'
 import Head from 'next/head'
-import Link from 'next/link'
 
 import { ToastContainer } from 'react-toastify'
 
@@ -18,9 +17,7 @@ function MyApp ({ Component, pageProps }) {
 
   return (
     <>
-      <Head>
-        <link rel='preload' href='/assets/images/background_2x_opt.webp' as='image'/>
-      </Head>
+      <Head></Head>
       <Component {...pageProps} />
       <ToastContainer
         theme="light"

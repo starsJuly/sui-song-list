@@ -174,7 +174,6 @@
   font-size: 16px;
   background-color: rgba(255, 255, 255, 0.5);
   color: #1d0c26;
-  /* cursor: url("/assets/cursor/pointer.png"), pointer; */
   border-radius: 0.5rem;
   padding: 0.75rem;
   border: none;
@@ -184,7 +183,6 @@
 
 .backToTopBtn:hover {
   background-color: white;
-  /* cursor: url("/assets/cursor/pointer.png"), pointer; */
 }
 
 .tableIconTd {

@@ -1,14 +1,18 @@
 import React from "react";
 
-import styles from "../../styles/Home.module.css";
+import styles from "../styles/Home.module.css";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Button, Col } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
-import { config } from "../../config/constants";
-import { getCursor } from "../../utils/utils";
+import { getCursor } from "../utils/utils";
 
-export default function Banner({ songCount }) {
+import config from "../config/constants";
+
+import MusicList from '../public/music_list.json'
+
+/** 头像和标题 */
+export default function Title() {
   const netease_templ = id => ({
     id: id,
     url: `https://music.163.com/#/artist?id=${id}`,
@@ -21,7 +25,7 @@ export default function Banner({ songCount }) {
     ico: '/assets/icon/qq_music.ico'
   })
 
-  const iconComponent = ({url, icon}) => {
+  const icon_component = ({url, icon}) => {
     return (<a target="_blank" rel="noreferrer" href={url}
       className={styles.introHomeList__item}
       style={{
@@ -41,12 +45,12 @@ export default function Banner({ songCount }) {
           {config.Name}
         </h1>
         <h1 className={"display-6 text-center " + styles.grandTitle}>
-          已收录的歌曲 <b>{songCount}</b> 首
+          已收录的歌曲 <b>{ MusicList.length }</b> 首
         </h1>
         <p>{'可以点击歌名复制哦 ~'}</p>
       </div>
       <div className={styles.introHomeList }>
-            {config.HomeList.map((src) => iconComponent(src))}
+            {config.HomeList.map((src) => icon_component(src))}
       </div>
     </Col>
   );

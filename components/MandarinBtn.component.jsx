@@ -2,61 +2,40 @@ import styles from "../styles/Home.module.css";
 
 import { SplitButton, Dropdown } from "react-bootstrap";
 import { getCursor } from "../utils/utils";
-import MusicList from "../public/music_list.json";
 
-const activeColor = "#BEA5C1";
-let availableAlphabets = [];
-MusicList.forEach((x) => {
-  if (x.initial.length === 1 && availableAlphabets.indexOf(x.initial) === -1) {
-    availableAlphabets.push(x.initial)
-  }
-});
-
-availableAlphabets.sort()  // sorted by default
-
-export default function MandarinBtn({
-  languageFilter,
-  initialFilter,
-  setLanguageState,
-  setInitialState,
-}) {
+export default function MandarinBtn({ props: [
+  filter_state,
+  do_filter_lang,
+  do_filter_initial,
+  alphabets,
+]}) {
+  const lang = '华语';
+  const active_color = "#BEA5C1";
   return (
-    <div className="d-grid">
+    <div className = "d-grid">
       <SplitButton
-        title="华语"
-        className={
-          languageFilter == "华语"
-            ? styles.mandarinBtnActive
-            : styles.mandarinBtn
-        }
-        onClick={(e) => {
-          languageFilter == "华语"
-            ? setLanguageState("")
-            : setLanguageState("华语");
-        }}
+        title = {lang}
+        className = { lang === filter_state.lang ? styles.mandarinBtnActive : styles.mandarinBtn }
+        onClick={ () => do_filter_lang(lang === filter_state.lang ? '' : lang) }
       >
-        {availableAlphabets.map((alphabet) => {
-          return (
-            <Dropdown.Item
-              onClick={(e) => {
-                initialFilter == alphabet
-                  ? setInitialState("")
-                  : setInitialState(alphabet);
-              }}
-              style={
-                initialFilter == alphabet
-                  ? {
-                      backgroundColor: activeColor,
-                      cursor: getCursor(),
-                    }
-                  : { cursor: getCursor() }
-              }
-              key={alphabet}
-            >
-              首字母-{alphabet}
-            </Dropdown.Item>
-          );
-        })}
+        {
+          alphabets.map(
+            (alphabet) => (
+              <Dropdown.Item
+                onClick = { () => do_filter_initial(alphabet === filter_state.initial ? '' : alphabet) }
+                
+                style = {{
+                  backgroundColor: alphabet === filter_state.initial ? active_color : undefined,
+                  cursor: getCursor(),
+                }}
+
+                key = { alphabet }
+              >
+                首字母-{ alphabet }
+              </Dropdown.Item>
+            )
+          )
+        }
       </SplitButton>
     </div>
   );

@@ -1,10 +1,6 @@
 import styles from "../styles/Home.module.css";
 
-import { Button } from "react-bootstrap";
-
-import Image from 'next/image'
-
-const _joinSp = (...vs) => vs.join(' ');
+import global_controllers from "../config/controllers";
 
 const copy_icon = () => {
   return (<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
@@ -25,7 +21,8 @@ const netease_icon = () => {
           </svg>);
 }
 
-export default function SongDetail({filteredSongList, showBiliPlayer, handleClickToCopy}) {
+export default function SongList
+  ({ props: [ List, EffThis, ] }) {
   const song_table_default = () => (
     <table>
       <tbody>
@@ -60,32 +57,35 @@ export default function SongDetail({filteredSongList, showBiliPlayer, handleClic
         }
       }
     
+      out.BVID = '';
       if (typeof song_info.BVID === 'string') {
-        let bvid_list_plain = song_info.BVID.trim();
-        
-        // The support for multiple BVID list feature is in development.
-        // Here is temporarily compatible with the single BVID feature.
-        // let bvid = bvid_list_plain.split(/，/g)[0];
-        
-        let bvid = bvid_list_plain;
-        if (bvid.length) {
-          out.bvid_default = bvid;
+        const bvid_list_plain = song_info.BVID.trim();
+        if (bvid_list_plain.length) {
+          out.BVID = bvid_list_plain;
           out.bili2_icon = (<span>BiliBili <span className="icon-bili"></span></span>)
         }
       }
     
       return (
         <tr className={styles.song} key={ song_info.index }>
-          <td className="song_table__name" onClick={() => handleClickToCopy(song_info.song_name) }>
+          <td className="song_table__name" onClick={() => global_controllers.copy_to_clipboard(song_info.song_name) }>
               <span>{song_info.song_name.replace(/\s/g, '  ')}</span>
               <span className="icon-copy"></span>
           </td>
-          <td className="song_table__translated_name" onClick={() => handleClickToCopy(song_info.song_translated_name) }>{out.translated_name}</td>
+          <td className="song_table__translated_name" onClick={() => global_controllers.copy_to_clipboard(song_info.song_translated_name) }>{out.translated_name}</td>
           <td className="song_table__note">{song_info.remarks}</td>
           <td className="song_table__artist">{song_info.artist}</td>
           <td className="song_table__date_count">{out.last_date}</td>
           {/* <td>{song_info.language}</td> */}
-          <td className="song_table__BVID" onClick={e => void(e.stopPropagation(), showBiliPlayer({title: song_info.song_name, bvid: out.bvid_default}))}>{out.bili2_icon}</td>
+          <td
+            className = "song_table__BVID"
+            onClick = {
+              e => void(
+                e.stopPropagation(),
+                EffThis.show_bili_player({title: song_info.song_name, bvid: out.BVID})
+              )
+            }
+          >{out.bili2_icon}</td>
         </tr>
       )
     }
@@ -104,11 +104,11 @@ export default function SongDetail({filteredSongList, showBiliPlayer, handleClic
           </tr>
         </thead>
         <tbody className="song_table__tbody">
-          {filteredSongList.map(x => song_table_row(x))}
+          {List.map(x => song_table_row(x))}
         </tbody>
       </table>
     )
   }
 
-  return 0 < filteredSongList.length ? song_table_normal() : song_table_default()
+  return 0 < List.length ? song_table_normal() : song_table_default()
 }
