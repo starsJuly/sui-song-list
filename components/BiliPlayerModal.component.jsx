@@ -2,6 +2,8 @@ import { Modal } from "react-bootstrap";
 
 import styles from "../styles/Home.module.css";
 
+import { eff_set } from "../config/controllers";
+
 export default function BiliPlayerModal
   ({ props: [ Title, Visible, List, Selected, EffThis, ] }) {
   
@@ -23,7 +25,7 @@ export default function BiliPlayerModal
                             : styles.bvid_bar__item
                           ) }
 
-              onClick = { e => EffThis.set_selected(e.currentTarget.textContent) }
+              onClick = { e => eff_set(EffThis, 'bvid_selected', e.currentTarget.textContent) }
               
               key = { bvid }
             >

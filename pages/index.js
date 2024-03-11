@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 
 import Head from 'next/head'
 import Link from 'next/link'
@@ -142,7 +142,7 @@ import { song_list } from '../config/song_list'
 import { content_contains } from '../utils/search_engine'
 
 /** 过滤器控件 */
-function FilteredList({ props: [ EffThis ] }) {
+const FilteredList = memo(function FilteredList({ props: [ EffThis ] }) {
   // state variables
   const [filter_state] = EffThis.filter_state = useState({
     lang: "",
@@ -221,7 +221,45 @@ function FilteredList({ props: [ EffThis ] }) {
       <SongListWrapper props = {[ filteredSongList, EffThis ]}/>
     </>
   )
-}
+}, (prev, next) => {
+  console.log(JSON.stringify(prev));
+  if (Object.is(prev, next)) return true;
+  console.log('objects not equal');
+  
+  const prev_keys = Object.keys(prev);
+  const next_keys = Object.keys(next);
+  
+  if (prev_keys.length !== next_keys.length) return false;
+
+  const skips = { props: 1 };
+
+  // props
+  if (Array.isArray(prev.props) && Array.isArray(next.props)) {
+    if (prev.props.length !== next.props.length) return false;
+    for (const [idx, prop] of Object.entries(prev.props)) {
+      if (!Object.is(prop, prev.props[idx])) {
+        console.log('not equal when iterating!!!');
+      }
+      if (!Object.is(prop, next.props[idx])) return false;
+    }
+  }
+
+  let flags = {};
+
+  for (const key of prev_keys) {
+    if (skips[key]) continue;
+    if (!Object.is(prev[key], next[key])) return false;
+    flags[key] = 1;
+  }
+
+  for(const key of next_keys) {
+    if (skips[key] || flags[key]) continue;
+    if (!Object.is(next[key], prev[key])) return false;
+  }
+
+  console.log('result: equal');
+  return true;
+});
 
 /** 歌单表格 */
 function SongListWrapper ({ props: [ List, EffThis ] }) {
