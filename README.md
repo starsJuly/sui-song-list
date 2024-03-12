@@ -114,11 +114,18 @@ features:
 
 ## Related Repositories
 
-[song-list-of-nanakaie](https://github.com/alan314m/song-list-of-nanakaie)
++ [song-list-of-nanakaie](https://github.com/alan314m/song-list-of-nanakaie)
 
-[vup-song-list](https://github.com/Akegarasu/vup-song-list)
++ [vup-song-list](https://github.com/Akegarasu/vup-song-list)
 
-[vup-song-list-main](https://github.com/Rndlab/vup-song-list-main)
++ [vup-song-list-main](https://github.com/Rndlab/vup-song-list-main)
+
+## Project Authors
+
+This is the list of sui-song-list's significant contributors.
+
++ [starsJuly](https://github.com/starsJuly)
++ [RinSchomburg](https://github.com/RinSchomburg)
 
 ## Project Contributors
 
