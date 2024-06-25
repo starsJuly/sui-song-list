@@ -158,6 +158,7 @@ const FilteredList = memo(function FilteredList({ props: [ EffThis ] }) {
   useEffect(() => {
     //语言过滤
     EffThis.do_filter_lang = (lang) => eff_set(EffThis, 'filter_state', {
+      ...eff_get(EffThis, 'filter_state'),
       lang: lang,
       initial: "",
       paid: false,
@@ -166,6 +167,7 @@ const FilteredList = memo(function FilteredList({ props: [ EffThis ] }) {
 
     //首字母过滤
     EffThis.do_filter_initial = (initial) => eff_set(EffThis, 'filter_state', {
+      ...eff_get(EffThis, 'filter_state'),
       lang: "华语",
       initial: initial,
       paid: false,
