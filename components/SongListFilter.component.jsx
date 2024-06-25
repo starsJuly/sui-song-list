@@ -7,21 +7,22 @@ import config from "../config/constants";
 import global_controllers from "../config/controllers";
 
 import { song_list, available_alphabets } from "../config/song_list";
+import SortBtn from "./SortButton";
 
 export default function SongListFilter({ props: [ filter_state, EffThis, ] }) {
   return (
     <Col>
       <div className = { styles.categorySelectionContainer }>
         <Container fluid>
-          <Row>
-            <Col xs = {6} md = {3}>
+          <Row className = { styles.contentRow }>
+            <Col xs = {6} md = {2}>
               <MandarinBtn
                 props = {[
                   filter_state, available_alphabets, EffThis, 
                 ]} 
               />
             </Col> { config.LanguageCategories.map((lang) => (
-            <Col xs = {6} md = {3} key = {lang}>
+            <Col xs = {6} md = {2} key = {lang}>
               <LanguageFilterBtn
                 props = {[
                   filter_state.lang === lang, lang, EffThis,
@@ -29,7 +30,16 @@ export default function SongListFilter({ props: [ filter_state, EffThis, ] }) {
               />
             </Col> ))
             /* ... */ }
-            <Col xs = {6} md = {3}>
+            <Col xs = {6} md = {2}>
+              <SortBtn
+                props = {[
+                  filter_state, 
+                  ['default', 'infrequently', 'not_recently'], 
+                  EffThis,
+                ]}
+              />
+            </Col>
+            <Col xs = {6} md = {2}>
               <RandomFilterBtn />
             </Col>
           </Row>
