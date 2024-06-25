@@ -36,6 +36,8 @@ export default function SortBtn({ props: [
                 
                 style = {{
                   cursor: theme.cursor.pointer,
+                  backgroundColor: option === filter_state.sorting_method ? 
+                    "#87EAFF" : undefined,
                 }}
 
                 key = { option }
