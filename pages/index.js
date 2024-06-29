@@ -149,6 +149,7 @@ const FilteredList = memo(function FilteredList({ props: [ EffThis ] }) {
     initial: "",
     paid: false,
     remark: "",
+    sorting_method: "not_recently",
   });
   
   const [searchBox, setSearchBox] = EffThis.searchBox = useState('');
@@ -157,6 +158,7 @@ const FilteredList = memo(function FilteredList({ props: [ EffThis ] }) {
   useEffect(() => {
     //语言过滤
     EffThis.do_filter_lang = (lang) => eff_set(EffThis, 'filter_state', {
+      ...eff_get(EffThis, 'filter_state'),
       lang: lang,
       initial: "",
       paid: false,
@@ -165,10 +167,16 @@ const FilteredList = memo(function FilteredList({ props: [ EffThis ] }) {
 
     //首字母过滤
     EffThis.do_filter_initial = (initial) => eff_set(EffThis, 'filter_state', {
+      ...eff_get(EffThis, 'filter_state'),
       lang: "华语",
       initial: initial,
       paid: false,
       remark: "",
+    });
+
+    EffThis.do_sort = (method) => eff_set(EffThis, 'filter_state', {
+      ...eff_get(EffThis, 'filter_state'),
+      sorting_method: method
     });
 
   }, [ EffThis ]);
@@ -200,7 +208,21 @@ const FilteredList = memo(function FilteredList({ props: [ EffThis ] }) {
       && (filter_state.paid
           ? song.paid == 1
           : true)
-  );
+  ).sort((a, b) => {
+    if (filter_state.sorting_method === 'not_recently') {
+      const a_date = a.date_list.split(/，/g)
+        .map(a => Date.parse(a)).filter(a => !isNaN(a))
+        .sort();
+      const b_date = b.date_list.split(/，/g)
+        .map(a => Date.parse(a)).filter(a => !isNaN(a))
+        .sort();
+      return a_date[a_date.length - 1] - b_date[b_date.length - 1];
+    } else if (filter_state.sorting_method === 'infrequently') {
+      return a.song_count - b.song_count;
+    } else {
+      return 0;
+    }
+  });
 
   return (
     <>

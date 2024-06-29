@@ -87,12 +87,18 @@
   box-shadow: none;
 }
 
+.sortButton,
 .customRandomButton {
   color: #1d0c26;
   border-radius: 1rem;
   border: none;
   background-color: rgba(255, 255, 255, 0.5);
   cursor: url("/assets/cursor/pointer.png"), pointer;
+}
+
+.sortButton>button:focus {
+  color: #1d0c26;
+  background-color: rgba(255, 255, 255, 0);
 }
 
 .customRandomButton:focus,
@@ -104,12 +110,28 @@
   /* cursor: url("/assets/cursor/pointer.png"), pointer; */
 }
 
+.sortButton>button:hover,
 .customRandomButton:hover,
 .customCategoryButton:hover,
 .mandarinBtn>button:hover {
   color: #1d0c26;
   background-color: rgba(255, 255, 255, 1);
   cursor: url("/assets/cursor/pointer.png"), pointer;
+}
+
+.sortButton>button {
+  color: #1d0c26;
+  border-radius: 1rem;
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+  cursor: url("/assets/cursor/pointer.png"), pointer;
+  width: 100%;
+}
+
+.sortButton>button:active {
+  color: #1d0c26 !important;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  box-shadow: none;
 }
 
 .customCategoryButton,
@@ -202,6 +224,12 @@
 .categorySelectionContainer {
   border-radius: 1rem;
   padding: 1rem;
+}
+
+.contentRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .titleBox {
