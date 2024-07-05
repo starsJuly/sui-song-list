@@ -2,7 +2,7 @@ import styles from "../styles/Home.module.css";
 import { Button, Col, Container, Row } from "react-bootstrap";
 
 import MandarinBtn from "../components/MandarinBtn.component";
-import config from "../config/constants";
+import config, { theme } from "../config/constants";
 
 import global_controllers from "../config/controllers";
 
@@ -60,7 +60,7 @@ function LanguageFilterBtn ({ props: [ is_active, lang, EffThis, ] }) {
     <div className = "d-grid">
       <Button
         className = { button_classnames }
-        style = {{ cursor: 'url("/assets/cursor/pointer.png"), pointer' }}
+        style = {{ cursor: theme.cursor.pointer }}
         onClick = { (e) => EffThis.do_filter_lang(cancel_or_filter) }
       >
         {lang}
@@ -81,6 +81,7 @@ function RandomFilterBtn () {
       <Button
         title="从下面的歌单里随机挑一首"
         className = { styles.customRandomButton }
+        style = {{ cursor: theme.cursor.pointer }}
         onClick = { handleRandomSong }
       >
         随便听听

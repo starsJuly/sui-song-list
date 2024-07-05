@@ -127,20 +127,20 @@
     
     .song_table tr>.song_table__name:hover,
     .song_table tr>.song_table__name:hover::before {
-        cursor: url("/assets/cursor/pointer.png"), pointer;
+        cursor: url("/assets/cursor/v2/pointer.png"), pointer;
         background: #45BEEA;
         color: #26292b;
     }
 
     .song_table tr>.song_table__translated_name:hover,
     .song_table tr>.song_table__translated_name:hover::before {
-        cursor: url("/assets/cursor/pointer.png"), pointer;
+        cursor: url("/assets/cursor/v2/pointer.png"), pointer;
         background: #45BEEA;
     }
     
     .song_table tr>.song_table__BVID:hover,
     .song_table tr>.song_table__BVID:hover::before {
-        cursor: url("/assets/cursor/pointer.png"), pointer;
+        cursor: url("/assets/cursor/v2/pointer.png"), pointer;
         background: #45BEEA;
     }
     

@@ -15,6 +15,7 @@ export default function MandarinBtn({ props: [
       <SplitButton
         title = {lang}
         className = { lang === filter_state.lang ? styles.mandarinBtnActive : styles.mandarinBtn }
+        style = {{ cursor: lang !== filter_state.lang ? theme.cursor.pointer : undefined }}
         onClick={ () => EffThis.do_filter_lang(lang === filter_state.lang ? '' : lang) }
       >
         {

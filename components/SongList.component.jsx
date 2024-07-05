@@ -68,7 +68,9 @@ export default function SongList
     
       return (
         <tr className={styles.song} key={ song_info.index }>
-          <td className="song_table__name" onClick={() => global_controllers.copy_to_clipboard(song_info.song_name) }>
+          <td
+            className="song_table__name"
+            onClick={() => global_controllers.copy_to_clipboard(song_info.song_name) }>
               <span>{song_info.song_name.replace(/\s/g, '  ')}</span>
               <span className="icon-copy"></span>
           </td>

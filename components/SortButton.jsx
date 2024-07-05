@@ -19,6 +19,7 @@ export default function SortBtn({ props: [
       <Dropdown
         title = { label }
         className= { styles.sortButton }
+        style = {{ cursor: theme.cursor.pointer }}
       >
         <Dropdown.Toggle variant="success" id="dropdown-basic">
           { label_map[filter_state.sorting_method] }

@@ -31,7 +31,8 @@ export default function Title() {
         width: '24px',
         height: '24px',
         background: `0 / 24px 24px url(${icon})`
-      }}>
+      }}
+      key={url}>
     </a>)
   }
 
@@ -45,7 +46,7 @@ export default function Title() {
         <h1 className={"display-6 text-center " + styles.grandTitle}>
           已收录的歌曲 <b>{ song_list.length }</b> 首
         </h1>
-        <p>{'可以点击歌名复制哦 ~'}</p>
+        <p>可以点击歌名复制哦 ~</p>
       </div>
       <div className={styles.introHomeList }>
             {config.HomeList.map((src) => icon_component(src))}

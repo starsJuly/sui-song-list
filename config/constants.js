@@ -10,6 +10,7 @@ const config = {
   Repository: "https://github.com/starsJuly/sui-song-list.git",
 
   customCursorEnabled: true, // 使用自定义光标图片
+  cursorVersion: "v2",
 
   LanguageCategories: ["日语", "英语"], // 语言分类
   RemarkCategories: [], // 标签分类
@@ -32,13 +33,21 @@ const config = {
 const generate_theme = () => {
   let theme = {};
 
+  // theme.cursor
+
   const cursor_types = [ 'normal', 'pointer', 'text' ];
-  const custom_cursor_dirpath = './assets/cursor/';
+  let custom_cursor_dirpath = '/assets/cursor';
   const custom_cursor_suffix = '.png';
+
   theme.cursor = {};
+
+  if (config.cursorVersion === "v2") {
+    custom_cursor_dirpath = '/assets/cursor/v2';
+  }
+
   for (const type of cursor_types) {
       theme.cursor[type] =  config.customCursorEnabled
-                            ? `url("${custom_cursor_dirpath + type + custom_cursor_suffix}"), ${type}`
+                            ? `url("${custom_cursor_dirpath + '/' + type + custom_cursor_suffix}"), pointer`
                             : `${type}`
   }
 

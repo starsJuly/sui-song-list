@@ -16,7 +16,7 @@ import SongListFilter from '../components/SongListFilter.component'
 
 import imageLoader from '../utils/ImageLoader'
 
-import config from '../config/constants'
+import config, { theme } from '../config/constants'
 
 import { eff_get, eff_set } from '../config/controllers'
 
@@ -56,7 +56,7 @@ export default function Home() {
   }, [ EffThis ]);
 
   return (
-    <div className = { styles.outerContainer }>
+    <div className = { styles.outerContainer } style={{ cursor: theme.cursor.normal }}>
       <Head>
         <title>{ config.Name }的歌单</title>
         <meta
@@ -230,6 +230,7 @@ const FilteredList = memo(function FilteredList({ props: [ EffThis ] }) {
         <Col xs = {12} md = {12}>
           <Form.Control
             className = {styles.filters}
+            style = {{ cursor: theme.cursor.text }}
             type = 'search'
             aria-label = '搜索'
             placeholder = '搜索'
