@@ -55,6 +55,9 @@ features:
       - 支持华语，日语，英语筛选
       - 支持华语筛选
         - 支持歌名首字拼音筛选
+    
+  - base
+    - source: vup-song-list-main
 
 + 基础歌单信息排序
   - 支持排序
@@ -62,9 +65,9 @@ features:
     - 次数升序
     - 默认排序
       - 默认使用歌单信息中的歌曲顺序
-    
+  
   - base
-    - source: vup-song-list-main
+    - source: KpwnZ/feat/sort
 
 + 歌曲音视频播放
   - 
@@ -152,6 +155,7 @@ This is the list of sui-song-list's significant contributors.
 + 蜜柑教信徒
 + 岁己家的维斯
 + 小笨酱_____________
++ KpwnZ
 
 ## License
 
