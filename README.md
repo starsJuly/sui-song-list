@@ -94,6 +94,7 @@ features:
   - 支持 custom-normal, custom-pointer, custom-text 自定义光标
     - normal, pointer, text, ... 即 css 对应的光标类型，如果不存在，使用对应默认光标
     - 尚未支持自动配置
+  - 支持v2版本光标
   - base
     - source: vup-song-list-main
 
@@ -104,6 +105,9 @@ features:
 ```
 
 当前版本用于基础构建并试运行。后续拟添加功能包括但不限于，
++ 支持多主题架构
+  - 重构css，改用Tailwind
+    - Tailwind CSS 更方便动态配置样式。可以通过config在不修改css样式文件和其他源码文件的情况下更换主题
 + 优化背景图加载机制
 + 添加更多歌单显示和检索功能，如列表项隐藏，和快捷操作等
 + 优化git objects体积
