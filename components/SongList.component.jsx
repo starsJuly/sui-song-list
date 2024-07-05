@@ -73,9 +73,9 @@ export default function SongList
             onClick={() => global_controllers.copy_to_clipboard(song_info.song_name) }>
               <span>{song_info.song_name.replace(/\s/g, '  ')}</span>
               <span className="icon-copy"></span>
+              <div className="song-table-note">{song_info.remarks}</div>
           </td>
           <td className="song_table__translated_name" onClick={() => global_controllers.copy_to_clipboard(song_info.song_translated_name) }>{out.translated_name}</td>
-          <td className="song_table__note">{song_info.remarks}</td>
           <td className="song_table__artist">{song_info.artist}</td>
           <td className="song_table__date_count">{out.last_date}</td>
           {/* <td>{song_info.language}</td> */}
@@ -98,7 +98,6 @@ export default function SongList
           <tr>
             <th>歌名</th>
             <th>歌名翻译</th>
-            <th>备注</th>
             <th>原唱</th>
             <th>最新/次数</th>
             {/* <th>语言</th> */}
