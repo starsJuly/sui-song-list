@@ -356,7 +356,6 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  background-position: top;
   min-width: min-content;
   min-height: 100vh;
 }

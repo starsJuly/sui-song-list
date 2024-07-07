@@ -20,6 +20,18 @@ import config, { theme } from '../config/constants'
 
 import { eff_get, eff_set } from '../config/controllers'
 
+import styled, { css } from "styled-components";
+
+const calcOffset = (y) => {
+  return y * 100 / document.documentElement.scrollHeight;
+}
+
+const BackdropContainer = styled.div.attrs(props => ({
+  style: {
+    backgroundPosition: `0% ${props.offset}%`,
+  }
+}))``;
+
 export default function Home() {
   // EffThis
   const [ EffThis ] = useState({});
@@ -55,8 +67,23 @@ export default function Home() {
     EffThis.hide_bili_player = () => eff_set(EffThis, 'modalPlayerShow', false);
   }, [ EffThis ]);
 
+  const [offset, setOffset] = useState(0);
+  useEffect(() => {
+    const onScroll = () => {
+      setOffset(calcOffset(window.scrollY));
+    };
+    window.addEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
   return (
-    <div className = { styles.outerContainer } style={{ cursor: theme.cursor.normal }}>
+    <BackdropContainer 
+      className={ styles.outerContainer } 
+      style={{ cursor: theme.cursor.normal }}
+      offset={ offset }
+    >
       <Head>
         <title>{ config.Name }的歌单</title>
         <meta
@@ -95,7 +122,7 @@ export default function Home() {
           bili_player_title, bili_player_visibility, bvid_list, bvid_selected, EffThis
         ]}
       />
-    </div>
+    </BackdropContainer>
   );
 }
 
