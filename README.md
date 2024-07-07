@@ -102,6 +102,11 @@ features:
   - base
     - source: vup-song-list-main
 
++ 背景滚动
+  - 背景跟随滚动条滚动
+  - base
+    - source: KpwnZ/dev/ui
+
 ```
 
 当前版本用于基础构建并试运行。后续拟添加功能包括但不限于，
