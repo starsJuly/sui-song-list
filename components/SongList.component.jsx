@@ -2,6 +2,13 @@ import styles from "../styles/Home.module.css";
 
 import global_controllers from "../config/controllers";
 
+import { Badge } from 'react-bootstrap'
+import { 
+  BsPlayCircle,
+  BsMusicNoteBeamed,
+  BsCopy, 
+} from "react-icons/bs";
+
 const copy_icon = () => {
   return (<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
             <path d="M15.24 2H11.3458C9.58159 1.99999 8.18418 1.99997 7.09054 2.1476C5.96501 2.29953 5.05402 2.61964 4.33559 3.34096C3.61717 4.06227 3.29833 4.97692 3.14701 6.10697C2.99997 7.205 2.99999 8.60802 3 10.3793V16.2169C3 17.725 3.91995 19.0174 5.22717 19.5592C5.15989 18.6498 5.15994 17.3737 5.16 16.312L5.16 11.3976L5.16 11.3024C5.15993 10.0207 5.15986 8.91644 5.27828 8.03211C5.40519 7.08438 5.69139 6.17592 6.4253 5.43906C7.15921 4.70219 8.06404 4.41485 9.00798 4.28743C9.88877 4.16854 10.9887 4.1686 12.2652 4.16867L12.36 4.16868H15.24L15.3348 4.16867C16.6113 4.1686 17.7088 4.16854 18.5896 4.28743C18.0627 2.94779 16.7616 2 15.24 2Z" fill="#1C274C"/>
@@ -21,6 +28,25 @@ const netease_icon = () => {
           </svg>);
 }
 
+const music_icon = () => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-music-note-beamed" viewBox="0 0 16 16">
+      <path d="M6 13c0 1.105-1.12 2-2.5 2S1 14.105 1 13s1.12-2 2.5-2 2.5.896 2.5 2m9-2c0 1.105-1.12 2-2.5 2s-2.5-.895-2.5-2 1.12-2 2.5-2 2.5.895 2.5 2" />
+      <path fillRule="evenodd" d="M14 11V2h1v9zM6 3v10H5V3z" />
+      <path d="M5 2.905a1 1 0 0 1 .9-.995l8-.8a1 1 0 0 1 1.1.995V3L5 4z" />
+    </svg>
+  );
+}
+
+const translate_icon = () => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-translate" viewBox="0 0 16 16">
+      <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286zm1.634-.736L5.5 3.956h-.049l-.679 2.022z" />
+      <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm7.138 9.995q.289.451.63.846c-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6 6 0 0 1-.415-.492 2 2 0 0 1-.94.31" />
+    </svg>
+  );
+}
+
 export default function SongList
   ({ props: [ List, EffThis, ] }) {
   const song_table_default = () => (
@@ -34,15 +60,17 @@ export default function SongList
   )
 
   const song_table_normal = () => {
-    const song_table_row = (song_info) => {
+    const song_table_row = (song_info, song_idx) => {
       let out = {};
       if (typeof song_info.song_translated_name === 'string') {
         const name = song_info.song_translated_name.trim();
         if (name.length) {
           out.translated_name = (
-            <div>
+            <div className="song-table-translated-name">
               <span>{name}</span>
-              <span className="icon-copy"></span>
+              <span className="icon-copy">
+                <BsCopy />
+              </span>
             </div>
           )
         }
@@ -62,32 +90,59 @@ export default function SongList
         const bvid_list_plain = song_info.BVID.trim();
         if (bvid_list_plain.length) {
           out.BVID = bvid_list_plain;
-          out.bili2_icon = (<span>BiliBili <span className="icon-bili"></span></span>)
+          out.bili2_icon = (
+            <>
+            <Badge pill bg="primary" 
+              onClick = {
+                e => void (
+                  e.stopPropagation(),
+                  EffThis.show_bili_player({ title: song_info.song_name, bvid: out.BVID })
+                )
+              }>
+              <div className="bilibili-icon-container">
+                {bili2_icon()}
+              </div> BiliBili
+            </Badge>
+              <Badge pill bg="primary"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  EffThis.play_music_at(song_idx)
+                }} 
+              >
+                <div className="play-icon-container">
+                  <BsPlayCircle />
+                </div> 播放
+              </Badge>
+            </>
+          )
         }
       }
     
       return (
         <tr className={styles.song} key={ song_info.index }>
-          <td
-            className="song_table__name"
-            onClick={() => global_controllers.copy_to_clipboard(song_info.song_name) }>
-              <span>{song_info.song_name.replace(/\s/g, '  ')}</span>
-              <span className="icon-copy"></span>
+          <td className="song_table__name" onClick={() => global_controllers.copy_to_clipboard(song_info.song_name) }>
+              <div className="song-table-song-name">
+                <span className="song-table-music-icon"> <BsMusicNoteBeamed /> </span>
+                <span> { song_info.song_name.replace(/\s/g, '  ') } </span>
+                {out.bili2_icon}
+                <span className="icon-copy"><BsCopy /></span>
+              </div>
+              <div className="song-table-note">
+                <div>
+                  <span onClick={
+                        (event) => {
+                          event.stopPropagation();
+                          global_controllers.copy_to_clipboard(song_info.song_translated_name)
+                        }
+                      }
+                  >{out.translated_name}
+                  </span>
+                </div>
+                <span>{song_info.remarks}</span>
+              </div>
           </td>
-          <td className="song_table__translated_name" onClick={() => global_controllers.copy_to_clipboard(song_info.song_translated_name) }>{out.translated_name}</td>
-          <td className="song_table__note">{song_info.remarks}</td>
           <td className="song_table__artist">{song_info.artist}</td>
           <td className="song_table__date_count">{out.last_date}</td>
-          {/* <td>{song_info.language}</td> */}
-          <td
-            className = "song_table__BVID"
-            onClick = {
-              e => void(
-                e.stopPropagation(),
-                EffThis.show_bili_player({title: song_info.song_name, bvid: out.BVID})
-              )
-            }
-          >{out.bili2_icon}</td>
         </tr>
       )
     }
@@ -97,16 +152,12 @@ export default function SongList
         <thead className="song_table__thead">
           <tr>
             <th>歌名</th>
-            <th>歌名翻译</th>
-            <th>备注</th>
             <th>原唱</th>
             <th>最新/次数</th>
-            {/* <th>语言</th> */}
-            <th>歌切</th>
           </tr>
         </thead>
         <tbody className="song_table__tbody">
-          {List.map(x => song_table_row(x))}
+          {List.map((x, idx) => song_table_row(x, idx))}
         </tbody>
       </table>
     )

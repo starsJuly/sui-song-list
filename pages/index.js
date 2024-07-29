@@ -13,6 +13,7 @@ import Title from '../components/Title.component'
 import SongList from '../components/SongList.component'
 import BiliPlayerModal from '../components/BiliPlayerModal.component'
 import SongListFilter from '../components/SongListFilter.component'
+import MusicPlayerView from '../components/MusicPlayerView.component'
 
 import imageLoader from '../utils/ImageLoader'
 
@@ -21,6 +22,8 @@ import config, { theme } from '../config/constants'
 import { eff_get, eff_set } from '../config/controllers'
 
 import styled, { css } from "styled-components";
+
+import { song_list } from '../config/song_list'
 
 const calcOffset = (y) => {
   return y * 100 / document.documentElement.scrollHeight;
@@ -47,6 +50,12 @@ export default function Home() {
 
   const [ bvid_selected          ] = EffThis.bvid_selected       = useState('');
 
+  const [ currently_playing, set_currently_playing ] = useState(-1);
+
+  EffThis.set_current_album = (album) => {
+    EffThis.current_album = album;
+  }
+  
   // EffThis.functions
   useEffect(() => {
     EffThis.show_bili_player = ({title, bvid, url}) => {
@@ -65,6 +74,10 @@ export default function Home() {
       }
     };
     EffThis.hide_bili_player = () => eff_set(EffThis, 'modalPlayerShow', false);
+    
+    EffThis.play_music_at = (idx) => {
+      set_currently_playing(idx);
+    }
   }, [ EffThis ]);
 
   const [offset, setOffset] = useState(0);
@@ -100,6 +113,9 @@ export default function Home() {
       <section className = { styles.main }>
         <Title />
         <FilteredList props={[ EffThis ]} />
+        <MusicPlayerView
+          props={[currently_playing, EffThis]}
+        />
       </section>
 
       <FixedTool />
@@ -116,7 +132,6 @@ export default function Home() {
           <a>{ config.Footer }</a>
         </footer>
       </Link>
-
       <BiliPlayerModal
         props = {[
           bili_player_title, bili_player_visibility, bvid_list, bvid_selected, EffThis
@@ -165,7 +180,6 @@ function CornerIcons () {
   );
 }
 
-import { song_list } from '../config/song_list'
 import { content_contains } from '../utils/search_engine'
 
 /** 过滤器控件 */
@@ -250,6 +264,8 @@ const FilteredList = memo(function FilteredList({ props: [ EffThis ] }) {
       return 0;
     }
   });
+
+  EffThis.set_current_album(filteredSongList);
 
   return (
     <>

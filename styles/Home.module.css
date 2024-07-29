@@ -6,6 +6,7 @@
   color: #1d0c26;
   justify-content: center;
   align-items: center;
+  margin-bottom: 3rem;
 }
 
 .footer a {
@@ -37,7 +38,7 @@
   border-radius: .8em;
   max-width: 1200px;
   min-width: min-content;
-  padding: 10px 10px 0 10px;
+  padding: 10px 0px 0 0px;
 }
 
 .noWrapForce {
@@ -189,7 +190,7 @@
 
 .backToTopBtn {
   position: fixed;
-  bottom: 3rem;
+  bottom: 5rem;
   right: 2rem;
   font-size: 16px;
   background-color: rgba(255, 255, 255, 0.5);

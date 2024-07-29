@@ -7,20 +7,27 @@
 
 .song_table__thead th {
     text-wrap: nowrap;
-    text-align: center;
+    text-align: left;
+    padding-left: 0.8rem;
 }
 
 .song_table__name {
     word-break: break-all;
-    font-size: 1.2rem;
+    font-size: 1.0rem;
     font-weight: bold;
+}
+
+.song-table-note {
+    word-break: break-all;
+    font-size: 0.8rem;
+    font-weight:lighter;
+    color: rgba(0, 0, 0, 0.5);
 }
 
 .song_table__translated_name {
     word-break: break-all;
-    font-size: 1.2rem;
+    font-size: 1.0rem;
 }
-
 
 .song_table tr>td .icon-copy {
     opacity: 0;
@@ -32,25 +39,120 @@
     color: #26292b;
 }
 
+.song-table-note {
+    padding-left: 0.8rem;
+}
+
 .song_table__artist {
     word-break: break-all;
     font-size: 0.8em;
     color: #4b5258;
+    padding-left: 0.8rem;
 }
 
 .song_table__date_count {
     text-wrap: nowrap;
     min-width: 120px;
     color: #4b5258;
+    padding-left: 0.8rem;
 }
 
 .song_table__BVID {
     padding: 0 .4em;
     color: #00AEEC;
-    /* border-radius: .8em 0 0 .8em; */
     cursor:pointer;
     height: 1.5em;
     min-width: 80px;
+}
+
+.song-table-music-icon {
+    margin-right: 0.5rem;
+}
+
+.song-table-song-name {
+    display: flex;
+    align-items: center;
+    padding-left: 0.8rem;
+}
+
+.song-table-song-name>.rounded-pill {
+    line-height: 0em;
+    background-color: rgba(0, 0, 0, 0) !important;
+    color: #45BEEA;
+    border: 1px solid #45BEEA !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0.5rem;
+    font-weight: lighter;
+    padding-right: 12px;
+}
+
+.bilibili-icon-container {
+    display: inline;
+}
+
+.bilibili-icon-container svg {
+    height: 1em;
+}
+
+.music-player-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #655E66;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+    z-index: 100;
+}
+
+.music-player-div {
+    display: flex;
+    align-items: center;
+}
+
+.music-player-controls-panel {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 10px;
+}
+
+.music-player-controls {
+    margin: 0.5rem;
+    display: inline;
+}
+
+.music-player-title {
+    font-size: 1.0rem;
+    font-weight: bold;
+}
+
+.music-player-secondary-title {
+    font-size: 0.8rem;
+    font-weight: light;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.music-player-info {
+    margin: 0.5rem 0 0.5rem 1rem;
+}
+
+.play-icon-container {
+    margin-right: 0.2rem;
+}
+
+.artwork-container {
+    margin-right: 0.5rem;
+    width: 3rem;
+    height: 3rem;
+    position: relative;
+}
+
+.icon-copy {
+    margin-left: 0.5rem;
 }
 
 @media(max-width:619px) {
@@ -79,63 +181,78 @@
     
 @media(min-width:620px) {
     .song_table tr>td {
-        padding-top: .8rem;
-        padding-bottom: .8rem;
-        text-align: center;
+        text-align: left;
+    }
+
+    .song-table-note {
+        padding-bottom: 0.5rem;
+    }
+
+    .song-table-song-name {
+        padding-top: 0.5rem;
     }
 
     .song_table tr>td:hover {
-        border-radius: .8rem;
         position: relative;
         overflow: hidden;
     }
-    
-    .song_table tr>td:hover::before {
-        opacity: 0.6;
-        display: block;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        content: ' ';
-    }
 
-    .song_table tr>td:hover, .song_table tr>td:hover::before {
+    .song_table tr>td:hover {
         background: #AFAFAF;
         color: black;
-    }
-    
-    .song_table tr>td:hover::after {
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: black;
-        opacity: 0.5;
-        display: block;
-        width: 100%;
-        position: absolute;
-        left: 0;
-        top: 100%;
-        transform: translate(0, -60%);
-        z-index: 1;
-        content: ' ';
     }
 
     .song_table tr>td:empty:hover, .song_table tr>td:empty:hover::before {
         background: #AFAFAF;
     }
     
-    .song_table tr>.song_table__name:hover,
-    .song_table tr>.song_table__name:hover::before {
+    .song_table tr>.song_table__name:hover {
         cursor: url("/assets/cursor/v2/pointer.png"), pointer;
-        background: #45BEEA;
-        color: #26292b;
+        background-color: #45BEEA; 
     }
 
-    .song_table tr>.song_table__translated_name:hover,
-    .song_table tr>.song_table__translated_name:hover::before {
+    .song_table__name:hover>.song-table-song-name {
+        color: white;
+    }
+
+    .song-table-song-name:hover>.icon-copy {
+        margin-left: 0.5rem;
+        opacity: 1;
+    }
+
+    .song_table__name:hover>.song-table-song-name>.rounded-pill {
+        color: white;
+        border: 1px solid white !important;
+    }
+
+    .song_table__name:hover>.song-table-song-name svg {
+        fill: white;
+    }
+
+    .song-table-translated-name {
+        font-size: 0.9rem;
+        padding: 0;
+    }
+    .song-table-translated-name:hover {
         cursor: url("/assets/cursor/v2/pointer.png"), pointer;
         background: #45BEEA;
+        color: white;
+    }
+
+    .song-table-translated-name:hover>.icon-copy {
+        opacity: 1;
+    }
+
+    .song-table-translated-name:hover~.song-table-song-name {
+        color: black;
+    }
+
+    .song-table-translated-name::after {
+        display: none;
+    }
+
+    .song_table__artist {
+        padding-left: 0.8rem;
     }
     
     .song_table tr>.song_table__BVID:hover,
