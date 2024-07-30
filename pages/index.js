@@ -37,7 +37,11 @@ const BackdropContainer = styled.div.attrs(props => ({
 
 export default function Home() {
   // EffThis
-  const [ EffThis ] = useState({});
+  const [ EffThis ] = useState({
+    set_current_album: (album) => {
+      EffThis.current_album = album;
+    }
+  });
 
   // state variables
   const [ bili_player_visibility ] = EffThis.modalPlayerShow     = useState(false);
@@ -50,12 +54,8 @@ export default function Home() {
 
   const [ bvid_selected          ] = EffThis.bvid_selected       = useState('');
 
-  const [ currently_playing, set_currently_playing ] = useState(-1);
+  const [ currently_playing ] = EffThis.currently_playing = useState(-1);
 
-  EffThis.set_current_album = (album) => {
-    EffThis.current_album = album;
-  }
-  
   // EffThis.functions
   useEffect(() => {
     EffThis.show_bili_player = ({title, bvid, url}) => {
@@ -76,7 +76,7 @@ export default function Home() {
     EffThis.hide_bili_player = () => eff_set(EffThis, 'modalPlayerShow', false);
     
     EffThis.play_music_at = (idx) => {
-      set_currently_playing(idx);
+      eff_set(EffThis, 'currently_playing', idx);
     }
   }, [ EffThis ]);
 

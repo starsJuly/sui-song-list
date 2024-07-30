@@ -28,6 +28,9 @@ const prev_playable_song = (song_list, idx) => {
 }
 
 const is_playable = (song_list, idx) => {
+  if (song_list === undefined || song_list[idx] === undefined) {
+    return false;
+  }
   if (song_list[idx].BVID === undefined) {
     return false;
   }
