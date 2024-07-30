@@ -101,7 +101,11 @@ export default function SongList
     
       return (
         <tr className={styles.song} key={ song_info.index }>
-          <td className="song_table__name group/tablename break-all text-base font-bold" 
+          <td className="song_table__name 
+            group/tablename break-all 
+            text-base font-bold 
+            sm:hover:!bg-item-hover
+            sm:hover:cursor-main-cursor" 
             onClick={
               () => global_controllers.copy_to_clipboard(song_info.song_name) 
             }>
@@ -134,7 +138,20 @@ export default function SongList
     }
 
     return (
-      <table className="song_table w-[100%] min-w-fit [&_tr>td]:sm:text-left group/songtable">
+      <table className="song_table w-[100%] min-w-fit 
+        sm:hover:cursor-main-cursor
+        [&_tr]:pt-1 
+        [&_tr]:pr-0 
+        [&_tr]:pb-0
+        [&_tr]:pl-2
+        [&_tr>td]:block
+        [&_tr>td:hover]:bg-opacity-0
+        [&_tr>td]:sm:table-cell
+        [&_tr>td]:sm:text-left 
+        [&_tr>td:hover]:sm:relative 
+        [&_tr>td:hover]:sm:overflow-hidden 
+        [&_tr>td:hover]:sm:bg-secondary-bg
+        [&_tr>td:hover]:sm:text-label">
         <thead className="hidden sm:contents">
           <tr>
             <th className="sm:text-nowrap text-left pl-[0.8rem]">歌名</th>

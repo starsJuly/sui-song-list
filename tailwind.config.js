@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       cursor: {
-        'main-cursor': 'url(/assets/cursor/v2/pointer.png), pointer',
+        'main-cursor': "url('/assets/cursor/v2/pointer.png'), pointer",
       }
     },
     colors: {
@@ -17,8 +17,10 @@ module.exports = {
       'bilibili': '#00AEEC',
       'music-player-bg': '#655E66',
       'white': '#FFFFFF',
+      'label': '#000000',
       'secondary-label': '#4b5258',
       'secondary-bg': '#AFAFAF',
+      'item-hover': '#45BEEA'
     },
     fontSize: {
       'base': '1rem',
