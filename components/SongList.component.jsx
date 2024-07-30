@@ -113,8 +113,10 @@ export default function SongList
                 <span className="mr-[0.5rem]">
                   <BsMusicNoteBeamed />
                 </span>
-                <span> { song_info.song_name.replace(/\s/g, '  ') } </span>
-                {out.bili2_icon}
+                <span> 
+                  { song_info.song_name.replace(/\s/g, '  ') } 
+                  {out.bili2_icon}
+                </span>
               <span className="ml-[0.5rem] opacity-[.0] sm:group-hover/tablename:opacity-100 transition-opacity duration-100">
                 <BsCopy />
               </span>
