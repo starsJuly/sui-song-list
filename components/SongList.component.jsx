@@ -109,7 +109,10 @@ export default function SongList
             onClick={
               () => global_controllers.copy_to_clipboard(song_info.song_name) 
             }>
-              <div className="song-table-song-name items-center flex pl-[0.8rem] group sm:group-hover/tablename:text-white sm:pt-[0.5rem] transition-colors duration-100">
+              <div className="song-table-song-name 
+              group/songname items-center flex pl-[0.8rem] 
+              group sm:hover:text-white sm:pt-[0.5rem]
+              transition-colors duration-100">
                 <span className="mr-[0.5rem]">
                   <BsMusicNoteBeamed />
                 </span>
@@ -117,7 +120,7 @@ export default function SongList
                   { song_info.song_name.replace(/\s/g, '  ') } 
                   {out.bili2_icon}
                 </span>
-              <span className="ml-[0.5rem] opacity-[.0] sm:group-hover/tablename:opacity-100 transition-opacity duration-100">
+              <span className="ml-[0.5rem] opacity-[.0] sm:group-hover/songname:opacity-100 transition-opacity duration-100">
                 <BsCopy />
               </span>
               </div>
