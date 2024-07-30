@@ -1,5 +1,3 @@
-import styles from "../styles/Home.module.css";
-
 import React, { useState, useRef, useEffect } from 'react';
 import { 
   BsSkipBackwardFill, 
@@ -28,10 +26,6 @@ const prev_playable_song = (song_list, idx) => {
   }
   return -1;
 }
-
-const first_playable_song = (song_list) => {
-  return next_playable_song(song_list, -1);
-};
 
 const info_url = "https://api.suij1sui.space/api/v1/video/info?bvid=";
 const data_url = "https://api.suij1sui.space/api/v1/video/rdata?r=";
@@ -163,7 +157,7 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
 
   return (
     <>
-    <div className="music-player-container">
+    <div className="flex items-center">
       <audio preload="none" ref={audioRef}
         onError={
           async () => {
@@ -192,9 +186,9 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
         title={currentSong.song_name}
       >
       </audio>
-      <div className="music-player-div">
-        <div className="artwork-container">
-          <Image src={artworkUrl} alt="artwork" className="artwork" 
+      <div className="flex items-center fixed bottom-0 left-0 w-full bg-music-player-bg text-white pl-[1rem]">
+        <div className="mr-2 w-[3rem] h-[3rem] relative">
+          <Image src={artworkUrl} alt="artwork"
             loader={({src}) => src}
             layout='fill' objectFit='contain'
             onError={
@@ -206,7 +200,7 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
             }
           />
         </div>
-        <div className="music-player-controls"
+        <div className="m-2 inline"
           onClick={
             () => {
               idx = prev_playable_song(song_list, idx);
@@ -218,11 +212,11 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
         </div>
         <div 
           onClick={togglePlay}
-          className="music-player-controls"
+          className="m-2 inline"
         >
           {isPlaying ? <BsFillPauseFill /> : <BsFillPlayFill /> }
         </div>
-        <div className="music-player-controls"
+        <div className="m-2 inline"
           onClick={
             () => {
               idx = next_playable_song(song_list, idx);
@@ -232,11 +226,11 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
         >
           <BsSkipForwardFill />
         </div>
-        <div className="music-player-info">
-          <div className="music-player-title">
+        <div className="mt-2 mb-2 ml-4">
+          <div className="text-base font-bold">
             {currentSong.song_name}
           </div>
-          <div className="music-player-secondary-title">
+          <div className="font-light text-sm">
             {currentSong.artist}
           </div>
         </div>
