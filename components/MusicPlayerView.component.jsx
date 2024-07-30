@@ -27,10 +27,20 @@ const prev_playable_song = (song_list, idx) => {
   return -1;
 }
 
+const is_playable = (song_list, idx) => {
+  if (song_list[idx].BVID === undefined) {
+    return false;
+  }
+  return song_list[idx].BVID.length > 0;
+}
+
 const info_url = "https://api.suij1sui.space/api/v1/video/info?bvid=";
 const data_url = "https://api.suij1sui.space/api/v1/video/rdata?r=";
 
 const MusicPlayerView = ({ props: [idx, EffThis] }) => {
+  if (idx !== -1 && !is_playable(EffThis.current_album, idx)) {
+    idx = -1;
+  }
   let song_list = EffThis.current_album;
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
