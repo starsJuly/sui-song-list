@@ -92,7 +92,7 @@ export default function SongList
           out.BVID = bvid_list_plain;
           out.bili2_icon = (
             <>
-              <span class="ml-[0.5rem] h-[1.3rem] inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-bilibili-blue text-sm text-bilibili-blue sm:group-hover/tablename:text-white sm:group-hover/tablename:ring-white transition-colors duration-100"
+              <span class="ml-[0.5rem] h-[1.3rem] inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-bilibili text-sm text-bilibili sm:group-hover/tablename:text-white sm:group-hover/tablename:ring-white transition-colors duration-100"
                 onClick = {
                   e => void (
                     e.stopPropagation(),
@@ -104,7 +104,7 @@ export default function SongList
                 {bili2_icon()}
               </div> BiliBili
             </span>
-              <span class="ml-[0.5rem] h-[1.3rem] inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-theme-red ring-1 ring-inset ring-theme-red text-sm text-theme-red sm:group-hover/tablename:text-white sm:group-hover/tablename:ring-white transition-colors duration-100"
+              <span class="ml-[0.5rem] h-[1.3rem] inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-badge-play ring-1 ring-inset ring-badge-play text-sm text-badge-play sm:group-hover/tablename:text-white sm:group-hover/tablename:ring-white transition-colors duration-100"
                 onClick={(e) => {
                   e.stopPropagation();
                   EffThis.play_music_at(song_idx)

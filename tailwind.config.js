@@ -13,7 +13,8 @@ module.exports = {
     colors: {
       'theme-blue': '#87EAFF',
       'theme-red': '#DA5D77',
-      'bilibili-blue': '#00AEEC',
+      'badge-play': '#DA5D77',
+      'bilibili': '#00AEEC',
       'music-player-bg': '#655E66',
       'white': '#FFFFFF',
       'secondary-label': '#4b5258',
