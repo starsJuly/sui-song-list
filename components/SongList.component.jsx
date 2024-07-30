@@ -2,7 +2,6 @@ import styles from "../styles/Home.module.css";
 
 import global_controllers from "../config/controllers";
 
-import { Badge } from 'react-bootstrap'
 import { 
   BsPlayCircle,
   BsMusicNoteBeamed,
@@ -135,7 +134,7 @@ export default function SongList
     }
 
     return (
-      <table className="song_table">
+      <table className="song_table w-[100%] min-w-fit [&_tr>td]:sm:text-left group/songtable">
         <thead className="hidden sm:contents">
           <tr>
             <th className="sm:text-nowrap text-left pl-[0.8rem]">歌名</th>
