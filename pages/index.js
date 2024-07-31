@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useCallback, useEffect, useState } from 'react'
 
 import Head from 'next/head'
 import Link from 'next/link'
@@ -34,6 +34,27 @@ const BackdropContainer = styled.div.attrs(props => ({
     backgroundPosition: `0% ${props.offset}%`,
   }
 }))``;
+
+const BackgroundView = () => {
+  const [offset, setOffset] = useState(0);
+  useEffect(() => {
+    const onScroll = () => {
+      setOffset(calcOffset(window.scrollY));
+    };
+    window.addEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
+  return (
+    <BackdropContainer
+      className={styles.outerContainer}
+      style={{ cursor: theme.cursor.normal }}
+      offset={offset}
+    />
+  );
+};
 
 export default function Home() {
   // EffThis
@@ -80,23 +101,9 @@ export default function Home() {
     }
   }, [ EffThis ]);
 
-  const [offset, setOffset] = useState(0);
-  useEffect(() => {
-    const onScroll = () => {
-      setOffset(calcOffset(window.scrollY));
-    };
-    window.addEventListener("scroll", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
-
   return (
-    <BackdropContainer 
-      className={ styles.outerContainer } 
-      style={{ cursor: theme.cursor.normal }}
-      offset={ offset }
-    >
+    <div>
+      <BackgroundView/>
       <Head>
         <title>{ config.Name }的歌单</title>
         <meta
@@ -108,6 +115,7 @@ export default function Home() {
         <link rel = 'preload' href = '/assets/images/background_2x_opt.webp' as = 'image'/>
       </Head>
 
+      <div className={styles.contentContainer}>
       <CornerIcons />
 
       <section className = { styles.main }>
@@ -137,7 +145,8 @@ export default function Home() {
           bili_player_title, bili_player_visibility, bvid_list, bvid_selected, EffThis
         ]}
       />
-    </BackdropContainer>
+      </div>
+    </div>
   );
 }
 

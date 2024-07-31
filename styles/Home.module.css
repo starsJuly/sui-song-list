@@ -25,6 +25,7 @@
   min-width: min-content;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
 }
 
 .grandTitle {
@@ -351,14 +352,18 @@
 }
 
 .outerContainer {
-  background-color: #6caae3;
   background: url("/assets/images/background_2x_opt.webp") center center no-repeat fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  min-width: min-content;
+  min-width: 100%;
   min-height: 100vh;
+  position: fixed;
+}
+
+.contentContainer {
+  z-index: 100;
 }
 
 .categorySelectionTitle {
