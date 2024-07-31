@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useCallback, useEffect, useState } from 'react'
 
 import Head from 'next/head'
 import Link from 'next/link'
@@ -13,6 +13,7 @@ import Title from '../components/Title.component'
 import SongList from '../components/SongList.component'
 import BiliPlayerModal from '../components/BiliPlayerModal.component'
 import SongListFilter from '../components/SongListFilter.component'
+import MusicPlayerView from '../components/MusicPlayerView.component'
 
 import imageLoader from '../utils/ImageLoader'
 
@@ -21,6 +22,8 @@ import config, { theme } from '../config/constants'
 import { eff_get, eff_set } from '../config/controllers'
 
 import styled, { css } from "styled-components";
+
+import { song_list } from '../config/song_list'
 
 const calcOffset = (y) => {
   return y * 100 / document.documentElement.scrollHeight;
@@ -32,9 +35,34 @@ const BackdropContainer = styled.div.attrs(props => ({
   }
 }))``;
 
+const BackgroundView = () => {
+  const [offset, setOffset] = useState(0);
+  useEffect(() => {
+    const onScroll = () => {
+      setOffset(calcOffset(window.scrollY));
+    };
+    window.addEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
+  return (
+    <BackdropContainer
+      className={styles.outerContainer}
+      style={{ cursor: theme.cursor.normal }}
+      offset={offset}
+    />
+  );
+};
+
 export default function Home() {
   // EffThis
-  const [ EffThis ] = useState({});
+  const [ EffThis ] = useState({
+    set_current_album: (album) => {
+      EffThis.current_album = album;
+    }
+  });
 
   // state variables
   const [ bili_player_visibility ] = EffThis.modalPlayerShow     = useState(false);
@@ -46,6 +74,8 @@ export default function Home() {
   const [ bvid_list              ] = EffThis.bvid_list           = useState([]);
 
   const [ bvid_selected          ] = EffThis.bvid_selected       = useState('');
+
+  const [ currently_playing ] = EffThis.currently_playing = useState(-1);
 
   // EffThis.functions
   useEffect(() => {
@@ -65,25 +95,15 @@ export default function Home() {
       }
     };
     EffThis.hide_bili_player = () => eff_set(EffThis, 'modalPlayerShow', false);
+    
+    EffThis.play_music_at = (idx) => {
+      eff_set(EffThis, 'currently_playing', idx);
+    }
   }, [ EffThis ]);
 
-  const [offset, setOffset] = useState(0);
-  useEffect(() => {
-    const onScroll = () => {
-      setOffset(calcOffset(window.scrollY));
-    };
-    window.addEventListener("scroll", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
-
   return (
-    <BackdropContainer 
-      className={ styles.outerContainer } 
-      style={{ cursor: theme.cursor.normal }}
-      offset={ offset }
-    >
+    <div>
+      <BackgroundView/>
       <Head>
         <title>{ config.Name }的歌单</title>
         <meta
@@ -95,11 +115,15 @@ export default function Home() {
         <link rel = 'preload' href = '/assets/images/background_2x_opt.webp' as = 'image'/>
       </Head>
 
+      <div className={styles.contentContainer}>
       <CornerIcons />
 
       <section className = { styles.main }>
         <Title />
         <FilteredList props={[ EffThis ]} />
+        <MusicPlayerView
+          props={[currently_playing, EffThis]}
+        />
       </section>
 
       <FixedTool />
@@ -116,13 +140,13 @@ export default function Home() {
           <a>{ config.Footer }</a>
         </footer>
       </Link>
-
       <BiliPlayerModal
         props = {[
           bili_player_title, bili_player_visibility, bvid_list, bvid_selected, EffThis
         ]}
       />
-    </BackdropContainer>
+      </div>
+    </div>
   );
 }
 
@@ -165,7 +189,6 @@ function CornerIcons () {
   );
 }
 
-import { song_list } from '../config/song_list'
 import { content_contains } from '../utils/search_engine'
 
 /** 过滤器控件 */
@@ -250,6 +273,8 @@ const FilteredList = memo(function FilteredList({ props: [ EffThis ] }) {
       return 0;
     }
   });
+
+  EffThis.set_current_album(filteredSongList);
 
   return (
     <>

@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/globals.css'
-import '../styles/table_tmp.css'
 import '../styles/icons/style.css'
 
 import { Router } from 'next/router'

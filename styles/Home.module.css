@@ -6,6 +6,7 @@
   color: #1d0c26;
   justify-content: center;
   align-items: center;
+  margin-bottom: 3rem;
 }
 
 .footer a {
@@ -24,6 +25,7 @@
   min-width: min-content;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
 }
 
 .grandTitle {
@@ -37,7 +39,7 @@
   border-radius: .8em;
   max-width: 1200px;
   min-width: min-content;
-  padding: 10px 10px 0 10px;
+  padding: 10px 0px 0 0px;
 }
 
 .noWrapForce {
@@ -189,7 +191,7 @@
 
 .backToTopBtn {
   position: fixed;
-  bottom: 3rem;
+  bottom: 5rem;
   right: 2rem;
   font-size: 16px;
   background-color: rgba(255, 255, 255, 0.5);
@@ -350,14 +352,18 @@
 }
 
 .outerContainer {
-  background-color: #6caae3;
   background: url("/assets/images/background_2x_opt.webp") center center no-repeat fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  min-width: min-content;
+  min-width: 100%;
   min-height: 100vh;
+  position: fixed;
+}
+
+.contentContainer {
+  z-index: 100;
 }
 
 .categorySelectionTitle {
