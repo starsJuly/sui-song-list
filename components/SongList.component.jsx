@@ -154,8 +154,8 @@ export default function SongList
                   {out.bili2_icon}
                 </span>
               </div>
-              <div className="break-all text-sm font-normal text-secondary-label pl-[0.8rem] sm:pb-[0.5rem] sm:hover:underline sm:hover:text-white">
-                <div onClick={
+              <div className="break-all text-sm font-normal text-secondary-label pl-[0.8rem] sm:pb-[0.5rem]">
+                <div className="sm:hover:underline sm:hover:text-white" onClick={
                   (event) => {
                     event.stopPropagation();
                     global_controllers.copy_to_clipboard(song_info.song_translated_name)
