@@ -74,6 +74,12 @@ features:
     - Bilibili/video: playable
       - 支持多BVID切换
     - 网易云/audio: linkable
+    - suij1sui.space/audio: playable
+      - audio player
+        - 支持播放/暂停
+        - 支持上下首切换，顺序为歌单顺序
+      - base
+        - source: SuperChipsAhoy/music-player
   - base
     - source: vup-song-list-main
 
@@ -165,6 +171,7 @@ This is the list of sui-song-list's significant contributors.
 + 岁己家的维斯
 + 小笨酱_____________
 + KpwnZ
++ SuperChipsAhoy
 
 ## License
 
