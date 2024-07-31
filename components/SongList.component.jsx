@@ -138,8 +138,10 @@ export default function SongList
                   sm:group-hover/songname:hidden">
                   <BsMusicNoteBeamed />
                 </span>
-              <span className="flex items-center align-middle justify-center sm:hover:underline"> 
-                  { song_info.song_name.replace(/\s/g, '  ') } 
+              <span className="flex items-center align-middle justify-center"> 
+                  <span className="sm:group-hover/songname:underline">
+                    { song_info.song_name.replace(/\s/g, '  ') } 
+                  </span>
                   <BsCopy className="ml-[0.5rem] opacity-[.0] 
                       hidden
                       h-[1rem]
