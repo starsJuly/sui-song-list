@@ -47,10 +47,14 @@ export default function SongList
         if (name.length) {
           out.translated_name = (
             <div className="group/translated flex items-center align-middle sm:text-[0.9rem] sm:p-0 sm:hover:cursor-main-cursor sm:hover:text-white transition-colors duration-100">
-              <span>{name}</span>
-              <span className="opacity-[.0] ml-[0.5rem] sm:group-hover/translated:opacity-100 transition-opacity duration-100">
+              <span className="opacity-[.0] mr-[0.5rem] 
+              hidden
+              sm:group-hover/translated:opacity-100 
+              sm:group-hover/translated:inline
+              transition-all duration-100">
                 <BsCopy />
               </span>
+              <span className="transition-all duration-100">{name}</span>
             </div>
           )
         }
@@ -126,21 +130,27 @@ export default function SongList
               () => global_controllers.copy_to_clipboard(song_info.song_name) 
             }>
               <div className="song-table-song-name 
-              group/songname items-center flex pl-[0.8rem] 
-              group sm:hover:text-white sm:pt-[0.5rem]
-              transition-colors duration-100">
-                <span className="mr-[0.5rem]">
+                group/songname items-center flex pl-[0.8rem] 
+                group sm:hover:text-white sm:pt-[0.5rem]
+                transition-colors duration-100">
+                <span className="mr-[0.5rem]
+                  inline
+                  sm:group-hover/songname:hidden">
                   <BsMusicNoteBeamed />
                 </span>
-                <span> 
+              <span className="flex items-center align-middle justify-center sm:hover:underline"> 
                   { song_info.song_name.replace(/\s/g, '  ') } 
+                  <BsCopy className="ml-[0.5rem] opacity-[.0] 
+                      hidden
+                      h-[1rem]
+                      sm:group-hover/songname:opacity-100 
+                      sm:group-hover/songname:inline
+                      transition-opacity duration-100"
+                  />
                   {out.bili2_icon}
                 </span>
-              <span className="ml-[0.5rem] opacity-[.0] sm:group-hover/songname:opacity-100 transition-opacity duration-100">
-                <BsCopy />
-              </span>
               </div>
-              <div className="break-all text-sm font-normal text-secondary-label pl-[0.8rem] sm:pb-[0.5rem]">
+              <div className="break-all text-sm font-normal text-secondary-label pl-[0.8rem] sm:pb-[0.5rem] sm:hover:underline sm:hover:text-white">
                 <div onClick={
                   (event) => {
                     event.stopPropagation();
