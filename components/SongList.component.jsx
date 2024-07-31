@@ -93,14 +93,14 @@ export default function SongList
               </div> BiliBili
             </span>
               <span className="ml-[0.5rem] h-[1.3rem] inline-flex 
-              items-center rounded-full bg-blue-50 
-              px-2 py-1 text-xs font-medium 
+                items-center rounded-full bg-blue-50 
+                px-2 py-1 text-xs font-medium 
               text-badge-play ring-1 ring-inset 
               ring-badge-play text-sm 
               sm:hover:ring-white
               sm:group-hover/tablename:text-white 
               sm:group-hover/tablename:bg-badge-play
-              transition-colors duration-100"
+                transition-colors duration-100"
                 onClick={(e) => {
                   e.stopPropagation();
                   EffThis.play_music_at(song_idx)
