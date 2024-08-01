@@ -34,7 +34,7 @@ export default function SongListFilter({ props: [ filter_state, EffThis, ] }) {
               <SortBtn
                 props = {[
                   filter_state, 
-                  ['default', 'infrequently', 'not_recently'], 
+                  ['default', 'infrequently', 'not_recently', 'recently', 'frequently'], 
                   EffThis,
                 ]}
               />

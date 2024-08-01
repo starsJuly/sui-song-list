@@ -13,6 +13,8 @@ export default function SortBtn({ props: [
     'default': '默认排序',
     'not_recently': '最近没唱过？',
     'infrequently': '唱得比较少？',
+    'recently': '最近有唱过？',
+    'frequently': '唱得比较多？',
   };
   return (
     <div className = "d-grid">

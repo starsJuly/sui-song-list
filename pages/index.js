@@ -269,6 +269,16 @@ const FilteredList = memo(function FilteredList({ props: [ EffThis ] }) {
       return a_date[a_date.length - 1] - b_date[b_date.length - 1];
     } else if (filter_state.sorting_method === 'infrequently') {
       return a.song_count - b.song_count;
+    } else if (filter_state.sorting_method === 'recently') {
+      const a_date = a.date_list.split(/，/g)
+        .map(a => Date.parse(a)).filter(a => !isNaN(a))
+        .sort();
+      const b_date = b.date_list.split(/，/g)
+        .map(a => Date.parse(a)).filter(a => !isNaN(a))
+        .sort();
+      return b_date[b_date.length - 1] - a_date[a_date.length - 1];
+    } else if (filter_state.sorting_method === 'frequently') {
+      return b.song_count - a.song_count;
     } else {
       return 0;
     }
