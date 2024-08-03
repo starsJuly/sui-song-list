@@ -40,12 +40,40 @@ export default function SongListFilter({ props: [ filter_state, EffThis, ] }) {
               />
             </Col>
             <Col xs = {6} md = {2}>
+              <LocalSongListBtn 
+                props = {[
+                  filter_state.is_local,
+                  EffThis,
+                ]}
+              />
+            </Col>
+            <Col xs = {6} md = {2}>
               <RandomFilterBtn />
             </Col>
           </Row>
         </Container>
       </div>
     </Col>
+  );
+}
+
+const LocalSongListBtn = ({ props: [ is_active, EffThis, ] }) => {
+  const button_classnames = is_active
+    ? styles.customCategoryButtonActive
+    : styles.customCategoryButton;
+
+  return (
+    <div className = "d-grid">
+      <Button
+        className = { button_classnames }
+        style = {{ cursor: theme.cursor.pointer }}
+        onClick = { () => {
+          EffThis.do_filter_local(!is_active);
+        } }
+      >
+        收藏夹
+      </Button>
+    </div>
   );
 }
 

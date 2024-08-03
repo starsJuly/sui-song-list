@@ -200,6 +200,7 @@ const FilteredList = memo(function FilteredList({ props: [ EffThis ] }) {
     paid: false,
     remark: "",
     sorting_method: "not_recently",
+    is_local: false,
   });
   
   const [searchBox, setSearchBox] = EffThis.searchBox = useState('');
@@ -229,60 +230,85 @@ const FilteredList = memo(function FilteredList({ props: [ EffThis ] }) {
       sorting_method: method
     });
 
+    EffThis.do_filter_local = (is_local) => eff_set(EffThis, 'filter_state', {
+      ...eff_get(EffThis, 'filter_state'),
+      is_local: is_local
+    });
+    
   }, [ EffThis ]);
 
   //过滤歌单列表
-  const filteredSongList = song_list.filter(
-    (song) =>
-      //搜索
-      content_contains([
-        song.language,
-        song.song_name,
-        song.song_translated_name,
-        song.artist,
-        song.remark,
-      ], searchBox)
-      //语言
-      && (filter_state.lang != ""
-          ? song.language?.includes(filter_state.lang)
-          : true)
-      //首字母
-      && (filter_state.initial != ""
-          ? song.initial?.includes(filter_state.initial)
-          : true)
-      //类型
-      && (filter_state.remark != ""
-          ? song.remarks?.toLowerCase().includes(filter_state.remark)
-          : true)
-      //付费
-      && (filter_state.paid
-          ? song.paid == 1
-          : true)
-  ).sort((a, b) => {
-    if (filter_state.sorting_method === 'not_recently') {
-      const a_date = a.date_list.split(/，/g)
-        .map(a => Date.parse(a)).filter(a => !isNaN(a))
-        .sort();
-      const b_date = b.date_list.split(/，/g)
-        .map(a => Date.parse(a)).filter(a => !isNaN(a))
-        .sort();
-      return a_date[a_date.length - 1] - b_date[b_date.length - 1];
-    } else if (filter_state.sorting_method === 'infrequently') {
-      return a.song_count - b.song_count;
-    } else if (filter_state.sorting_method === 'recently') {
-      const a_date = a.date_list.split(/，/g)
-        .map(a => Date.parse(a)).filter(a => !isNaN(a))
-        .sort();
-      const b_date = b.date_list.split(/，/g)
-        .map(a => Date.parse(a)).filter(a => !isNaN(a))
-        .sort();
-      return b_date[b_date.length - 1] - a_date[a_date.length - 1];
-    } else if (filter_state.sorting_method === 'frequently') {
-      return b.song_count - a.song_count;
-    } else {
-      return 0;
-    }
-  });
+  const filteredSongList = song_list
+    .map((song) => {
+      if (typeof window !== 'undefined' && localStorage.getItem(song.song_name) !== null) {
+        song.is_local = true;
+      } else {
+        song.is_local = false;
+      }
+      return song;
+    })
+    .filter(
+      (song) =>
+        //搜索
+        content_contains([
+          song.language,
+          song.song_name,
+          song.song_translated_name,
+          song.artist,
+          song.remark,
+        ], searchBox)
+        //语言
+        && (filter_state.lang != ""
+            ? song.language?.includes(filter_state.lang)
+            : true)
+        //首字母
+        && (filter_state.initial != ""
+            ? song.initial?.includes(filter_state.initial)
+            : true)
+        //类型
+        && (filter_state.remark != ""
+            ? song.remarks?.toLowerCase().includes(filter_state.remark)
+            : true)
+        //付费
+        && (filter_state.paid
+            ? song.paid == 1
+            : true)
+        && (filter_state.is_local
+            ? song.is_local
+            : true))
+    .sort((a, b) => {
+      if (filter_state.sorting_method === 'not_recently') {
+        const a_date = a.date_list.split(/，/g)
+          .map(a => Date.parse(a)).filter(a => !isNaN(a))
+          .sort();
+        const b_date = b.date_list.split(/，/g)
+          .map(a => Date.parse(a)).filter(a => !isNaN(a))
+          .sort();
+        return a_date[a_date.length - 1] - b_date[b_date.length - 1];
+      } else if (filter_state.sorting_method === 'infrequently') {
+        return a.song_count - b.song_count;
+      } else if (filter_state.sorting_method === 'recently') {
+        const a_date = a.date_list.split(/，/g)
+          .map(a => Date.parse(a)).filter(a => !isNaN(a))
+          .sort();
+        const b_date = b.date_list.split(/，/g)
+          .map(a => Date.parse(a)).filter(a => !isNaN(a))
+          .sort();
+        return b_date[b_date.length - 1] - a_date[a_date.length - 1];
+      } else if (filter_state.sorting_method === 'frequently') {
+        return b.song_count - a.song_count;
+      } else if (filter_state.is_local) {
+        let a_time = localStorage.getItem(a.song_name);
+        let b_time = localStorage.getItem(b.song_name);
+        if (a_time && b_time) {
+          return b_time - a_time;
+        } else {
+          return 0;
+        }
+      } else {
+        return 0;
+      }
+    });
 
   EffThis.set_current_album(filteredSongList);
 

@@ -11,6 +11,7 @@
 
 .footer a {
   cursor: pointer;
+  z-index: 1;
 }
 
 .footer img {

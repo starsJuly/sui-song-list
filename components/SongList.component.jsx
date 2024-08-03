@@ -6,7 +6,13 @@ import {
   BsPlayCircle,
   BsMusicNoteBeamed,
   BsCopy, 
+  BsBookmarkPlus,
+  BsBookmarkHeartFill,
 } from "react-icons/bs";
+import { 
+  useEffect,
+  useState 
+} from "react";
 
 const copy_icon = () => {
   return (<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
@@ -25,6 +31,79 @@ const netease_icon = () => {
             <path d="M645.125 177.875a156.75 156.75 0 0 1 58.875 28.5 43.875 43.875 0 0 1 15 18.375 37.5 37.5 0 0 1-3.375 34.875 37.5 37.5 0 0 1-51.375 11.625c-4.125-2.625-7.125-6.375-11.25-8.625a67.875 67.875 0 0 0-37.5-12.375 37.5 37.5 0 0 0-24 12.375 26.625 26.625 0 0 0-7.125 24l13.875 52.125a201 201 0 0 1 94.5 27.75 269.625 269.625 0 0 1 72.375 64.875 225 225 0 0 1 37.5 75A249.375 249.375 0 0 1 812 593a275.25 275.25 0 0 1-15 72 282 282 0 0 1-112.5 138 300 300 0 0 1-124.125 43.5 310.5 310.5 0 0 1-91.125 0 300 300 0 0 1-164.25-87 322.5 322.5 0 0 1-85.125-297.375 316.5 316.5 0 0 1 189.75-225 50.25 50.25 0 0 1 42 2.25A37.5 37.5 0 0 1 467 274.625a37.5 37.5 0 0 1-24 30.75 241.5 241.5 0 0 0-153.375 193.5 246 246 0 0 0 13.5 119.25 242.25 242.25 0 0 0 112.5 129.75A219.375 219.375 0 0 0 518 772.625a255.75 255.75 0 0 0 85.875-15.375 203.625 203.625 0 0 0 111-95.25 166.5 166.5 0 0 0 14.25-33.75 187.5 187.5 0 0 0 0-104.25 158.25 158.25 0 0 0-47.625-73.125A208.5 208.5 0 0 0 650 428a120.375 120.375 0 0 0-31.5-12c7.5 30 15.75 60 23.625 90.375l3.75 21.75a127.875 127.875 0 0 1-103.125 129.75 122.625 122.625 0 0 1-90-16.875 135.375 135.375 0 0 1-53.25-69 163.875 163.875 0 0 1-9-49.125 169.5 169.5 0 0 1 28.5-103.5 187.5 187.5 0 0 1 104.25-72l-9-34.875a103.5 103.5 0 0 1 5.625-75 108.375 108.375 0 0 1 27-34.125A110.25 110.25 0 0 1 587 178.625a112.5 112.5 0 0 1 58.125-0.75z" fill="#D81E06"></path>
             <path d="M490.25 451.625a87.75 87.75 0 0 0-22.125 42 112.5 112.5 0 0 0 0 43.5 64.875 64.875 0 0 0 24.75 40.5 47.625 47.625 0 0 0 37.5 7.125A52.5 52.5 0 0 0 572.75 536a135 135 0 0 0-3.375-17.25L543.5 420.875a119.625 119.625 0 0 0-53.25 30.75z" fill="#FFFFFF"></path>
           </svg>);
+}
+
+const PillList = ({ props: [ song_info, song_idx, EffThis, ] }) => {
+  const [ is_favorite, set_is_favorite ] = useState(null);
+  useEffect(() => {
+    const is_local = typeof window !== 'undefined' 
+      && localStorage.getItem(song_info.song_name) !== null;
+    set_is_favorite(is_local);
+  }, [EffThis]);
+
+  return (
+    <>
+      <span className="ml-[0.5rem] h-[1.3rem] inline-flex 
+        items-center rounded-full 
+        bg-blue-50 px-2 py-1 text-xs font-medium 
+        text-blue-700 ring-1 ring-inset ring-bilibili
+        text-sm text-bilibili 
+      sm:group-hover/tablename:text-white
+      sm:group-hover/tablename:bg-bilibili
+      sm:hover:ring-white
+        transition-colors duration-100"
+        onClick = {
+          e => void (
+            e.stopPropagation(),
+            EffThis.show_bili_player({ title: song_info.song_name, bvid: out.BVID })
+          )
+        }
+      >
+      <div className="inline mr-[3px]">
+        {bili2_icon()}
+      </div> BiliBili
+    </span>
+      <span className="ml-[0.5rem] h-[1.3rem] inline-flex 
+        items-center rounded-full bg-blue-50 
+        px-2 py-1 text-xs font-medium 
+      text-badge-play ring-1 ring-inset 
+      ring-badge-play text-sm 
+      sm:hover:ring-white
+      sm:group-hover/tablename:text-white 
+      sm:group-hover/tablename:bg-badge-play
+        transition-colors duration-100"
+        onClick={(e) => {
+          e.stopPropagation();
+          EffThis.play_music_at(song_idx)
+        }} 
+      >
+        <div className="inline mr-[3px]">
+          <BsPlayCircle />
+        </div> 播放
+      </span>
+      <span className="ml-[0.5rem] h-[1.3rem] inline-flex items-center
+      sm:group-hover/tablename:text-white"
+        onClick={(e) => {
+          console.error("click add to local");
+          e.stopPropagation();
+          if (typeof window !== 'undefined') {
+            if (is_favorite) {
+              localStorage.removeItem(song_info.song_name);
+            } else {
+              localStorage.setItem(song_info.song_name, Date.now());
+            }
+            set_is_favorite(!is_favorite);
+          }
+        }}
+      >
+        { 
+          is_favorite 
+          ? <BsBookmarkHeartFill className="text-oen-red hover:text-white transition-colors duration-100"/> 
+          : <BsBookmarkPlus className="text-oen-color-10 hover:text-white transition-colors duration-100"/> 
+        }
+      </span>
+    </>
+  );
 }
 
 export default function SongList
@@ -74,48 +153,9 @@ export default function SongList
         const bvid_list_plain = song_info.BVID.trim();
         if (bvid_list_plain.length) {
           out.BVID = bvid_list_plain;
-          out.bili2_icon = (
-            <>
-              <span className="ml-[0.5rem] h-[1.3rem] inline-flex 
-                items-center rounded-full 
-                bg-blue-50 px-2 py-1 text-xs font-medium 
-                text-blue-700 ring-1 ring-inset ring-bilibili
-                text-sm text-bilibili 
-              sm:group-hover/tablename:text-white
-              sm:group-hover/tablename:bg-bilibili
-              sm:hover:ring-white
-                transition-colors duration-100"
-                onClick = {
-                  e => void (
-                    e.stopPropagation(),
-                    EffThis.show_bili_player({ title: song_info.song_name, bvid: out.BVID })
-                  )
-                }
-              >
-              <div className="inline mr-[3px]">
-                {bili2_icon()}
-              </div> BiliBili
-            </span>
-              <span className="ml-[0.5rem] h-[1.3rem] inline-flex 
-                items-center rounded-full bg-blue-50 
-                px-2 py-1 text-xs font-medium 
-              text-badge-play ring-1 ring-inset 
-              ring-badge-play text-sm 
-              sm:hover:ring-white
-              sm:group-hover/tablename:text-white 
-              sm:group-hover/tablename:bg-badge-play
-                transition-colors duration-100"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  EffThis.play_music_at(song_idx)
-                }} 
-              >
-                <div className="inline mr-[3px]">
-                  <BsPlayCircle />
-                </div> 播放
-              </span>
-            </>
-          )
+          out.bili2_icon = <>
+            <PillList props={[song_info, song_idx, EffThis]} />
+          </>;
         }
       }
     
