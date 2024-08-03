@@ -170,7 +170,7 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
 
   return (
     <>
-    <div className="flex items-center">
+    <div className="flex items-center z-10">
       <audio preload="none" ref={audioRef}
         onError={
           async () => {
@@ -199,7 +199,7 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
         title={currentSong.song_name}
       >
       </audio>
-      <div className="flex items-center fixed bottom-0 left-0 w-full bg-music-player-bg text-white pl-[1rem]">
+      <div className="flex items-center fixed bottom-0 left-0 w-full bg-music-player-bg text-white pl-[1rem] z-10">
         <div className="mr-2 w-[3rem] h-[3rem] relative">
           <Image src={artworkUrl} alt="artwork"
             loader={({src}) => src}
