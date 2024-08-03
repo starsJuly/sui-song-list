@@ -71,7 +71,7 @@ const LocalSongListBtn = ({ props: [ is_active, EffThis, ] }) => {
           EffThis.do_filter_local(!is_active);
         } }
       >
-        本地歌单
+        收藏夹
       </Button>
     </div>
   );
