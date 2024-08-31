@@ -1,6 +1,6 @@
 import styles from "../styles/Home.module.css";
 
-import global_controllers from "../config/controllers";
+import global_controllers, { get_artwork_url } from "../config/controllers";
 
 import {
   BsPlayCircle,
@@ -14,6 +14,14 @@ import {
   useEffect,
   useState
 } from "react";
+
+import { 
+  HiMiniPlay, 
+  HiChevronRight,
+  HiChevronLeft
+} from "react-icons/hi2";
+
+import { motion } from "framer-motion";
 
 import Image from "next/legacy/image";
 
@@ -50,9 +58,42 @@ const PillList = ({ props: [song_info, song_idx, BVID, EffThis,] }) => {
     set_is_favorite(is_local);
   }, [EffThis, song_info]);
 
+  const [show_love, set_show_love] = useState(false);
+
   return (
-    <>
-      <span className="ml-[0.5rem] h-[1.2rem] inline-flex 
+    <div className="flex flex-row items-center">
+      <span className="ml-[0.5rem] h-[2rem] w-[2rem] inline-flex items-center
+      sm:group-hover/tablename:text-white relative justify-center"
+        onClick={(e) => {
+          e.stopPropagation();
+          toggle_favorite_song(song_info.song_name, is_favorite, () => {
+            set_is_favorite(!is_favorite);
+            if (!is_favorite) {
+              set_show_love(true);
+            }
+          });
+        }}
+      >
+        {
+          is_favorite
+            ? <BsBookmarkHeartFill className="text-oen-red hover:text-palette-2 transition-colors duration-100" />
+            : <BsBookmarkPlus className="text-oen-color-10 hover:text-palette-2 transition-colors duration-100" />
+        }
+        {
+          show_love 
+          ? <motion.div className="absolute h-[2rem] w-[2rem] bg-black rounded-full overflow-hidden top-0 right-0 left-0 bottom-0"
+              initial={{ opacity: 0, scale: 0, transform: 'translateY(0px)' }}
+              animate={{ opacity: [0, 1, 1, 1, 0], scale: [0, 1, 1, 1, 1], transform: 'translateY(-15px)' }}
+              onAnimationComplete={() => set_show_love(false)}
+            >
+              <Image src="/assets/images/emoticon_love.webp" alt="artwork"
+                width={0} height={0} sizes="100vw" layout="fill" unoptimized
+              />
+            </motion.div>
+          : null
+        }
+      </span>
+      <span className="h-[1.2rem] inline-flex 
         items-center rounded-full 
         px-2 py-1 text-xs font-medium 
         ring-1 ring-inset ring-bilibili
@@ -90,24 +131,98 @@ const PillList = ({ props: [song_info, song_idx, BVID, EffThis,] }) => {
           <BsPlayCircle />
         </div> 播放
       </span>
-      <span className="ml-[0.5rem] h-[1.2rem] inline-flex items-center
-      sm:group-hover/tablename:text-white"
-        onClick={(e) => {
-          e.stopPropagation();
-          toggle_favorite_song(song_info.song_name, is_favorite, () => {
-            set_is_favorite(!is_favorite);
-          });
-        }}
-      >
-        {
-          is_favorite
-            ? <BsBookmarkHeartFill className="text-oen-red hover:text-white transition-colors duration-100" />
-            : <BsBookmarkPlus className="text-oen-color-10 hover:text-white transition-colors duration-100" />
-        }
-      </span>
-    </>
+    </div>
   );
 }
+
+const CompactButtonList = ({ props: [song_info, song_idx, BVID, EffThis,] }) => {
+    const [is_favorite, set_is_favorite] = useState(null);
+    useEffect(() => {
+      const is_local = is_favorite_song(song_info.song_name);
+      set_is_favorite(is_local);
+    }, [EffThis, song_info]);
+
+    const has_record = get_artwork_url(BVID.trim().split(/，/g)) !== '/favicon.png'; 
+
+    const [show_love, set_show_love] = useState(false);
+
+    return (
+      <>
+        <div className="shrink-0">
+        <div className={`sm:hidden flex flex-row ${has_record ? 'inline' : 'hidden'} items-center mr-[-0.5rem]`}>
+          <span
+            className="text-bilibili text-[1rem]"
+            onClick={
+              (e) => {
+                e.stopPropagation();
+                EffThis.show_bili_player({
+                  title: song_info.song_name,
+                  bvid: BVID,
+                });
+              }
+            }
+          >
+            {bili2_icon()}
+          </span>
+          <span onClick={
+            (e) => {
+              e.stopPropagation();
+              EffThis.play_music_at(song_idx);
+            }
+          }>
+            <HiMiniPlay className="ml-3 text-label text-[1rem]" />
+          </span>
+          <span className="inline-flex relative items-center justify-center w-[2rem] h-[2rem]"
+            onClick={(e) => {
+              e.stopPropagation();
+              toggle_favorite_song(song_info.song_name, is_favorite, () => {
+                set_is_favorite(!is_favorite);
+                if (!is_favorite) {
+                  set_show_love(true);
+                }
+              });
+            }}
+          >
+            {is_favorite ? (
+              <BsBookmarkHeartFill className="text-oen-red text-[1rem]" />
+            ) : (
+              <BsBookmarkPlus className="text-label text-[1rem]" />
+            )}
+            {
+              show_love ?
+              <motion.div className="absolute h-[2rem] w-[2rem] bg-black rounded-full overflow-hidden top-0 right-0 left-0 bottom-0"
+                initial={{ opacity: 0, scale: 0, transform: 'translateY(0px)' }}
+                animate={{ opacity: [0, 1, 1, 1, 0], scale: [0, 1, 1, 1, 1], transform: 'translateY(-15px)' }}
+                onAnimationComplete={() => set_show_love(false)}
+              >
+                <Image src="/assets/images/emoticon_love.webp" alt="artwork"
+                  width={0} height={0} sizes="100vw" layout="fill" unoptimized
+                />
+              </motion.div>
+              : null
+            }
+          </span>
+        </div>
+        <span className={`ml-[0.5rem] h-[1.2rem] inline-flex 
+          items-center rounded-full
+          px-2 py-1 font-medium 
+        text-palette-9 ring-1 ring-inset 
+        ring-palette-9 text-xs shrink-0
+          transition-colors duration-100 ${has_record ? 'hidden' : 'inline'}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            EffThis.play_music_at(song_idx)
+          }}
+          >
+          <div className="inline">
+            无记录
+          </div>
+        </span>
+        </div>
+      </>
+    );
+}
+
 
 export default function SongList
   ({ props: [List, EffThis,] }) {
@@ -158,7 +273,9 @@ export default function SongList
         if (bvid_list_plain.length) {
           out.BVID = bvid_list_plain;
           out.bili2_icon = <>
-            <PillList props={[song_info, song_idx, out.BVID, EffThis]} />
+            <div className="hidden sm:inline">
+              <PillList props={[song_info, song_idx, out.BVID, EffThis]} />
+            </div>
           </>;
         }
         bvid_list = bvid_list_plain.split(/，/g);
@@ -186,61 +303,75 @@ export default function SongList
             onClick={
               () => global_controllers.copy_to_clipboard(song_info.song_name)
             }>
-            <div className="flex flex-row items-center h-[4.5rem]">
-              <div className="inline shrink-0 ml-3 w-[3.5rem] h-[3.5rem] relative">
-                <Image src={artwork_url} alt="artwork"
-                  className="rounded-md shrink-0 text-sm object-cover"
-                  unoptimized
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = '/favicon.png';
-                  }}
-                  layout="fill" objectFit="cover"
-                  width={0} height={0} size="100vw" loader={({src}) => src} 
-                />
-              </div>
-              <div className="">
-              <div className="song-table-song-name 
-                  group/songname items-center flex pl-[0.8rem] 
-                  grouptext-white sm:pt-[0.5rem]
-                  transition-colors duration-100">
-                <span className="mr-[0.5rem]
-                    inline
-                    sm:group-hover/songname:hidden">
-                  <BsMusicNoteBeamed className="text-label"/>
-                </span>
-                <span className="flex flex-wrap items-center">
-                  <span className="inline-flex align-middle items-center">
-                    <span className="sm:group-hover/songname:underline text-base text-label">
-                      {song_info.song_name.replace(/\s/g, '  ')}
-                    </span>
-                    <BsCopy className="ml-[0.5rem] opacity-[.0] 
-                          hidden
-                          h-[1rem] text-label
-                          sm:group-hover/songname:opacity-100 
-                          sm:group-hover/songname:inline
-                          transition-opacity duration-100"
-                    />
-                  </span>
-                  {out.bili2_icon}
-                </span>
-              </div>
-              <div className="break-all text-sm font-normal pl-[0.8rem] sm:pb-[0.5rem]">
-                <div className="sm:hover:underline text-label font-normal" onClick={
-                  (event) => {
-                    event.stopPropagation();
-                    global_controllers.copy_to_clipboard(song_info.song_translated_name)
-                  }
-                }>
-                  {out.translated_name}
+            <div className="flex flex-row items-center justify-between">
+              <div className="flex flex-row items-center h-[4.5rem]">
+                <div className="inline shrink-0 sm:ml-3 sm:w-[3.5rem] sm:h-[3.5rem] w-[3rem] h-[3rem] relative">
+                  <Image src={artwork_url} alt="artwork"
+                    className="rounded-md shrink-0 text-sm object-cover"
+                    unoptimized
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = '/favicon.png';
+                    }}
+                    layout="fill" objectFit="cover"
+                    width={0} height={0} size="100vw" loader={({src}) => src} 
+                  />
                 </div>
-                  <span className="text-secondary-label text-xs">{song_info.remarks}</span>
+                <div className="flex flex-col w-full">
+                  <div className="song-table-song-name 
+                      group/songname items-center flex pl-[0.8rem] 
+                      grouptext-white sm:pt-[0.5rem]
+                      transition-colors duration-100">
+                    <span className="flex flex-wrap items-center justify-between w-[100%]">
+                      <span className="inline-flex align-middle items-center">
+                        <span className="mr-[0.5rem]
+                          inline sm:group-hover/songname:hidden">
+                        <BsMusicNoteBeamed className="text-label text-sm sm:text-base"/>
+                        </span>
+                        <span className="sm:group-hover/songname:underline text-sm 
+                          sm:text-base text-label text-nowrap max-w-[50vw] 
+                          overflow-hidden text-ellipsis sm:overflow-visible">
+                          {song_info.song_name.replace(/\s/g, '  ')}
+                        </span>
+                        <BsCopy className="ml-[0.5rem] opacity-[.0] 
+                              hidden
+                              h-[1rem] text-label
+                              sm:group-hover/songname:opacity-100 
+                              sm:group-hover/songname:inline
+                              transition-opacity duration-100"
+                        />
+                      </span>
+                    </span>
+                  </div>
+                  <div className="break-all text-sm font-normal pl-[0.8rem] sm:pb-[0.5rem]">
+                    <div className="sm:hover:underline text-label font-normal" onClick={
+                      (event) => {
+                        event.stopPropagation();
+                        global_controllers.copy_to_clipboard(song_info.song_translated_name)
+                      }
+                    }>
+                      {out.translated_name}
+                    </div>
+                    <span className="text-secondary-label text-xs hidden sm:block">{song_info.remarks}</span>
+                  </div>
+                  <div className="flex flex-row flex-nowrap">
+                    <div className="block sm:hidden pl-[0.8rem] text-xs text-secondary-label text-nowrap max-w-[30vw]
+                      overflow-hidden sm:overflow-visible sm:text-wrap text-ellipsis">
+                      {song_info.artist}
+                    </div>
+                    <div className="block sm:hidden pl-[0.3rem] text-xs text-secondary-label text-nowrap max-w-[50vw]
+                      overflow-hidden sm:overflow-visible sm:text-wrap text-ellipsis">
+                      {out.last_date}
+                    </div>
+                  </div>
+                </div>
               </div>
-              </div>
+              <CompactButtonList props={[song_info, song_idx, out.BVID, EffThis]} />
+              {out.bili2_icon}
             </div>
           </td>
-          <td className="break-all text-sm text-secondary-label pl-[0.8rem]">{song_info.artist}</td>
-          <td className="text-nowrap w-min-[120px] text-secondary-label pl-[0.8rem] text-sm">{out.last_date}</td>
+          <td className="break-all text-sm text-secondary-label pl-[0.8rem] hidden sm:block">{song_info.artist}</td>
+          <td className="text-nowrap w-min-[120px] text-secondary-label pl-[0.8rem] text-sm hidden sm:block">{out.last_date}</td>
         </tr>
       )
     }
@@ -254,7 +385,6 @@ export default function SongList
         [&_tr]:pr-0 
         [&_tr]:pb-0
         [&_tr]:pl-2
-        [&_tr>td]:block
         [&_tr>td:hover]:bg-opacity-0
         [&_tr>td]:sm:table-cell
         [&_tr>td]:sm:text-left 
