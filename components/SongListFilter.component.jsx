@@ -26,26 +26,25 @@ import {
 
 export default function SongListFilter({ props: [ filter_state, searchBox, EffThis, ] }) {
   return (
-    <div className="block mt-3">
+    <div className="block">
       <div className="w-full left-0 pr-3">
         <div className="pl-3 
           inline-flex text-subtitle 
-          font-semibold text-white 
-          items-center sm:hidden"
+          font-semibold items-center sm:hidden text-secondary-label mb-2"
         >
           <AdjustmentsHorizontalIcon className="inline h-6 w-6 mr-1" />
           <span>筛选</span>
         </div>
         <div className="inline-flex items-center w-full flex-wrap sm:!flex-nowrap pl-3">
-          <div class="relative rounded-xl shadow-sm 
+          <div className="relative rounded-xl shadow-sm 
             justify-center mr-2 mb-2 grow hidden sm:inline-block">
-            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-              <span class="text-gray-500 sm:text-sm">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <span className="text-gray-500 sm:text-sm">
                 <MagnifyingGlassIcon className="inline h-5 w-5 ml-0" />
               </span>
             </div>
-            <input type="text" class="block w-full rounded-xl border-0 
-              py-1.5 pl-10 pr-20 text-gray-900 ring-1 
+            <input type="text" className="block w-full rounded-xl border-0 
+              py-1.5 pl-10 pr-20 text-gray-900 ring-1 focus:outline-palette-7
               ring-inset ring-gray-300 placeholder:text-gray-400 
               focus:ring-0 focus:ring-inset focus:ring-oen-color-1
               sm:text-sm sm:leading-6" placeholder="搜索"
@@ -58,13 +57,14 @@ export default function SongListFilter({ props: [ filter_state, searchBox, EffTh
             ]}
           />
           {
-            config.LanguageCategories.map((lang) => (
+            config.LanguageCategories.map((lang, idx) => (
               <LanguageFilterBtn
-                  props={[
-                    filter_state.lang === lang, lang, EffThis,
-                  ]}
-                />
-              ))
+                key={idx}
+                props={[
+                  filter_state.lang === lang, lang, EffThis,
+                ]}
+              />
+            ))
           }
           <SortBtn
             props={[
@@ -81,17 +81,17 @@ export default function SongListFilter({ props: [ filter_state, searchBox, EffTh
           />
           <RandomFilterBtn />
         </div>
-        <div class="relative pl-3">
-          <div class="relative rounded-xl shadow-sm 
+        <div className="relative pl-3">
+          <div className="relative rounded-xl shadow-sm 
             justify-center mr-2 mb-2 w-full inline-block sm:hidden">
-            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-              <span class="text-gray-500 sm:text-sm">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <span className="text-gray-500 sm:text-sm">
                 <MagnifyingGlassIcon className="inline h-5 w-5 ml-0" />
               </span>
             </div>
-            <input type="text" class="block w-full rounded-xl border-0 
+            <input type="text" className="block w-full rounded-xl border-0 
             py-1.5 pl-10 pr-20 text-gray-900
-            ring-inset placeholder:text-gray-400 
+            ring-inset placeholder:text-gray-400 focus:outline-palette-7
             focus:ring-0 focus:ring-inset focus:ring-oen-color-1
             sm:text-sm sm:leading-6 text-sm" placeholder="搜索"
               onChange={(e) => EffThis.do_set_search(e.target.value)}
@@ -113,7 +113,7 @@ const LocalSongListBtn = ({ props: [ is_active, EffThis, ] }) => {
       mr-2 mb-2
       `}
     >
-      <button type="button" class="justify-center
+      <button type="button" className="justify-center
           p-2 py-2 text-sm pr-4 inline-flex items-center"
         id="menu-button" aria-expanded="true" aria-haspopup="true"
         onClick={(e) => {
@@ -138,7 +138,7 @@ function LanguageFilterBtn ({ props: [ is_active, lang, EffThis, ] }) {
          ${is_active ? 'text-oen-color-9' : 'text-gray-900'}
          `}
     >
-      <button type="button" class="justify-center
+      <button type="button" className="justify-center
           p-2 py-2 text-sm pr-4 inline-flex items-center"
         id="menu-button" aria-expanded="true" aria-haspopup="true"
         onClick={(e) => {
@@ -166,7 +166,7 @@ function RandomFilterBtn () {
          ring-inset ring-gray-300 bg-white mr-2 mb-2
          shrink-0"
     >
-      <button type="button" class="justify-center
+      <button type="button" className="justify-center
           p-2 py-2 text-sm pr-4 inline-flex items-center"
         id="menu-button" aria-expanded="true" aria-haspopup="true"
         title="从下面的歌单里随机挑一首"
