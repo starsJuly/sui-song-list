@@ -3,6 +3,10 @@ import Image from "next/legacy/image";
 import config from '../config/constants';
 import { song_list } from "../config/song_list";
 
+import {
+  HiHeart
+} from "react-icons/hi";
+
 const HomeList = () => {
   return(
     <>
@@ -23,6 +27,7 @@ const HomeList = () => {
                   sm:hover:shadow-2xl sm:hover:scale-110 transition-all duration-300
                 `}
                 onClick={() => window.open(c.url)}
+                key={idx}
               >
                 <Image 
                   src={c.icon}
@@ -48,7 +53,7 @@ const HeaderView = ({ props: [filter_state, EffThis,] }) => {
   return(
     <>
       <div>
-        <div className='pt-[20rem]'>
+        <div className='pt-[15rem] sm:pt-[25rem]'>
         <div className='flex items-center'>
           <div className="mr-2 ml-[1rem] hidden relative sm:w-[9rem] sm:h-[9rem] sm:block">
             <Image src="/assets/images/banner_image.webp" 
@@ -70,9 +75,12 @@ const HeaderView = ({ props: [filter_state, EffThis,] }) => {
                   className='rounded-full'
                 />
               </div>
-              <div className='text-base text-label flex-col'>
+              <div className='text-base text-label flex-col relative'>
                 <span className='font-bold block sm:text-title'> {config.Name} </span>
                 <span className='sm:text-subtitle'> 已收录的歌曲 {song_list.length} 首 </span>
+                <HiHeart className='absolute text-palette-2
+                 top-[-1px] text-[0.35rem] left-[3.02rem]
+                 sm:top-[-3px] sm:left-[6.53rem] sm:text-base' />
               </div>
             </div>
             <HomeList />
