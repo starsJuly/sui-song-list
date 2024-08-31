@@ -24,6 +24,8 @@ import {
   BsDice6
 } from "react-icons/bs";
 
+import Image from "next/legacy/image";
+
 export default function SongListFilter({ props: [ filter_state, searchBox, EffThis, ] }) {
   return (
     <div className="block">
@@ -32,7 +34,12 @@ export default function SongListFilter({ props: [ filter_state, searchBox, EffTh
           inline-flex text-subtitle 
           font-semibold items-center sm:hidden text-secondary-label mb-2"
         >
-          <AdjustmentsHorizontalIcon className="inline h-6 w-6 mr-1" />
+          <div className='w-[1.5rem] h-[1.5rem] relative mr-1 rounded-full overflow-hidden'>
+            <Image src={'/assets/images/emoticon_heng.webp'}
+              width={0} height={0} sizes='100vw' layout='fill'
+              unoptimized objectFit='cover' alt='heng'
+            />
+          </div>
           <span>筛选</span>
         </div>
         <div className="inline-flex items-center w-full flex-wrap sm:!flex-nowrap pl-3">
