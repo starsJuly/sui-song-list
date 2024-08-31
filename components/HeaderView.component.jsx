@@ -49,14 +49,47 @@ const HomeList = () => {
   )
 }
 
-const HeaderView = ({ props: [filter_state, EffThis,] }) => {
+const StyledI = ({handle_click}) => {
+  const [text, set_text] = useState('点点试试呢');
+  const [clicks, set_clicks] = useState(1);
+  useEffect(() => {
+    if (clicks > 5) {
+      set_text("哇哇哇");
+    } else if (clicks > 2) {
+      set_text("再多试几次");
+    }
+  })
+  return (
+    <div className="absolute bottom-0 right-0 text-base sm:text-title flex flex-col items-center text-label group/heart pointer-events-none">
+      <div className='font-normal text-base absolute right-0 bottom-[3rem] shrink-0 w-[5.5rem] hidden sm:group-hover/heart:inline text-right'>
+        {text}
+      </div>
+      <HiHeart className="font-semibold text-palette-2 text-[0.35rem] sm:text-base absolute bottom-[1.1rem] sm:bottom-[2.3rem] pointer-events-auto" 
+        onClick={() => {
+          handle_click();
+          set_clicks(clicks+1);
+        }}
+        />
+      <span className="font-semibold">I</span>
+    </div>
+  );
+}
+
+const HeaderView = () => {
+  const [clicks, set_clicks] = useState(1);
+  const [avatar_url, set_avatar_url] = useState('/assets/images/banner_image.webp');
+  useEffect(() => {
+    if (clicks > 5) {
+      set_avatar_url("/assets/images/emoticon_love.webp");
+    }
+  }, [clicks]);
   return(
     <>
       <div>
         <div className='pt-[15rem] sm:pt-[25rem]'>
         <div className='flex items-center'>
           <div className="mr-2 ml-[1rem] hidden relative sm:w-[9rem] sm:h-[9rem] sm:block">
-            <Image src="/assets/images/banner_image.webp" 
+            <Image src={avatar_url} 
               alt="liver-avatar"
               loader={({src}) => src}
               layout='fill' objectFit='contain'
@@ -67,7 +100,7 @@ const HeaderView = ({ props: [filter_state, EffThis,] }) => {
           <div className='flex flex-col items-start'>
             <div className='flex items-center mb-3 ml-[1rem]'>
               <div className="mr-2 w-[3.5rem] h-[3.5rem] relative sm:hidden">
-                <Image src="/assets/images/banner_image.webp"
+                <Image src={avatar_url}
                   alt="liver-avatar"
                   loader={({ src }) => src}
                   layout='fill' objectFit='contain'
@@ -75,12 +108,16 @@ const HeaderView = ({ props: [filter_state, EffThis,] }) => {
                   className='rounded-full'
                 />
               </div>
-              <div className='text-base text-label flex-col relative'>
-                <span className='font-bold block sm:text-title'> {config.Name} </span>
+              <div className='text-base text-label flex-col relative' >
+                <span className='font-bold block sm:text-title w-fit relative'> 
+                  <span>{config.Name}</span>
+                  <StyledI className='absolute top-0 right-0' handle_click={
+                    () => {
+                      set_clicks(clicks+1);
+                    }
+                  }/>
+                </span>
                 <span className='sm:text-subtitle'> 已收录的歌曲 {song_list.length} 首 </span>
-                <HiHeart className='absolute text-palette-2
-                 top-[-1px] text-[0.35rem] left-[3.02rem]
-                 sm:top-[-3px] sm:left-[6.53rem] sm:text-base' />
               </div>
             </div>
             <HomeList />
