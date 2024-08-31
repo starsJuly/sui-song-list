@@ -58,7 +58,7 @@ const StyledI = ({handle_click}) => {
     } else if (clicks > 2) {
       set_text("再多试几次");
     }
-  })
+  }, [clicks]);
   return (
     <div className="absolute bottom-0 right-0 text-base sm:text-title flex flex-col items-center text-label group/heart pointer-events-none">
       <div className='font-normal text-base absolute right-0 bottom-[3rem] shrink-0 w-[5.5rem] hidden sm:group-hover/heart:inline text-right'>
