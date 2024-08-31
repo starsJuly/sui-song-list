@@ -16,7 +16,7 @@ const HomeList = () => {
               <div 
                 className={`
                   ${c.textcolor} ${c.background} ${c.shadowcolor}
-                  flex items-center rounded-full shrink-0
+                  flex items-center rounded-full shrink-0 
                   ${idx == 0 ? "ml-[1rem]" : "ml-2"}
                   ${idx == config.HomeList.length-1 ? "mr-[1rem]" : "mr-0"}
                   px-[0.7em] py-[0.3em] relative space-x-2
@@ -48,6 +48,7 @@ const HeaderView = ({ props: [filter_state, EffThis,] }) => {
   return(
     <>
       <div>
+        <div className='pt-[20rem]'>
         <div className='flex items-center'>
           <div className="mr-2 ml-[1rem] hidden relative sm:w-[9rem] sm:h-[9rem] sm:block">
             <Image src="/assets/images/banner_image.webp" 
@@ -69,13 +70,14 @@ const HeaderView = ({ props: [filter_state, EffThis,] }) => {
                   className='rounded-full'
                 />
               </div>
-              <div className='text-base text-white flex-col'>
+              <div className='text-base text-label flex-col'>
                 <span className='font-bold block sm:text-title'> {config.Name} </span>
                 <span className='sm:text-subtitle'> 已收录的歌曲 {song_list.length} 首 </span>
               </div>
             </div>
             <HomeList />
           </div>
+        </div>
         </div>
       </div>
     </>
