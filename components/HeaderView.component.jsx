@@ -54,7 +54,7 @@ const StyledI = ({handle_click}) => {
   const [clicks, set_clicks] = useState(1);
   useEffect(() => {
     if (clicks > 5) {
-      set_text("哇哇哇");
+      set_text("bgs1314baobaomuamualovelove");
     } else if (clicks > 2) {
       set_text("再多试几次");
     }
@@ -80,7 +80,7 @@ const HeaderView = () => {
   const [avatar_url, set_avatar_url] = useState('/assets/images/banner_image.webp');
   useEffect(() => {
     if (clicks > 5) {
-      set_avatar_url("/assets/images/emoticon_love.webp");
+      set_avatar_url("/assets/images/emoticon_bgs1314baobaomuamualovelove.webp");
     }
   }, [clicks]);
   return(
