@@ -122,10 +122,9 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
   }, [currentSong, artworkUrl]);
 
   const fetch_artwork = async (bvid) => {
-    let url = info_url + bvid;
-    const response = await fetch(url);
-    const data = await response.json();
-    setArtworkUrl(data_url + data["artwork"]);
+    setArtworkUrl(
+      `https://api.suij1sui.space/api/v1/video/info?bvid=${bvid}&pic=1`
+    );
   }
 
   useEffect(() => {
@@ -211,6 +210,7 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
                 await fetch_artwork(bvid);
               }
             }
+            unoptimized
           />
         </div>
         <div className="m-2 inline"
