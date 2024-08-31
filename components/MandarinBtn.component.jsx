@@ -21,7 +21,7 @@ export default function MandarinBtn(
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div class="relative inline-block text-left mr-2 mb-2 shrink-0">
+    <div className="relative inline-block text-left mr-2 mb-2 shrink-0">
       <div className={`relative inline-flex justify-center gap-x-1.5
          rounded-xl text-sm shadow-sm ring-1 
          ring-inset ring-gray-300 hover:bg-gray-50"
@@ -35,7 +35,7 @@ export default function MandarinBtn(
         <div className={`relative flex items-center divide-x divide-solid 
           ${filter_state === '华语' ? 'divide-white' : 'divide-gray-300'}`}
         >
-          <button type="button" class="inline justify-center gap-x-3
+          <button type="button" className="inline justify-center gap-x-3
             px-2 py-2 text-sm pr-4" 
             id="menu-button" aria-expanded="true" aria-haspopup="true"
             onClick={(e) => {
@@ -65,8 +65,8 @@ export default function MandarinBtn(
           ring-opacity-5 focus:outline-none 
           ease-out duration-100 h-[10rem] overflow-y-auto transition-all
           transform ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95"}`} 
-          role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-          <div class="py-1" role="none">
+          role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
+          <div className="py-1" role="none">
             {
               alphabets.map(
                 (alphabet) => (
@@ -82,7 +82,7 @@ export default function MandarinBtn(
                     className={`block px-4 py-2 text-sm text-gray-700 
                       ${alphabet === filter_state.initial ? 'bg-oen-color-1' : 'bg-white'}
                     `} 
-                    role="menuitem" tabindex="-1" id="menu-item-3"
+                    role="menuitem" tabIndex="-1" id="menu-item-3"
                     key={ alphabet }
                   >
                     首字母-{ alphabet }

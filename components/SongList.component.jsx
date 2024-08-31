@@ -9,10 +9,14 @@ import {
   BsBookmarkPlus,
   BsBookmarkHeartFill,
 } from "react-icons/bs";
+
 import {
   useEffect,
   useState
 } from "react";
+
+import Image from "next/legacy/image";
+
 import { is_favorite_song, toggle_favorite_song } from "../config/controllers";
 
 export const bili2_icon = () => {
@@ -44,7 +48,7 @@ const PillList = ({ props: [song_info, song_idx, BVID, EffThis,] }) => {
   useEffect(() => {
     const is_local = is_favorite_song(song_info.song_name);
     set_is_favorite(is_local);
-  }, [EffThis]);
+  }, [EffThis, song_info]);
 
   return (
     <>
@@ -183,14 +187,16 @@ export default function SongList
               () => global_controllers.copy_to_clipboard(song_info.song_name)
             }>
             <div className="flex flex-row items-center h-[4.5rem]">
-              <div className="inline shrink-0 pl-3">
-                <img src={artwork_url} alt="artwork"
-                  className="w-[3.5rem] h-[3.5rem] rounded-md 
-                    shrink-0 text-sm object-cover"
+              <div className="inline shrink-0 ml-3 w-[3.5rem] h-[3.5rem] relative">
+                <Image src={artwork_url} alt="artwork"
+                  className="rounded-md shrink-0 text-sm object-cover"
+                  unoptimized
                   onError={(e) => {
                     e.target.onerror = null;
                     e.target.src = '/favicon.png';
                   }}
+                  layout="fill" objectFit="cover"
+                  width={0} height={0} size="100vw" loader={({src}) => src} 
                 />
               </div>
               <div className="">
