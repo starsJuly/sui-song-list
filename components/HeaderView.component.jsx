@@ -12,7 +12,7 @@ const HomeList = () => {
     <>
       <div className='flex items-center
         flex-nowrap w-full overflow-x-auto
-        no-scrollbar overflow-y-visible py-3'
+        no-scrollbar overflow-y-visible py-1'
       >
         {
           config.HomeList.map((c, idx) => {
@@ -96,7 +96,7 @@ const HeaderView = () => {
             />
           </div>
           <div className='flex flex-col items-start'>
-            <div className='flex items-center ml-[1rem]'>
+            <div className='flex items-center ml-[1rem] mb-2'>
               <div className="mr-2 w-[3.5rem] h-[3.5rem] relative sm:hidden">
                 <Image src={avatar_url}
                   alt="liver-avatar"
