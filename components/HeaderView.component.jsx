@@ -12,36 +12,34 @@ const HomeList = () => {
     <>
       <div className='flex items-center
         flex-nowrap w-full overflow-x-auto
-        no-scrollbar overflow-y-visible'
+        no-scrollbar overflow-y-visible py-3'
       >
         {
           config.HomeList.map((c, idx) => {
             return (
-              <div 
+              <div
                 className={`
                   ${c.textcolor} ${c.background} ${c.shadowcolor}
                   flex items-center rounded-full shrink-0 
                   ${idx == 0 ? "ml-[1rem]" : "ml-2"}
-                  ${idx == config.HomeList.length-1 ? "mr-[1rem]" : "mr-0"}
+                  ${idx == config.HomeList.length - 1 ? "mr-[1rem]" : "mr-0"}
                   px-[0.7em] py-[0.3em] relative space-x-2
-                  sm:hover:shadow-2xl sm:hover:scale-110 transition-all duration-300
+                  sm:hover:scale-110 transition-all duration-300
                 `}
                 onClick={() => window.open(c.url)}
                 key={idx}
               >
-                <Image 
+                <Image
                   src={c.icon}
                   alt={c.name}
                   width={16}
                   height={16}
-                  loader={({src}) => src}
+                  loader={({ src }) => src}
                   unoptimized
                 />
-                <span className='text-sm'>
-                  {c.name}
-                </span>
+                <span className="text-sm">{c.name}</span>
               </div>
-            )
+            );
           })
         }
       </div>
@@ -98,7 +96,7 @@ const HeaderView = () => {
             />
           </div>
           <div className='flex flex-col items-start'>
-            <div className='flex items-center mb-3 ml-[1rem]'>
+            <div className='flex items-center ml-[1rem]'>
               <div className="mr-2 w-[3.5rem] h-[3.5rem] relative sm:hidden">
                 <Image src={avatar_url}
                   alt="liver-avatar"
