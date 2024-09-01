@@ -148,6 +148,9 @@ export default function Home() {
         />
         <meta name = "description" content = { `${ config.Name }的歌单` }/>
         <link rel = "icon" type = "image/x-icon" href = "/favicon.png"></link>
+        <link rel='preload' href='/assets/images/emoticon_love.webp' as='image' />
+        <link rel='preload' href='/assets/images/emoticon_stars_in_your_eyes.webp' as='image' />
+        <link rel='preload' href='/assets/images/emoticon_bgs1314baobaomuamualovelove.webp' as='image' />
       </Head>
 
       <div className='z-[100] bg-gradient-to-b 
