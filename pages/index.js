@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect, useState } from 'react'
 
 import Head from 'next/head'
 import Link from 'next/link'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 
 import styles from '../styles/Home.module.css'
 import 'react-toastify/dist/ReactToastify.css'
@@ -14,6 +14,8 @@ import SongList from '../components/SongList.component'
 import BiliPlayerModal from '../components/BiliPlayerModal.component'
 import SongListFilter from '../components/SongListFilter.component'
 import MusicPlayerView from '../components/MusicPlayerView.component'
+import HeaderView from '../components/HeaderView.component'
+import FeaturedSongList from '../components/FeaturedSongList.component'
 
 import imageLoader from '../utils/ImageLoader'
 
@@ -25,33 +27,13 @@ import styled, { css } from "styled-components";
 
 import { song_list } from '../config/song_list'
 
-const calcOffset = (y) => {
-  return y * 100 / document.documentElement.scrollHeight;
-}
-
-const BackdropContainer = styled.div.attrs(props => ({
-  style: {
-    backgroundPosition: `0% ${props.offset}%`,
-  }
-}))``;
+import headerImage from '../public/assets/images/header.png'
 
 const BackgroundView = () => {
-  const [offset, setOffset] = useState(0);
-  useEffect(() => {
-    const onScroll = () => {
-      setOffset(calcOffset(window.scrollY));
-    };
-    window.addEventListener("scroll", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
-
   return (
-    <BackdropContainer
+    <div
       className={styles.outerContainer}
       style={{ cursor: theme.cursor.normal }}
-      offset={offset}
     />
   );
 };
@@ -99,52 +81,116 @@ export default function Home() {
     EffThis.play_music_at = (idx) => {
       eff_set(EffThis, 'currently_playing', idx);
     }
+    EffThis.play_music_for_name = (name) => { 
+      console.error("find name: "+name)
+      const idx = EffThis.current_album.findIndex(song => song.song_name === name);
+      if (idx !== -1) {
+        eff_set(EffThis, 'currently_playing', idx);
+      }
+    }
   }, [ EffThis ]);
 
+  // state variables
+  const [filter_state] = EffThis.filter_state = useState({
+    lang: "",
+    initial: "",
+    paid: false,
+    remark: "",
+    sorting_method: "not_recently",
+    is_local: false,
+  });
+
+  const [searchBox, setSearchBox] = EffThis.searchBox = useState('');
+
+  // EffThis.functions
+  useEffect(() => {
+    //语言过滤
+    EffThis.do_filter_lang = (lang) => eff_set(EffThis, 'filter_state', {
+      ...eff_get(EffThis, 'filter_state'),
+      lang: lang,
+      initial: "",
+      paid: false,
+      remark: ""
+    });
+
+    //首字母过滤
+    EffThis.do_filter_initial = (initial) => eff_set(EffThis, 'filter_state', {
+      ...eff_get(EffThis, 'filter_state'),
+      lang: "华语",
+      initial: initial,
+      paid: false,
+      remark: "",
+    });
+
+    EffThis.do_sort = (method) => eff_set(EffThis, 'filter_state', {
+      ...eff_get(EffThis, 'filter_state'),
+      sorting_method: method
+    });
+
+    EffThis.do_filter_local = (is_local) => eff_set(EffThis, 'filter_state', {
+      ...eff_get(EffThis, 'filter_state'),
+      is_local: is_local
+    });
+
+    EffThis.do_set_search = (search) => eff_set(EffThis, 'searchBox', search);
+
+  }, [EffThis]);
+  
+  const title = `${config.Name}的歌单`;
   return (
     <div>
       <BackgroundView/>
       <Head>
-        <title>{ config.Name }的歌单</title>
+        <title>{title}</title>
         <meta
           name = "keywords"
           content = { `B站,bilibili,哔哩哔哩,vtuber,虚拟主播,电台唱见,歌单,${ config.Name }` }
         />
         <meta name = "description" content = { `${ config.Name }的歌单` }/>
         <link rel = "icon" type = "image/x-icon" href = "/favicon.png"></link>
-        <link rel = 'preload' href = '/assets/images/background_2x_opt.webp' as = 'image'/>
+        <link rel='preload' href='/assets/images/emoticon_love.webp' as='image' />
+        <link rel='preload' href='/assets/images/emoticon_stars_in_your_eyes.webp' as='image' />
+        <link rel='preload' href='/assets/images/emoticon_bgs1314baobaomuamualovelove.webp' as='image' />
       </Head>
 
-      <div className={styles.contentContainer}>
-      <CornerIcons />
-
-      <section className = { styles.main }>
-        <Title />
-        <FilteredList props={[ EffThis ]} />
-        <MusicPlayerView
-          props={[currently_playing, EffThis]}
-        />
-      </section>
-
-      <FixedTool />
-        
-      <Link href = { config.Repository } passHref>
-        <footer className = { styles.footer }>
-          <Image
-            loader = { imageLoader }
-            alt = ''
-            width = {32}
-            height = {32}
-            src = 'assets/images/github.png'
+      <div className='z-[100] bg-gradient-to-b 
+        from-transparent to-[30rem] w-screen'>
+        <div className='absolute right-0 top-0 w-full sm:w-[80%]'>
+          <Image src={headerImage}
+            className={`header-image`}
+            alt="header" unoptimized
+            loader={({src}) => src}
           />
-          <a>{ config.Footer }</a>
-        </footer>
-      </Link>
-      <BiliPlayerModal
-        props = {[
-          bili_player_title, bili_player_visibility, bvid_list, bvid_selected, EffThis
-        ]}
-      />
+        </div>
+        <section className = { styles.main }>
+          <HeaderView />
+          <FeaturedSongList props={[EffThis]}/>
+          <SongListFilter props={[filter_state, searchBox, EffThis]} />
+          <FilteredList props={[ filter_state, searchBox, EffThis ]} />
+          <MusicPlayerView
+            props={[currently_playing, EffThis]}
+          />
+        </section>
+
+        <FixedTool />
+          
+        <Link href = { config.Repository } passHref>
+          <footer className = { styles.footer }>
+            <Image
+              loader = { imageLoader }
+              alt = ''
+              width = {32}
+              height = {32}
+              src = 'assets/images/github.png'
+            />
+            {/* <a>{ config.Footer }</a> */}
+          </footer>
+        </Link>
+        <BiliPlayerModal
+          props = {[
+            bili_player_title, bili_player_visibility, bvid_list, bvid_selected, EffThis
+          ]}
+        />
       </div>
     </div>
   );
@@ -192,50 +238,7 @@ function CornerIcons () {
 import { content_contains } from '../utils/search_engine'
 
 /** 过滤器控件 */
-const FilteredList = memo(function FilteredList({ props: [ EffThis ] }) {
-  // state variables
-  const [filter_state] = EffThis.filter_state = useState({
-    lang: "",
-    initial: "",
-    paid: false,
-    remark: "",
-    sorting_method: "not_recently",
-    is_local: false,
-  });
-  
-  const [searchBox, setSearchBox] = EffThis.searchBox = useState('');
-
-  // EffThis.functions
-  useEffect(() => {
-    //语言过滤
-    EffThis.do_filter_lang = (lang) => eff_set(EffThis, 'filter_state', {
-      ...eff_get(EffThis, 'filter_state'),
-      lang: lang,
-      initial: "",
-      paid: false,
-      remark: ""
-    });
-
-    //首字母过滤
-    EffThis.do_filter_initial = (initial) => eff_set(EffThis, 'filter_state', {
-      ...eff_get(EffThis, 'filter_state'),
-      lang: "华语",
-      initial: initial,
-      paid: false,
-      remark: "",
-    });
-
-    EffThis.do_sort = (method) => eff_set(EffThis, 'filter_state', {
-      ...eff_get(EffThis, 'filter_state'),
-      sorting_method: method
-    });
-
-    EffThis.do_filter_local = (is_local) => eff_set(EffThis, 'filter_state', {
-      ...eff_get(EffThis, 'filter_state'),
-      is_local: is_local
-    });
-    
-  }, [ EffThis ]);
+const FilteredList = memo(function FilteredList({ props: [ filter_state, searchBox, EffThis ] }) {
 
   //过滤歌单列表
   const filteredSongList = song_list
@@ -314,21 +317,6 @@ const FilteredList = memo(function FilteredList({ props: [ EffThis ] }) {
 
   return (
     <>
-      <div>
-        <Col xs = {12} md = {12}>
-          <Form.Control
-            className = {styles.filters}
-            style = {{ cursor: theme.cursor.text }}
-            type = 'search'
-            aria-label = '搜索'
-            placeholder = '搜索'
-            onChange = { (e) => setSearchBox(e.target.value) }
-          />
-        </Col>
-      </div>
-      <div>
-        <SongListFilter props = {[ filter_state, EffThis ]}/>
-      </div>
       <SongListWrapper props = {[ filteredSongList, EffThis ]}/>
     </>
   )
@@ -377,6 +365,17 @@ function SongListWrapper ({ props: [ List, EffThis ] }) {
   return (
     <Container fluid style = {{ minWidth: 'min-content' }}>
      <div className = { styles.songListMarco }>
+        <div className='flex flex-row items-center'>
+          <div className='w-[1.5rem] h-[1.5rem] relative mr-1 rounded-full overflow-hidden'>
+            <Image src={'/assets/images/emoticon_hengheng.webp'}
+              width={0} height={0} sizes='100vw' layout='fill'
+              unoptimized objectFit='cover' alt='hengheng'
+            />
+          </div>
+          <span className='text-subtitle text-secondary-label font-semibold'>
+            全部歌曲
+          </span>
+        </div>
         <SongList props = {[ List, EffThis ]}/>
      </div>
    </Container>

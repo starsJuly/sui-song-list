@@ -6,7 +6,6 @@ html,
 body {
   padding: 0;
   margin: 0;
-  background-color: #DFD1E3;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   scroll-behavior: smooth;
@@ -49,6 +48,10 @@ a {
   width: 10px;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 /* Up Arrow */
 ::-webkit-scrollbar-button:single-button:vertical:decrement {
   border-width: 0 5px 5px 5px;
@@ -70,3 +73,32 @@ a {
   border-color: transparent transparent transparent #1D0C26;
 }
 
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+.featured-list {
+  mask: linear-gradient(90deg, black 90%, transparent 100%);
+}
+
+@media(min-width:640px) {
+  .header-image {
+    mask: radial-gradient(farthest-side at 100% 0%, black 70%, transparent 100%);
+    width: 80%;
+    height: calc(width);
+  }
+}
+
+@media(max-width:640px) {
+  .header-image {
+    mask: linear-gradient(180deg, black 50%, transparent 100%);
+    width: 100%;
+  }
+}

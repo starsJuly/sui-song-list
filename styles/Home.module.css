@@ -24,7 +24,7 @@
 .main {
   min-height: 86vh;
   min-width: min-content;
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
   position: relative;
 }
@@ -35,8 +35,7 @@
 }
 
 .songListMarco {
-  background-color: rgba(255, 255, 255, 0.7);
-  margin: 1rem auto 2rem;
+  margin: 0rem auto 2rem;
   border-radius: .8em;
   max-width: 1200px;
   min-width: min-content;
@@ -74,19 +73,6 @@
   /* cursor: url("/assets/cursor/pointer.png"), pointer; */
   transition: background-color 0.25s ease;
   background-color: rgba(255, 223, 0, 0.1);
-}
-
-.filters {
-  background-color: rgba(255, 255, 255, 0.5);
-  border: none;
-  border-radius: 1rem;
-  margin: 0 auto;
-  max-width: 561px;
-}
-
-.filters:focus {
-  background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: none;
 }
 
 .sortButton,
@@ -353,7 +339,8 @@
 }
 
 .outerContainer {
-  background: url("/assets/images/background_2x_opt.webp") center center no-repeat fixed;
+  /*background: url("/assets/images/background_2x_opt.webp") center center no-repeat fixed;*/
+  background: #F0F8FD;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -361,6 +348,8 @@
   min-width: 100%;
   min-height: 100vh;
   position: fixed;
+  background-attachment: scroll;
+  z-index: -1;
 }
 
 .contentContainer {
@@ -418,8 +407,7 @@
 .song { padding: 5px 0 0 10px; }
 
 .song + .song {
-  margin-bottom: 5px;
-  border-top: #fff dotted 2px;
+  margin-bottom: 3rem;
 }
 
 .icon {

@@ -18,14 +18,36 @@ const config = {
   // 自定义按钮 （可以复制生成更多）
   HomeList: [
     {
+      url: "https://live.bilibili.com/25788785",
+      name: "直播间",
+      icon: "/assets/icon/bilibili_logo_padded.png",
+      background: "bg-bilibili-bg-light",
+      textcolor: "text-bilibili-fg-light",
+      shadowcolor: "shadow-bilibili-fg-light"
+    },
+    {
       url: "https://pome.vip/Gz75k7hF",
       name: "提问箱",
       icon: "/assets/icon/pome.png",
+      background: "bg-pome-bg-light",
+      textcolor: "text-pome-fg-light",
+      shadowcolor: "shadow-pome-fg-light"
     },
     {
       url: "https://weibo.com/u/7785772638",
       name: "微博",
       icon: "/assets/icon/weibo.png",
+      background: "bg-weibo-bg-light",
+      textcolor: "text-weibo-fg-light",
+      shadowcolor: "shadow-weibo-fg-light"
+    },
+    {
+      url: "https://vrp.live/member/SUI",
+      name: "官网介绍",
+      icon: "/assets/images/self_intro.png",
+      background: "bg-vr-bg-light",
+      textcolor: "text-vr-fg-light",
+      shadowcolor: "shadow-vr-fg-light"
     },
   ],
 }
