@@ -157,8 +157,8 @@ export default function Home() {
         from-transparent to-[30rem] w-screen'>
         <div className='absolute right-0 top-0 w-full sm:w-[80%]'>
           <Image src={headerImage}
-            className={`header-image`}
-            alt="header" unoptimized
+            className='header-image'
+            alt="header" unoptimized layout='responsive' 
             loader={({src}) => src}
           />
         </div>
