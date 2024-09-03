@@ -2,12 +2,14 @@ import styles from "../styles/Home.module.css";
 
 import { SplitButton, Dropdown } from "react-bootstrap";
 import { theme } from "../config/constants";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { 
   ChevronDownIcon, 
   PresentationChartLineIcon,
   GlobeAsiaAustraliaIcon
 } from '@heroicons/react/20/solid'
+import { useClickAway } from "react-use";
+import { motion } from "framer-motion";
 
 export default function SortBtn({ props: [
   filter_state,
@@ -23,6 +25,15 @@ export default function SortBtn({ props: [
     'frequently': '唱得比较多？',
   };
   const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef(null);
+  const dropdownRef = useRef(null);
+  
+  useClickAway(ref, (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  });
+
   return (
     <div className="relative inline-block text-left mr-2 mb-2 shrink-0">
       <div className={`relative inline-flex justify-center gap-x-1.5
@@ -30,13 +41,14 @@ export default function SortBtn({ props: [
          ring-inset ring-gray-300 hover:bg-gray-50
          bg-white text-gray-900
          `}
+        ref={ref}
         onClick={() => {
           setIsOpen(!isOpen);
         }}
       >
         <div className="relative flex items-center divide-x divide-solid divide-gray-300"
         >
-          <button type="button" className="inline justify-center gap-x-3
+          <button type="button" className="inline-flex items-center
             px-2 py-2 text-sm pr-4"
             id="menu-button" aria-expanded="true" aria-haspopup="true"
             onClick={(e) => {
@@ -48,21 +60,22 @@ export default function SortBtn({ props: [
             {label_map[filter_state.sorting_method]}
           </button>
           <ChevronDownIcon aria-hidden="true"
-            className={`mr-1 h-6 w-6 inline
-            ${filter_state.lang === '华语' ? "text-oen-color-9" : "text-gray-400"}
-            `}
+            className='mr-1 h-6 w-6 inline'
           />
         </div>
       </div>
-      {(isOpen) && (
-        <div
-          className={`origin-top-right absolute left-0 mt-2 w-32 z-10 
+      {isOpen ? (
+        <motion.div
+          className='origin-top-right absolute left-0 mt-2 w-32 z-10 
           rounded-md shadow-lg 
           bg-white ring-1 ring-black 
           ring-opacity-5 focus:outline-none 
-          ease-out duration-100 h-[10rem] overflow-y-auto transition-all
-          transform ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95"}`} 
-          role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
+          h-[10rem] overflow-y-auto' 
+          role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1"
+          ref={dropdownRef}
+          initial={{ opacity: 0, scale: 0, transform: 'translateY(-15px)' }}
+          animate={{ opacity: [0, 1], scale: [0, 1], transform: 'translateY(0px)' }}
+          >
           <div className="py-1" role="none">
             {
               sort_options.map(
@@ -90,8 +103,8 @@ export default function SortBtn({ props: [
               )
             }
           </div>
-        </div>
-      )}
+        </motion.div>
+      ) : null }
   </div>
   );
 }
