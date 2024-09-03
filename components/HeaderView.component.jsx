@@ -84,7 +84,7 @@ const HeaderView = () => {
   return(
     <>
       <div>
-        <div className='pt-[15rem] sm:pt-[25rem]'>
+        <div className='pt-[15rem] sm:pt-[25rem] 5xl:pt-[35rem]'>
         <div className='flex items-center'>
           <div className="mr-2 ml-[1rem] hidden relative sm:w-[9rem] sm:h-[9rem] sm:block">
             <Image src={avatar_url} 

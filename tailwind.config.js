@@ -85,6 +85,11 @@ module.exports = {
         }, 
         'non_photo_blue': { DEFAULT: '#9BE0FC', 100: '#02394f', 200: '#05739e', 300: '#07aced', 400: '#4dc9f9', 500: '#9be0fc', 600: '#b0e7fd', 700: '#c4edfd', 800: '#d7f3fe', 900: '#ebf9fe' }, 'jordy_blue': { DEFAULT: '#99C7F3', 100: '#082947', 200: '#11528e', 300: '#197ad6', 400: '#53a2eb', 500: '#99c7f3', 600: '#afd3f6', 700: '#c3def8', 800: '#d7e9fa', 900: '#ebf4fd' }, 'uranian_blue': { DEFAULT: '#B3D6F6', 100: '#092b4c', 200: '#125798', 300: '#1b82e3', 400: '#66aced', 500: '#b3d6f6', 600: '#c1ddf8', 700: '#d0e6fa', 800: '#e0eefb', 900: '#eff7fd' }, 'alice_blue': { DEFAULT: '#F0F8FD', 100: '#0c3a57', 200: '#1874ae', 300: '#43a7e5', 400: '#9ad0f1', 500: '#f0f8fd', 600: '#f4fafe', 700: '#f7fbfe', 800: '#fafcfe', 900: '#fcfeff' }, 'white': { DEFAULT: '#FEFEFE', 100: '#333333', 200: '#666666', 300: '#999999', 400: '#cccccc', 500: '#fefefe', 600: '#ffffff', 700: '#ffffff', 800: '#ffffff', 900: '#ffffff' }, 'argentinian_blue': { DEFAULT: '#70B9F2', 100: '#062740', 200: '#0c4e81', 300: '#1275c1', 400: '#2e99ec', 500: '#70b9f2', 600: '#8bc7f4', 700: '#a8d5f7', 800: '#c5e3fa', 900: '#e2f1fc' }, 'air_superiority_blue': { DEFAULT: '#7C9DB4', 100: '#162027', 200: '#2d404e', 300: '#436075', 400: '#59809b', 500: '#7c9db4', 600: '#97b1c3', 700: '#b1c5d2', 800: '#cbd8e1', 900: '#e5ecf0' }, 'columbia_blue': { DEFAULT: '#C1D1DA', 100: '#1f2c34', 200: '#3e5867', 300: '#5d849b', 400: '#8fabbc', 500: '#c1d1da', 600: '#cfdbe2', 700: '#dbe4e9', 800: '#e7edf0', 900: '#f3f6f8' }, 'lemon_chiffon': { DEFAULT: '#FBF2C6', 100: '#544706', 200: '#a88e0c', 300: '#efcc1e', 400: '#f5df72', 500: '#fbf2c6', 600: '#fcf5d1', 700: '#fdf7dd', 800: '#fdfae8', 900: '#fefcf4' }
       },
+      screens: {
+        '3xl': '1600px',
+        '4xl': '1920px',
+        '5xl': '2560px',
+      }
     },
     fontSize: {
       'header': '3rem',
