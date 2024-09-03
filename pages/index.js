@@ -259,7 +259,7 @@ const FilteredList = memo(function FilteredList({ props: [ filter_state, searchB
           song.song_translated_name,
           song.artist,
           song.remark,
-        ], searchBox)
+        ], searchBox === "bgs1314baobaomuamualovelove" ? "One more time, One more chance" : searchBox)
         //语言
         && (filter_state.lang != ""
             ? song.language?.includes(filter_state.lang)

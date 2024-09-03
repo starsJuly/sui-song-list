@@ -7,6 +7,9 @@ import {
   HiHeart
 } from "react-icons/hi";
 
+import question_mark from '../public/assets/images/question_mark.gif';
+import bgs1314baobaomuamualovelove from '../public/assets/images/bgs1314baobaomuamualovelove.gif';
+
 const HomeList = () => {
   return(
     <>
@@ -59,8 +62,24 @@ const StyledI = ({handle_click}) => {
   }, [clicks]);
   return (
     <div className="absolute bottom-0 right-0 text-base sm:text-title flex flex-col items-center text-label group/heart pointer-events-none">
-      <div className='font-normal text-base absolute right-0 bottom-[3rem] shrink-0 w-[5.5rem] hidden sm:group-hover/heart:inline text-right'>
-        {text}
+      <div className='font-normal text-base absolute 
+        right-0 -top-[3rem] shrink-0 text-nowrap backdrop-blur-xl opacity-0 transition-all
+        inline sm:group-hover/heart:!opacity-100 text-right bg-palette-7/10 rounded-full px-3 py-1 duration-150'>
+        <span className='flex flex-row items-center space-x-1'>
+          <div className='relative w-[1.2rem] h-[1.2rem]'>
+          <Image src={clicks <= 5 ? question_mark : bgs1314baobaomuamualovelove}
+            width={0} height={0} sizes='100vw'
+            layout='fill' objectFit='contain' unoptimized
+          />
+          </div>
+          <span>{text}</span>
+        </span>
+        <div className="w-10 h-10 absolute top-[1.80rem] left-10 overflow-hidden inline-block">
+          <div className='w-[10px] h-[10px] right-6
+            -rotate-45 transform absolute -top-[5px]
+            backdrop-blur-xl bg-palette-7/10'>
+          </div>
+        </div>
       </div>
       <HiHeart className="font-semibold text-palette-2 text-[0.35rem] sm:text-base absolute bottom-[1.1rem] sm:bottom-[2.3rem] pointer-events-auto" 
         onClick={() => {

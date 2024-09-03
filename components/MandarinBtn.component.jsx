@@ -7,8 +7,10 @@ import {
   LanguageIcon,
   GlobeAsiaAustraliaIcon
 } from '@heroicons/react/20/solid'
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { theme } from "../config/constants";
+import { useClickAway } from "react-use";
+import { motion } from "framer-motion";
 
 export default function MandarinBtn(
   { props: [
@@ -19,6 +21,14 @@ export default function MandarinBtn(
 ) {
 
   const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef(null);
+  const dropdownRef = useRef(null);
+  
+  useClickAway(ref, (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  })
 
   return (
     <div className="relative inline-block text-left mr-2 mb-2 shrink-0">
@@ -28,6 +38,7 @@ export default function MandarinBtn(
          ${filter_state.lang === "华语" ? "bg-oen-color-1" : "bg-white"}
          ${filter_state.lang === "华语" ? "text-oen-color-9" : "text-gray-900"}
          `}
+         ref={ref}
          onClick={() => {
           setIsOpen(!isOpen);
          }}
@@ -35,7 +46,7 @@ export default function MandarinBtn(
         <div className={`relative flex items-center divide-x divide-solid 
           ${filter_state === '华语' ? 'divide-white' : 'divide-gray-300'}`}
         >
-          <button type="button" className="inline justify-center gap-x-3
+          <button type="button" className="inline-flex items-center
             px-2 py-2 text-sm pr-4" 
             id="menu-button" aria-expanded="true" aria-haspopup="true"
             onClick={(e) => {
@@ -58,14 +69,17 @@ export default function MandarinBtn(
         </div>
       </div>
       {(isOpen) && (
-        <div
-          className={`origin-top-right absolute left-0 mt-2 w-32 z-10 
+        <motion.div
+          className='origin-top-right absolute left-0 mt-2 w-32 z-10 
           rounded-md shadow-lg 
           bg-white ring-1 ring-black 
           ring-opacity-5 focus:outline-none 
-          ease-out duration-100 h-[10rem] overflow-y-auto transition-all
-          transform ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95"}`} 
-          role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
+          h-[10rem] overflow-y-auto' 
+          role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1"
+          ref={dropdownRef}
+          initial={{ opacity: 0, scale: 0, transform: 'translateY(-15px)' }}
+          animate={{ opacity: [0, 1], scale: [0, 1], transform: 'translateY(0px)' }}
+          >
           <div className="py-1" role="none">
             {
               alphabets.map(
@@ -91,7 +105,7 @@ export default function MandarinBtn(
               )
             }
           </div>
-        </div>
+        </motion.div>
       )}
   </div>
 
