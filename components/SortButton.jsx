@@ -81,7 +81,6 @@ export default function SortBtn({ props: [
               sort_options.map(
                 (option) => (
                   <a
-                    href="#"
                     onClick={
                       () => {
                         EffThis.do_sort(option);

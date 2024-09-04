@@ -38,7 +38,7 @@ const is_playable = (song_list, idx) => {
 }
 
 const info_url = "https://api.suij1sui.space/api/v1/video/info?bvid=";
-const data_url = "https://api.suij1sui.space/api/v1/video/rdata?r=";
+const data_url = "https://api.suij1sui.space/api/v2/video/rdata?bvid=";
 
 const MusicPlayerView = ({ props: [idx, EffThis] }) => {
   if (idx !== -1 && !is_playable(EffThis.current_album, idx)) {
@@ -81,27 +81,20 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
   }, [EffThis, idx, song_list]);
 
   useEffect(() => {
-    const fetch_audio_url = async (bvid) => {
-      if (bvid === "") {
-        return;
-      }
-      let url = info_url + bvid;
-      const response = await fetch(url);
-      const data = await response.json();
-      let audio_url = data["info"]
-      setArtworkUrl(data_url + data["artwork"]);
-      setCurrentSong({
-        song_name: song_list[idx].song_name,
-        artist: song_list[idx].artist,
-      });
-      setIsPlaying(true);
-      audioRef.current.src = data_url + audio_url;
-      await audioRef.current.play(); 
+    if (bvid === "") {
+      return;
     }
-    fetch_audio_url(bvid)
-      .catch((err) => {
-        console.log(err);
-      });
+    if (!is_playable(song_list, idx)) {
+      return;
+    }
+    setArtworkUrl(data_url + bvid + "&pic=1");
+    setCurrentSong({
+      song_name: song_list[idx].song_name,
+      artist: song_list[idx].artist,
+    });
+    setIsPlaying(true);
+    audioRef.current.src = data_url + bvid;
+    audioRef.current.play(); 
   }, [bvid, idx, song_list]);
 
   let media_session_api = 

@@ -85,7 +85,6 @@ export default function MandarinBtn(
               alphabets.map(
                 (alphabet) => (
                   <a 
-                    href="#"
                     onClick={() => {
                       EffThis.do_filter_initial(alphabet === filter_state.initial ? '' : alphabet)
                       setIsOpen(false)
