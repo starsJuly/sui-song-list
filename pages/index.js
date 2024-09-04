@@ -151,6 +151,8 @@ export default function Home() {
         <link rel='preload' href='/assets/images/emoticon_love.webp' as='image' />
         <link rel='preload' href='/assets/images/emoticon_stars_in_your_eyes.webp' as='image' />
         <link rel='preload' href='/assets/images/emoticon_bgs1314baobaomuamualovelove.webp' as='image' />
+        <link rel='preload' href='/assets/images/bgs1314baobaomuamualovelove.gif' as='image' type='image/gif' />
+        <link rel='preload' href='/assets/images/question_mark.gif' as='image' type='image/gif' />
       </Head>
 
       <div className='z-[100] bg-gradient-to-b 
