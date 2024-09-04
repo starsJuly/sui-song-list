@@ -119,7 +119,7 @@ const FeaturedSongList = ({ props: [EffThis] }) => {
   });
   const list_ref = useRef(null);
 
-  const handleScroll = () => {
+  const handle_scroll = () => {
     if (list_ref.current) {
       const { scrollTop, scrollLeft } = list_ref.current;
       set_scroll_position({ scrollTop, scrollLeft });
@@ -153,8 +153,8 @@ const FeaturedSongList = ({ props: [EffThis] }) => {
             </span>
           </div>
           <div className="relative">
-            <div className="w-full overflow-x-scroll featured-list"
-              onScroll={handleScroll}
+            <div className="w-full overflow-x-scroll featured-list no-scrollbar"
+              onScroll={handle_scroll}
               ref={list_ref}
             >
               <div className="flex flex-row transition-all duration-300">
