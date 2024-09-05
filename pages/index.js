@@ -250,6 +250,11 @@ const FilteredList = memo(function FilteredList({ props: [ filter_state, searchB
       } else {
         song.is_local = false;
       }
+      if (searchBox === "bgs1314baobaomuamualovelove") {
+        song.BVID = "BV1eVnueEEoc";
+        song.date_list = "2024-4-23";
+        song.song_count = 1;
+      }
       return song;
     })
     .filter(

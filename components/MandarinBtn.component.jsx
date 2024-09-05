@@ -44,7 +44,7 @@ export default function MandarinBtn(
          }}
       >
         <div className={`relative flex items-center divide-x divide-solid 
-          ${filter_state === '华语' ? 'divide-white' : 'divide-gray-300'}`}
+          ${filter_state.lang === '华语' ? 'divide-oen-color-9' : 'divide-gray-300'}`}
         >
           <button type="button" className="inline-flex items-center
             px-2 py-2 text-sm pr-4" 
