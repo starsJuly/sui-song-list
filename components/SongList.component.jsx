@@ -208,10 +208,11 @@ const CompactButtonList = ({ props: [song_info, song_idx, BVID, EffThis,] }) => 
           px-2 py-1 font-medium 
         text-palette-9 ring-1 ring-inset 
         ring-palette-9 text-xs shrink-0
-          transition-colors duration-100 ${has_record ? 'hidden' : 'inline'}`}
+          transition-colors duration-100 ${has_record ? 'hidden' : 'inline'}
+          hover:ring-white hover:text-white hover:bg-palette-9`}
           onClick={(e) => {
             e.stopPropagation();
-            EffThis.play_music_at(song_idx)
+            alert("暂时没有歌切记录；；");
           }}
           >
           <div className="inline">

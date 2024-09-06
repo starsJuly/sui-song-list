@@ -93,6 +93,23 @@ const FeaturedSongItem = ({ props: [song, EffThis] }) => {
             }
           </span>
         </span>
+        <span className={`flex flex-row ${get_artwork_url(bvid_list) !== "/favicon.png" ? "hidden" : "inline"}`}>
+          <span className={`ml-[0.5rem] h-[1.2rem] inline-flex 
+            items-center rounded-full
+            px-2 py-1 font-medium mr-2
+          text-palette-9 ring-1 ring-inset 
+          ring-palette-9 text-xs shrink-0
+            transition-colors duration-100 hover:ring-white hover:text-white hover:bg-palette-9`}
+            onClick={(e) => {
+              e.stopPropagation();
+              alert("暂时没有歌切记录；；");
+            }}
+            >
+            <div className="inline">
+              无记录
+            </div>
+          </span>
+        </span>
       </div>
     </div>
   );
