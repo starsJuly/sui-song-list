@@ -96,7 +96,7 @@ export default function Home() {
     initial: "",
     paid: false,
     remark: "",
-    sorting_method: "not_recently",
+    sorting_method: "default",
     is_local: false,
   });
 
