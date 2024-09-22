@@ -361,7 +361,9 @@ export default function SongList
           ref={rowRef}
         >
           <td>
-            <div className="flex flex-row items-center justify-between">
+            <motion.div className="flex flex-row items-center justify-between"
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: [0.5, 1, 1, 1, 1], scale: [0.9, 1, 1, 1, 1] }}>
               <div className="song_table__name w-full
                 group/tablename break-all sm:w-[70%]
                 text-base sm:hover:cursor-main-cursor"
@@ -441,7 +443,7 @@ export default function SongList
                 <div className="break-all text-sm text-secondary-label pl-[0.8rem] hidden sm:block">{song_info.artist}</div>
                 <div className="text-nowrap w-min-[120px] text-secondary-label pl-[0.8rem] text-sm hidden sm:block">{out.last_date}</div>
               </div>
-            </div>
+            </motion.div>
           </td>
         </tr>
       )
@@ -476,5 +478,5 @@ export default function SongList
     );
   }
 
-  return song_table_normal();
+  return inputList.length > 0 ? song_table_normal() : song_table_default();
 }
