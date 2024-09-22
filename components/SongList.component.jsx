@@ -265,7 +265,7 @@ export default function SongList
 
   useEffect(() => {
     if (rowRef.current) {
-      setRowHeight(rowRef.current.clientHeight);
+      setRowHeight(rowRef.current.clientHeight + 12);
     }
     if (tableRef.current) {
       setTableOffset(tableRef.current.offsetTop);
@@ -360,81 +360,89 @@ export default function SongList
           transition-all duration-300`} key={song_info.index}
           ref={rowRef}
         >
-          <td className="song_table__name 
-            group/tablename break-all 
-            text-base sm:hover:cursor-main-cursor"
-            onClick={
-              () => global_controllers.copy_to_clipboard(song_info.song_name)
-            }>
+          <td>
             <div className="flex flex-row items-center justify-between">
-              <div className="flex flex-row items-center h-[4.5rem]">
-                <div className="inline shrink-0 sm:ml-3 sm:w-[3.5rem] sm:h-[3.5rem] w-[3rem] h-[3rem] relative">
-                  <Image src={artwork_url} alt="artwork"
-                    className="rounded-md shrink-0 text-sm object-cover"
-                    unoptimized
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = '/favicon.png';
-                    }}
-                    layout="fill" objectFit="cover"
-                    width={0} height={0} size="100vw" loader={({src}) => src} 
-                  />
-                </div>
-                <div className="flex flex-col w-full">
-                  <div className="song-table-song-name 
-                      group/songname items-center flex pl-[0.8rem] 
-                      grouptext-white sm:pt-[0.5rem]
-                      transition-colors duration-100">
-                    <span className="flex flex-wrap items-center justify-between w-[100%]">
-                      <span className="inline-flex align-middle items-center">
-                        <span className="mr-[0.5rem]
-                          inline sm:group-hover/songname:hidden">
-                        <BsMusicNoteBeamed className="text-label text-sm sm:text-base"/>
+              <div className="song_table__name w-full
+                group/tablename break-all sm:w-[70%]
+                text-base sm:hover:cursor-main-cursor"
+                onClick={
+                  () => global_controllers.copy_to_clipboard(song_info.song_name)
+                }>
+                <div className="flex flex-row items-center justify-between">
+                  <div className="flex flex-row items-center h-[4.5rem]">
+                    <div className="inline shrink-0 sm:ml-3 sm:w-[3.5rem] sm:h-[3.5rem] w-[3rem] h-[3rem] relative">
+                      <Image src={artwork_url} alt="artwork"
+                        className="rounded-md shrink-0 text-sm object-cover"
+                        unoptimized
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = '/favicon.png';
+                        }}
+                        layout="fill" objectFit="cover"
+                        width={0} height={0} size="100vw" loader={({src}) => src} 
+                      />
+                    </div>
+                    <div className="flex flex-col w-full">
+                      <div className="song-table-song-name 
+                          group/songname items-center flex pl-[0.8rem] 
+                          grouptext-white sm:pt-[0.5rem]
+                          transition-colors duration-100">
+                        <span className="flex flex-wrap items-center justify-between w-[100%]">
+                          <span className="inline-flex align-middle items-center">
+                            <span className="mr-[0.5rem]
+                              inline sm:group-hover/songname:hidden">
+                            <BsMusicNoteBeamed className="text-label text-sm sm:text-base"/>
+                            </span>
+                            <span className="sm:group-hover/songname:underline text-sm 
+                              sm:text-base text-label text-nowrap max-w-[50vw] 
+                              overflow-hidden text-ellipsis sm:overflow-visible">
+                              {song_info.song_name.replace(/\s/g, '  ')}
+                            </span>
+                            <BsCopy className="ml-[0.5rem] opacity-[.0] 
+                                  hidden
+                                  h-[1rem] text-label
+                                  sm:group-hover/songname:opacity-100 
+                                  sm:group-hover/songname:inline
+                                  transition-opacity duration-100"
+                            />
+                          </span>
                         </span>
-                        <span className="sm:group-hover/songname:underline text-sm 
-                          sm:text-base text-label text-nowrap max-w-[50vw] 
-                          overflow-hidden text-ellipsis sm:overflow-visible">
-                          {song_info.song_name.replace(/\s/g, '  ')}
-                        </span>
-                        <BsCopy className="ml-[0.5rem] opacity-[.0] 
-                              hidden
-                              h-[1rem] text-label
-                              sm:group-hover/songname:opacity-100 
-                              sm:group-hover/songname:inline
-                              transition-opacity duration-100"
-                        />
-                      </span>
-                    </span>
+                      </div>
+                      <div className="break-all text-sm font-normal pl-[0.8rem] sm:pb-[0.5rem]">
+                        <div className="sm:hover:underline text-label font-normal" onClick={
+                          (event) => {
+                            event.stopPropagation();
+                            global_controllers.copy_to_clipboard(song_info.song_translated_name)
+                          }
+                        }>
+                          {out.translated_name}
+                        </div>
+                        <span className="text-secondary-label text-xs hidden sm:block">{song_info.remarks}</span>
+                      </div>
+                      <div className="flex flex-row flex-nowrap">
+                        <div className="block sm:hidden pl-[0.8rem] text-xs text-secondary-label text-nowrap max-w-[30vw]
+                          overflow-hidden sm:overflow-visible sm:text-wrap text-ellipsis">
+                          {song_info.artist}
+                        </div>
+                        <div className="block sm:hidden pl-[0.3rem] text-xs text-secondary-label text-nowrap max-w-[50vw]
+                          overflow-hidden sm:overflow-visible sm:text-wrap text-ellipsis">
+                          {out.last_date}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="break-all text-sm font-normal pl-[0.8rem] sm:pb-[0.5rem]">
-                    <div className="sm:hover:underline text-label font-normal" onClick={
-                      (event) => {
-                        event.stopPropagation();
-                        global_controllers.copy_to_clipboard(song_info.song_translated_name)
-                      }
-                    }>
-                      {out.translated_name}
-                    </div>
-                    <span className="text-secondary-label text-xs hidden sm:block">{song_info.remarks}</span>
-                  </div>
-                  <div className="flex flex-row flex-nowrap">
-                    <div className="block sm:hidden pl-[0.8rem] text-xs text-secondary-label text-nowrap max-w-[30vw]
-                      overflow-hidden sm:overflow-visible sm:text-wrap text-ellipsis">
-                      {song_info.artist}
-                    </div>
-                    <div className="block sm:hidden pl-[0.3rem] text-xs text-secondary-label text-nowrap max-w-[50vw]
-                      overflow-hidden sm:overflow-visible sm:text-wrap text-ellipsis">
-                      {out.last_date}
-                    </div>
+                  <div>
+                    <CompactButtonList className="sm:hidden" props={[song_info, song_idx, out.BVID, EffThis]} />
+                    {out.bili2_icon}
                   </div>
                 </div>
               </div>
-              <CompactButtonList props={[song_info, song_idx, out.BVID, EffThis]} />
-              {out.bili2_icon}
+              <div className="hidden flex-row items-center sm:flex justify-between sm:w-[30%]">
+                <div className="break-all text-sm text-secondary-label pl-[0.8rem] hidden sm:block">{song_info.artist}</div>
+                <div className="text-nowrap w-min-[120px] text-secondary-label pl-[0.8rem] text-sm hidden sm:block">{out.last_date}</div>
+              </div>
             </div>
           </td>
-          <td className="break-all text-sm text-secondary-label pl-[0.8rem] hidden sm:block">{song_info.artist}</td>
-          <td className="text-nowrap w-min-[120px] text-secondary-label pl-[0.8rem] text-sm hidden sm:block">{out.last_date}</td>
         </tr>
       )
     }
@@ -468,5 +476,5 @@ export default function SongList
     );
   }
 
-  return 0 < inputList.length ? song_table_normal() : song_table_default()
+  return song_table_normal();
 }
