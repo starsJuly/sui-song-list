@@ -450,31 +450,29 @@ export default function SongList
     }
 
     return (
-      <div className="">
-        <table
-          className="song_table w-[100%] min-w-fit 
-            border-separate
-            border-spacing-y-3
-            sm:hover:cursor-main-cursor
-            [&_tr]:pt-1 
-            [&_tr]:pr-0 
-            [&_tr]:pb-0
-            [&_tr]:pl-2
-            [&_tr>td:hover]:bg-opacity-0
-            [&_tr>td]:sm:table-cell
-            [&_tr>td]:sm:text-left 
-            [&_tr>td:hover]:sm:relative 
-            [&_tr>td:hover]:sm:overflow-hidden 
-            [&_tr>td:hover]:sm:text-label"
-          ref={tableRef}
-        >
-          <tbody className="song_table__tbody overflow-hidden">
-            <tr style={{ width: `100%`, height: `${paddingTop}px` }}></tr>
-            {visibleData.map((x) => song_table_row(x, x.idx))}
-            <tr style={{ width: `100%`, height: `${paddingBottom}px` }}></tr>
-          </tbody>
-        </table>
-      </div>
+      <table
+        className="song_table w-[100%] min-w-fit 
+          border-separate
+          border-spacing-y-3
+          sm:hover:cursor-main-cursor
+          [&_tr]:pt-1 
+          [&_tr]:pr-0 
+          [&_tr]:pb-0
+          [&_tr]:pl-2
+          [&_tr>td:hover]:bg-opacity-0
+          [&_tr>td]:sm:table-cell
+          [&_tr>td]:sm:text-left 
+          [&_tr>td:hover]:sm:relative 
+          [&_tr>td:hover]:sm:overflow-hidden 
+          [&_tr>td:hover]:sm:text-label"
+        ref={tableRef}
+      >
+        <tbody className="song_table__tbody overflow-hidden">
+          <tr style={{ width: `100%`, height: `${paddingTop}px` }}></tr>
+          {visibleData.map((x) => song_table_row(x, x.idx))}
+          <tr style={{ width: `100%`, height: `${paddingBottom}px` }}></tr>
+        </tbody>
+      </table>
     );
   }
 
