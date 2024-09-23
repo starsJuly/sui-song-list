@@ -263,7 +263,7 @@ export default function SongList
     return inputList.slice(visibleStart, visibleStart + visibleLength);
   }, [inputList, visibleLength, visibleStart]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (rowRef.current) {
       setRowHeight(rowRef.current.clientHeight + 12);
     }
