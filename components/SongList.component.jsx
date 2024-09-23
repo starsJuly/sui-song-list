@@ -33,8 +33,9 @@ import styled, { css } from "styled-components";
 
 import { is_favorite_song, toggle_favorite_song } from "../config/controllers";
 
-const PaddingDiv = styled.div.attrs(props => ({
+const PaddingElement = styled.tr.attrs(props => ({
   style: {
+    width: `100%`,
     height: `${props.paddingHeight}px`,
   },
 }))``;
@@ -468,9 +469,13 @@ export default function SongList
         ref={tableRef}
       >
         <tbody className="song_table__tbody overflow-hidden">
-          <tr style={{ width: `100%`, height: `${paddingTop}px` }}></tr>
+          <PaddingElement
+            paddingHeight={paddingTop}
+          ></PaddingElement>
           {visibleData.map((x) => song_table_row(x, x.idx))}
-          <tr style={{ width: `100%`, height: `${paddingBottom}px` }}></tr>
+          <PaddingElement
+            paddingHeight={paddingBottom}
+          ></PaddingElement>
         </tbody>
       </table>
     );
