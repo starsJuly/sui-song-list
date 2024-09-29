@@ -89,8 +89,8 @@ const PillList = ({ props: [song_info, song_idx, BVID, EffThis,] }) => {
       >
         {
           is_favorite
-            ? <BsBookmarkHeartFill className="text-oen-red hover:text-palette-2 transition-colors duration-100" />
-            : <BsBookmarkPlus className="text-oen-color-10 hover:text-palette-2 transition-colors duration-100" />
+            ? <BsBookmarkHeartFill className="text-oen-red hover:text-extra-2 transition-colors duration-100" />
+            : <BsBookmarkPlus className="text-oen-color-10 hover:text-extra-2 transition-colors duration-100" />
         }
         {
           show_love 
@@ -219,10 +219,10 @@ const CompactButtonList = ({ props: [song_info, song_idx, BVID, EffThis,] }) => 
         <span className={`ml-[0.5rem] h-[1.2rem] inline-flex 
           items-center rounded-full
           px-2 py-1 font-medium 
-        text-palette-9 ring-1 ring-inset 
-        ring-palette-9 text-xs shrink-0
+        text-secondary-label ring-1 ring-inset 
+        ring-secondary-label text-xs shrink-0
           transition-colors duration-100 ${has_record ? 'hidden' : 'inline'}
-          hover:ring-white hover:text-white hover:bg-palette-9`}
+          hover:ring-white hover:text-white hover:bg-secondary-label`}
           onClick={(e) => {
             e.stopPropagation();
             alert("暂时没有歌切记录；；");

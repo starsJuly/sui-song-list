@@ -56,7 +56,7 @@ module.exports = {
 
         'vr-bg-light': '#e5feee',
         'vr-fg-light': '#53e383',
-        
+
         'palette-1': '#E7E2E3', 
         'palette-2': '#E97365', 
         'palette-3': '#99C7F3', 
@@ -70,6 +70,16 @@ module.exports = {
 
         'label': '#7C9DB4',
         'secondary-label': '#94B4CE',
+        'tertiary-label': '#99C7F3',
+        'accent': '#70B9F2',
+        'accent-oen': '#87EAFF',
+        'accent-oen-2': '#DA5D77',
+        'extra': '#FBF2C6',
+        'extra-2': '#E97365',
+        'placeholder': '#E7E2E3',
+        'background': '#B3D6F6',
+        'secondary-background': '#F0F8FD',
+        'tertiary-background': '#FEFEFE',
 
         'platinum': { 
           DEFAULT: '#E7E2E3', 
