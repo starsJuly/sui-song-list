@@ -45,17 +45,17 @@ module.exports = {
         'oen-color-19': "#a71f3f",
         'oen-color-20': "#941335",
 
-        'pome-bg-light': '#eaeaff',
-        'pome-fg-light': '#3b37fd',
+        'pome-bg': '#eaeaff',
+        'pome-fg': '#3b37fd',
 
-        'weibo-bg-light': '#ffe8ec',
-        'weibo-fg-light': '#f44152',
+        'weibo-bg': '#ffe8ec',
+        'weibo-fg': '#f44152',
 
-        'bilibili-bg-light': '#e3faff',
-        'bilibili-fg-light': '#37abe9',
+        'bilibili-bg': '#e3faff',
+        'bilibili-fg': '#37abe9',
 
-        'vr-bg-light': '#e5feee',
-        'vr-fg-light': '#53e383',
+        'vr-bg': '#e5feee',
+        'vr-fg': '#53e383',
 
         'palette-1': '#E7E2E3', 
         'palette-2': '#E97365', 
