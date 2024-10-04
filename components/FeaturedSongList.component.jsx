@@ -37,7 +37,7 @@ const FeaturedSongItem = ({ props: [song, EffThis] }) => {
   return (
     <div className="flex flex-row justify-between items-center mb-3 w-[21rem] sm:w-[30rem]">
       <div className="flex flex-row items-center">
-        <div className="rounded-lg w-[2.5rem] h-[2.5rem] object-cover relative">
+        <div className="shrink-0 rounded-lg w-[2.5rem] h-[2.5rem] object-cover relative">
           <Image src={get_artwork_url(bvid_list)} 
             width={0} height={0} layout="fill" objectFit="cover"
             loader={({src}) => src} sizes="100vw"
@@ -45,10 +45,10 @@ const FeaturedSongItem = ({ props: [song, EffThis] }) => {
           />
         </div>
         <div className="flex flex-col pl-3">
-          <div className="text-sm text-label flex flex-row space-x-3">
+          <div className="text-sm text-label flex flex-row space-x-3 max-w-[9rem] sm:max-w-[16rem] truncate text-ellipsis">
             <span>{song.song_name}</span>
           </div>
-          <div className="text-xs text-secondary-label flex flex-row space-x-1">
+          <div className="text-xs text-secondary-label flex flex-row space-x-1 max-w-[9rem] sm:max-w-[20rem] truncate text-ellipsis">
             <span>{song.artist}</span>
             <span>&#x2022;</span>
             <span>{latest_date(song.date_list)}</span>
