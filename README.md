@@ -44,6 +44,13 @@ features:
 + 基础歌单信息显示
   - 支持单页歌单信息显示
     - 支持显示 序号，歌曲名，原唱，语言， 备注 数据
+  - 性能优化
+    - 虚拟列表
+      - 解决过长列表/过多元素
+      - base:
+        - source: SuperChipsAhoy/perf/virtual-list
+    - 资源异步加载
+      - 解决多图加载，阻塞问题
   - base
     - source: vup-song-list-main
 
@@ -116,20 +123,17 @@ features:
 ```
 
 当前版本用于基础构建并试运行。后续拟添加功能包括但不限于，
-+ 性能优化
-  - 存在过长列表/过多元素，多图加载，阻塞问题
-  - 移动端优化
 + UI优化
   - 新的UI风格，也许需要添加一些醒目hightlight
   - 更友好的移动/滚动设计
 + 支持多主题架构
   - 重构css，改用Tailwind
     - Tailwind CSS 更方便动态配置样式。可以通过config在不修改css样式文件和其他源码文件的情况下更换主题
-+ 优化背景图加载机制
 + 添加更多歌单显示和检索功能，如列表项隐藏，和快捷操作等
 + 优化git objects体积
   + 至少50MB左右的大小，当前及未来是无用的 (来自历史提交的二进制可执行文件)
-+ 重构并移除冗余/混淆代码 
++ 重构并移除冗余/混淆代码
++ 优化背景图加载机制
 + ...
 
 持续更新，
@@ -157,6 +161,7 @@ This is the list of sui-song-list's significant contributors.
 
 + [starsJuly](https://github.com/starsJuly)
 + [RinSchomburg](https://github.com/RinSchomburg)
++ [SuperChipsAhoy](https://github.com/SuperChipsAhoy)
 
 ## Project Contributors
 

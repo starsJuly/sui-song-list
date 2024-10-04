@@ -96,7 +96,7 @@ export default function Home() {
     initial: "",
     paid: false,
     remark: "",
-    sorting_method: "not_recently",
+    sorting_method: "default",
     is_local: false,
   });
 
@@ -318,6 +318,10 @@ const FilteredList = memo(function FilteredList({ props: [ filter_state, searchB
       } else {
         return 0;
       }
+    })
+    .map((song, idx) => {
+      song.idx = idx;
+      return song;
     });
 
   EffThis.set_current_album(filteredSongList);
