@@ -37,7 +37,7 @@ export default function SortBtn({ props: [
   return (
     <div className="relative inline-block text-left mr-2 mb-2 shrink-0">
       <div className={`relative inline-flex justify-center gap-x-1.5
-         rounded-xl text-sm shadow-sm ring-1 
+         rounded-xl text-sm
          ring-inset ring-gray-300 
          bg-tertiary-background text-label
          `}

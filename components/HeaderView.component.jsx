@@ -81,7 +81,7 @@ const StyledI = ({handle_click}) => {
           </div>
         </div>
       </div>
-      <HiHeart className="font-semibold text-extra-2 text-[0.35rem] sm:text-base absolute bottom-[1.1rem] sm:bottom-[2.3rem] pointer-events-auto" 
+      <HiHeart className="font-semibold text-oen-red-2 text-[0.35rem] sm:text-base absolute bottom-[1.1rem] sm:bottom-[2.3rem] pointer-events-auto" 
         onClick={() => {
           handle_click();
           set_clicks(clicks+1);

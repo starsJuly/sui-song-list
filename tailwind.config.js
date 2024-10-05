@@ -34,6 +34,7 @@ module.exports = {
 
         // generated from #DA5D77
         'oen-red': '#DA5D77',
+        'oen-red-2': '#E97365',
         'oen-color-11': "#ffeaf1",
         'oen-color-12': "#fbd6df",
         'oen-color-13': "#efadbb",
@@ -72,14 +73,21 @@ module.exports = {
         'secondary-label': '#94B4CE',
         'tertiary-label': '#99C7F3',
         'accent': '#70B9F2',
+        'accent-bg': '#E4F7FF',
+        'accent-fg': '#49a4ed',
         'accent-oen': '#87EAFF',
         'accent-oen-2': '#DA5D77',
-        'extra': '#FBF2C6',
-        'extra-2': '#E97365',
+        'accent-2': '#FBF2C6',
+        'accent-3': '#E97365',
         'placeholder': '#E7E2E3',
         'background': '#B3D6F6',
+        'background-2': '#99C7F3',
         'secondary-background': '#F0F8FD',
         'tertiary-background': '#FEFEFE',
+
+        'main-page-background': '#F0F8FD',
+
+        'normal-label': '#FFFFFF',
 
         'platinum': { 
           DEFAULT: '#E7E2E3', 

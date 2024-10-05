@@ -33,10 +33,9 @@ export default function MandarinBtn(
   return (
     <div className="relative inline-block text-left mr-2 mb-2 shrink-0">
       <div className={`relative inline-flex justify-center gap-x-1.5
-         rounded-xl text-sm shadow-sm ring-1 
-         ring-inset ring-gray-300 hover:bg-gray-50"
-         ${filter_state.lang === "华语" ? "bg-tertiary-background" : "bg-white"}
-         ${filter_state.lang === "华语" ? "text-accent" : "text-label"}
+         rounded-xl text-sm hover:bg-gray-50"
+         ${filter_state.lang === "华语" ? "bg-accent-bg" : "bg-tertiary-background"}
+         ${filter_state.lang === "华语" ? "text-accent-fg shadow-none ring-1 ring-accent-fg" : "text-label"}
          `}
          ref={ref}
          onClick={() => {
@@ -44,7 +43,7 @@ export default function MandarinBtn(
          }}
       >
         <div className={`relative flex items-center divide-x divide-solid 
-          ${filter_state.lang === '华语' ? 'divide-accent' : 'divide-secondary-label'}`}
+          ${filter_state.lang === '华语' ? 'divide-accent-fg' : 'divide-secondary-label'}`}
         >
           <button type="button" className="inline-flex items-center
             px-2 py-2 text-sm pr-4" 
@@ -63,7 +62,7 @@ export default function MandarinBtn(
           </button>
           <ChevronDownIcon aria-hidden="true" 
             className={`mr-1 h-6 w-6 inline
-            ${filter_state.lang === '华语' ? "text-accent" : "text-label"}
+            ${filter_state.lang === '华语' ? "text-accent-fg" : "text-label"}
             `} 
           />
         </div>

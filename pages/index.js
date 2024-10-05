@@ -32,7 +32,7 @@ import headerImage from '../public/assets/images/header.png'
 const BackgroundView = () => {
   return (
     <div
-      className={styles.outerContainer}
+      className={`${styles.outerContainer} bg-main-page-background`}
       style={{ cursor: theme.cursor.normal }}
     />
   );
@@ -157,7 +157,7 @@ export default function Home() {
 
       <div className='z-[100] bg-gradient-to-b 
         from-transparent to-[30rem] w-screen'>
-        <div className='absolute right-0 top-0 w-full sm:w-[80%] 3xl:w-[75%] 4xl:w-[70%] 5xl:w-[65%]'>
+        <div className='absolute right-0 top-0 w-full sm:w-[85%] 3xl:w-[75%] 4xl:w-[70%] 5xl:w-[65%]'>
           <Image src={headerImage}
             className='header-image'
             alt="header" unoptimized layout='responsive' 
