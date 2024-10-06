@@ -77,7 +77,7 @@ const StyledI = ({handle_click}) => {
           <div className='relative w-[1.2rem] h-[1.2rem]'>
           <Image src={clicks <= 5 ? question_mark : bgs1314baobaomuamualovelove}
             width={0} height={0} sizes='100vw'
-            layout='fill' objectFit='contain' unoptimized
+            layout='fill' objectFit='contain' unoptimized alt='cute_image'
           />
           </div>
           <span>{text}</span>
@@ -169,7 +169,7 @@ const HeaderView = ({ props: [EffThis] }) => {
                       <span className="text-xs text-accent-fg">切换主题</span>
                       {is_theme_selection_open ? (
                         <motion.div
-                          className="origin-top-right absolute left-0 mt-2 w-32 
+                          className="origin-top-right absolute right-0 mt-2 w-32 
                           rounded-md bottom-[2rem]
                           focus:outline-none z-[100] overflow-y-auto"
                           aria-orientation="vertical"
@@ -200,6 +200,7 @@ const HeaderView = ({ props: [EffThis] }) => {
                                   role="menuitem"
                                   tabIndex="-1"
                                   id="menu-item-3"
+                                  key={value}
                                 >
                                   <RiPaletteFill className="inline" />
                                   <span>{value}</span>

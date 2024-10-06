@@ -99,7 +99,7 @@ export default function Home() {
       setTheme(theme);
     }
     EffThis.current_theme = () => theme;
-  }, [ EffThis ]);
+  }, [ EffThis, theme ]);
 
   // state variables
   const [filter_state] = EffThis.filter_state = useState({
