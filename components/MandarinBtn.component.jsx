@@ -33,7 +33,7 @@ export default function MandarinBtn(
   return (
     <div className="relative inline-block text-left mr-2 mb-2 shrink-0">
       <div className={`relative inline-flex justify-center gap-x-1.5
-         rounded-xl text-sm hover:bg-gray-50"
+         rounded-xl text-sm transition-all duration-100"
          ${filter_state.lang === "华语" ? "bg-accent-bg" : "bg-tertiary-background"}
          ${filter_state.lang === "华语" ? "text-accent-fg shadow-none ring-1 ring-accent-fg" : "text-label"}
          `}

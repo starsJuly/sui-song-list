@@ -39,7 +39,7 @@ export default function SortBtn({ props: [
       <div className={`relative inline-flex justify-center gap-x-1.5
          rounded-xl text-sm
          ring-inset ring-gray-300 
-         bg-tertiary-background text-label
+         bg-tertiary-background text-label transition-all duration-100
          `}
         ref={ref}
         onClick={() => {

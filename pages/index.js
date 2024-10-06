@@ -27,12 +27,17 @@ import styled, { css } from "styled-components";
 
 import { song_list } from '../config/song_list'
 
-import headerImage from '../public/assets/images/header.png'
+import headerImage from '../public/assets/images/theme/header.png'
+import headerImageDark from '../public/assets/images/theme/header_dark.png'
+
+import {
+  BsPalette2
+} from 'react-icons/bs'
 
 const BackgroundView = () => {
   return (
     <div
-      className={`${styles.outerContainer} bg-main-page-background`}
+      className={`${styles.outerContainer} transition-all duration-300 bg-main-page-background`}
       style={{ cursor: theme.cursor.normal }}
     />
   );
@@ -58,6 +63,8 @@ export default function Home() {
   const [ bvid_selected          ] = EffThis.bvid_selected       = useState('');
 
   const [ currently_playing ] = EffThis.currently_playing = useState(-1);
+
+  const [theme, setTheme] = useState('dark');
 
   // EffThis.functions
   useEffect(() => {
@@ -88,6 +95,10 @@ export default function Home() {
         eff_set(EffThis, 'currently_playing', idx);
       }
     }
+    EffThis.set_theme = (theme) => {
+      setTheme(theme);
+    }
+    EffThis.current_theme = () => theme;
   }, [ EffThis ]);
 
   // state variables
@@ -138,59 +149,97 @@ export default function Home() {
   
   const title = `${config.Name}的歌单`;
   return (
-    <div>
-      <BackgroundView/>
+    <div data-theme={theme}>
+      <BackgroundView />
       <Head>
         <title>{title}</title>
         <meta
-          name = "keywords"
-          content = { `B站,bilibili,哔哩哔哩,vtuber,虚拟主播,电台唱见,歌单,${ config.Name }` }
+          name="keywords"
+          content={`B站,bilibili,哔哩哔哩,vtuber,虚拟主播,电台唱见,歌单,${config.Name}`}
         />
-        <meta name = "description" content = { `${ config.Name }的歌单` }/>
-        <link rel = "icon" type = "image/x-icon" href = "/favicon.png"></link>
-        <link rel='preload' href='/assets/images/emoticon_love.webp' as='image' />
-        <link rel='preload' href='/assets/images/emoticon_stars_in_your_eyes.webp' as='image' />
-        <link rel='preload' href='/assets/images/emoticon_bgs1314baobaomuamualovelove.webp' as='image' />
-        <link rel='preload' href='/assets/images/bgs1314baobaomuamualovelove.gif' as='image' type='image/gif' />
-        <link rel='preload' href='/assets/images/question_mark.gif' as='image' type='image/gif' />
+        <meta name="description" content={`${config.Name}的歌单`} />
+        <link rel="icon" type="image/x-icon" href="/favicon.png"></link>
+        <link
+          rel="preload"
+          href="/assets/images/emoticon_love.webp"
+          as="image"
+        />
+        <link
+          rel="preload"
+          href="/assets/images/emoticon_stars_in_your_eyes.webp"
+          as="image"
+        />
+        <link
+          rel="preload"
+          href="/assets/images/emoticon_bgs1314baobaomuamualovelove.webp"
+          as="image"
+        />
+        <link
+          rel="preload"
+          href="/assets/images/bgs1314baobaomuamualovelove.gif"
+          as="image"
+          type="image/gif"
+        />
+        <link
+          rel="preload"
+          href="/assets/images/question_mark.gif"
+          as="image"
+          type="image/gif"
+        />
       </Head>
 
-      <div className='z-[100] bg-gradient-to-b 
-        from-transparent to-[30rem] w-screen'>
-        <div className='absolute right-0 top-0 w-full sm:w-[85%] 3xl:w-[75%] 4xl:w-[70%] 5xl:w-[65%]'>
-          <Image src={headerImage}
-            className='header-image'
-            alt="header" unoptimized layout='responsive' 
-            loader={({src}) => src}
+      <div
+        className="z-[100] bg-gradient-to-b 
+        from-transparent to-[30rem] w-screen"
+      >
+        <div className="absolute right-0 top-0 w-full sm:w-[85%] 3xl:w-[75%] 4xl:w-[70%] 5xl:w-[65%]">
+          <Image
+            src={(() => {
+              switch (theme) {
+                case "light":
+                  return headerImage;
+                case "dark":
+                  return headerImageDark;
+                default:
+                  return headerImage;
+              }
+            })()}
+            className="header-image"
+            alt="header"
+            unoptimized
+            layout="responsive"
+            loader={({ src }) => src}
           />
         </div>
-        <section className = { styles.main }>
-          <HeaderView />
-          <FeaturedSongList props={[EffThis]}/>
+        <section className={styles.main}>
+          <HeaderView props={[EffThis]}/>
+          <FeaturedSongList props={[EffThis]} />
           <SongListFilter props={[filter_state, searchBox, EffThis]} />
-          <FilteredList props={[ filter_state, searchBox, EffThis ]} />
-          <MusicPlayerView
-            props={[currently_playing, EffThis]}
-          />
+          <FilteredList props={[filter_state, searchBox, EffThis]} />
+          <MusicPlayerView props={[currently_playing, EffThis]} />
         </section>
 
         <FixedTool />
-          
-        <Link href = { config.Repository } passHref>
-          <footer className = { styles.footer }>
+
+        <Link href={config.Repository} passHref>
+          <footer className={styles.footer}>
             <Image
-              loader = { imageLoader }
-              alt = ''
-              width = {32}
-              height = {32}
-              src = 'assets/images/github.png'
+              loader={imageLoader}
+              alt=""
+              width={32}
+              height={32}
+              src="assets/images/github.png"
             />
             {/* <a>{ config.Footer }</a> */}
           </footer>
         </Link>
         <BiliPlayerModal
-          props = {[
-            bili_player_title, bili_player_visibility, bvid_list, bvid_selected, EffThis
+          props={[
+            bili_player_title,
+            bili_player_visibility,
+            bvid_list,
+            bvid_selected,
+            EffThis,
           ]}
         />
       </div>
@@ -408,26 +457,25 @@ function FixedTool() {
   }, []);
   
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
-
+  
   if (!to_top_btn_is_visible) return (<div></div>);
-
+  
   return (
-    <button
-      onClick = { scrollToTop }
-      className = { styles.backToTopBtn }
-      title="返回顶部"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        viewBox="0 0 16 16"
+    <div className='flex flex-col items-start 
+      bottom-[5rem] right-[1rem] fixed space-y-1'>
+      <button
+        className={`
+        flex items-center rounded-full shrink-0 
+        px-[0.7em] py-[0.1em] space-x-1
+        sm:hover:scale-110 transition-all duration-300 
+        backdrop-blur-xl bg-accent/10 text-sm
+        h-[2rem]`}
+        onClick={scrollToTop}
+        title='返回顶部'
       >
-        <path
-          fillRule="evenodd"
-          d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"
-        />
-      </svg>
-    </button>
+        <BsPalette2 className="text-sm inline text-accent-fg" />
+        <span className="text-sm text-accent-fg">返回顶部</span>
+      </button>
+    </div>
   )
 }

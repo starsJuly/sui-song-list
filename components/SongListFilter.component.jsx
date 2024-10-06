@@ -90,7 +90,7 @@ export default function SongListFilter({ props: [ filter_state, searchBox, EffTh
         </div>
         <div className="relative pl-3">
           <div className="relative rounded-xl 
-            justify-center mr-2 mb-2 w-full inline-block sm:hidden">
+            justify-center  transition-all duration-100 mr-2 mb-2 w-full inline-block sm:hidden">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
               <span className="text-gray-500 sm:text-sm">
                 <MagnifyingGlassIcon className="inline h-5 w-5 ml-0" />
@@ -113,7 +113,7 @@ export default function SongListFilter({ props: [ filter_state, searchBox, EffTh
 const LocalSongListBtn = ({ props: [ is_active, EffThis, ] }) => {
   return (
     <div className={`relative inline-flex justify-center gap-x-1.5
-      rounded-xl text-sm transition-all shrink-0
+      rounded-xl text-sm transition-all duration-100 shrink-0
       ${is_active ? 'bg-accent-bg' : 'bg-tertiary-background'}
       ${is_active ? 'text-accent-fg' : 'text-label'}
       mr-2 mb-2
