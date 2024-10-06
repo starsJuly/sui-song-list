@@ -90,7 +90,7 @@ const PillList = ({ props: [song_info, song_idx, BVID, EffThis,] }) => {
         {
           is_favorite
             ? <BsBookmarkHeartFill className="text-accent-3 hover:text-accent-3 transition-colors duration-100" />
-            : <BsBookmarkPlus className="text-oen-color-10 hover:text-accent-3 transition-colors duration-100" />
+            : <BsBookmarkPlus className="text-label hover:text-accent-3 transition-colors duration-100" />
         }
         {
           show_love 

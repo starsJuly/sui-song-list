@@ -33,6 +33,9 @@ import headerImageDark from '../public/assets/images/theme/header_dark.png'
 import {
   BsPalette2
 } from 'react-icons/bs'
+import {
+  HiChevronUp
+} from 'react-icons/hi'
 
 const BackgroundView = () => {
   return (
@@ -473,7 +476,7 @@ function FixedTool() {
         onClick={scrollToTop}
         title='返回顶部'
       >
-        <BsPalette2 className="text-sm inline text-accent-fg" />
+        <HiChevronUp className="text-base inline text-accent-fg" />
         <span className="text-sm text-accent-fg">返回顶部</span>
       </button>
     </div>
