@@ -23,6 +23,7 @@
     "exceljs": "^4.4.0",
     "framer-motion": "^11.3.31",
     "next": "^14.2.5",
+    "next-themes": "^0.3.0",
     "postcss": "^8.4.40",
     "react": "^18",
     "react-bootstrap": "^2.1.2",

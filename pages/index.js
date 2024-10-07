@@ -21,7 +21,7 @@ import imageLoader from '../utils/ImageLoader'
 
 import config, { theme } from '../config/constants'
 
-import { eff_get, eff_set } from '../config/controllers'
+import { eff_get, eff_set, get_theme, set_theme } from '../config/controllers'
 
 import styled, { css } from "styled-components";
 
@@ -36,6 +36,8 @@ import {
 import {
   HiChevronUp
 } from 'react-icons/hi'
+
+import { useTheme } from 'next-themes'
 
 const BackgroundView = () => {
   return (
@@ -67,7 +69,7 @@ export default function Home() {
 
   const [ currently_playing ] = EffThis.currently_playing = useState(-1);
 
-  const [theme, setTheme] = useState('dark');
+  const {theme, setTheme} = useTheme();
 
   // EffThis.functions
   useEffect(() => {
@@ -204,7 +206,7 @@ export default function Home() {
                 case "dark":
                   return headerImageDark;
                 default:
-                  return headerImage;
+                  return headerImageDark;
               }
             })()}
             className="header-image"
