@@ -151,6 +151,11 @@ export default function Home() {
     EffThis.do_set_search = (search) => eff_set(EffThis, 'searchBox', search);
 
   }, [EffThis]);
+
+  const [dirtySwitch, setDirtySwitch] = useState('');
+  useEffect(() => {
+    setDirtySwitch(theme);
+  }, [theme]);
   
   const title = `${config.Name}的歌单`;
   return (
@@ -197,18 +202,23 @@ export default function Home() {
         className="z-[100] bg-gradient-to-b 
         from-transparent to-[30rem] w-screen"
       >
-        <div className="absolute right-0 top-0 w-full sm:w-[85%] 3xl:w-[75%] 4xl:w-[70%] 5xl:w-[65%]">
+        <div className="absolute right-0 top-0 w-full sm:w-[85%] 3xl:w-[75%] 4xl:w-[70%] 5xl:w-[65%]"
+          hidden={dirtySwitch !== 'dark'}
+        >
           <Image
-            src={(() => {
-              switch (theme) {
-                case "light":
-                  return headerImage;
-                case "dark":
-                  return headerImageDark;
-                default:
-                  return headerImageDark;
-              }
-            })()}
+            src={headerImageDark}
+            className="header-image"
+            alt="header"
+            unoptimized
+            layout="responsive"
+            loader={({ src }) => src}
+          />
+        </div>
+        <div className="absolute right-0 top-0 w-full sm:w-[85%] 3xl:w-[75%] 4xl:w-[70%] 5xl:w-[65%]"
+          hidden={dirtySwitch !== 'light'}
+        >
+          <Image
+            src={headerImage}
             className="header-image"
             alt="header"
             unoptimized
