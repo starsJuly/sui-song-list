@@ -19,7 +19,7 @@ function MyApp ({ Component, pageProps }) {
   return (
     <>
       <Head></Head>
-      <ThemeProvider defaultTheme='dark' attribute="data-theme" themes={['light', 'dark']}>
+      <ThemeProvider enableSystem={false} defaultTheme='dark' attribute="data-theme" themes={['light', 'dark']}>
         <Component {...pageProps} />
       </ThemeProvider>
       <ToastContainer
