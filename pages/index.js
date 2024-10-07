@@ -202,23 +202,15 @@ export default function Home() {
         className="z-[100] bg-gradient-to-b 
         from-transparent to-[30rem] w-screen"
       >
-        <div className="absolute right-0 top-0 w-full sm:w-[85%] 3xl:w-[75%] 4xl:w-[70%] 5xl:w-[65%]"
-          hidden={dirtySwitch !== 'dark'}
-        >
+        <div className="absolute right-0 top-0 w-full sm:w-[85%] 3xl:w-[75%] 4xl:w-[70%] 5xl:w-[65%]">
           <Image
-            src={headerImageDark}
-            className="header-image"
-            alt="header"
-            unoptimized
-            layout="responsive"
-            loader={({ src }) => src}
-          />
-        </div>
-        <div className="absolute right-0 top-0 w-full sm:w-[85%] 3xl:w-[75%] 4xl:w-[70%] 5xl:w-[65%]"
-          hidden={dirtySwitch !== 'light'}
-        >
-          <Image
-            src={headerImage}
+            src={(() => {
+              switch (dirtySwitch) {
+                case 'dark': return headerImageDark;
+                case 'light': return headerImage;
+                default: return headerImageDark;
+              }
+            })()}
             className="header-image"
             alt="header"
             unoptimized
