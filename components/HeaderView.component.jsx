@@ -110,10 +110,7 @@ const HeaderView = ({ props: [EffThis] }) => {
     }
   }, [clicks]);
   const dropdownRef = useRef(null);
-  const theme_name_map = new Map([
-    ['light', '爱之类的话语'],
-    ['dark', '魔偶马戏团'],
-  ])
+  const theme_name_map = new Map(Object.entries(config.theme));
   return (
     <>
       <div>

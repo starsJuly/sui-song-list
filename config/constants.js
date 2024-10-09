@@ -50,6 +50,11 @@ const config = {
       shadowcolor: "shadow-vr-fg"
     },
   ],
+
+  theme: {
+    'light':  '爱之类的话语',
+    'dark': '魔偶马戏团',
+  }
 }
 
 const generate_theme = () => {
