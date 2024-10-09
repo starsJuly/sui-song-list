@@ -21,7 +21,15 @@ import imageLoader from '../utils/ImageLoader'
 
 import config, { theme } from '../config/constants'
 
-import { eff_get, eff_set, get_theme, set_theme } from '../config/controllers'
+import { 
+  eff_get, 
+  eff_set, 
+  get_theme, 
+  is_favorite_song, 
+  set_theme, 
+  favorite_date,
+  migrate_localstorage
+} from '../config/controllers'
 
 import styled, { css } from "styled-components";
 
@@ -70,6 +78,10 @@ export default function Home() {
   const [ currently_playing ] = EffThis.currently_playing = useState(-1);
 
   const {theme, setTheme} = useTheme();
+
+  useEffect(() => {
+    migrate_localstorage(song_list);
+  }, []);
 
   // EffThis.functions
   useEffect(() => {
@@ -301,7 +313,7 @@ const FilteredList = memo(function FilteredList({ props: [ filter_state, searchB
   //过滤歌单列表
   const filteredSongList = song_list
     .map((song) => {
-      if (typeof window !== 'undefined' && localStorage.getItem(song.song_name) !== null) {
+      if (typeof window !== 'undefined' && is_favorite_song(song.song_name)) {
         song.is_local = true;
       } else {
         song.is_local = false;
@@ -364,8 +376,8 @@ const FilteredList = memo(function FilteredList({ props: [ filter_state, searchB
       } else if (filter_state.sorting_method === 'frequently') {
         return b.song_count - a.song_count;
       } else if (filter_state.is_local) {
-        let a_time = localStorage.getItem(a.song_name);
-        let b_time = localStorage.getItem(b.song_name);
+        let a_time = favorite_date(a.song_name);
+        let b_time = favorite_date(b.song_name);
         if (a_time && b_time) {
           return b_time - a_time;
         } else {
