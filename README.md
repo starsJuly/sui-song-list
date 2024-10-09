@@ -151,7 +151,7 @@ features:
 
 - 选定合适的背景图片，放置在 `public/assets/images/theme/` 目录下
 - 为背景生成一组合适的颜色，放入 `tailwind.config.js` 的 `createThemes` 函数中
-- 在 `HeaderView.component.jsx` 中的 `theme_name_map` 中添加对应的主题名称映射
+- 在 `constants.config.theme` 中添加对应的主题名称映射
 
 ## Related Repositories
 
