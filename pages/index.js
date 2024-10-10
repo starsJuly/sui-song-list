@@ -35,8 +35,9 @@ import styled, { css } from "styled-components";
 
 import { song_list } from '../config/song_list'
 
-import headerImage from '../public/assets/images/theme/header.png'
-import headerImageDark from '../public/assets/images/theme/header_dark.png'
+import headerImage from '../public/assets/images/theme/header.webp'
+import headerImageDark from '../public/assets/images/theme/header_dark.webp'
+import headerImageFlower from '../public/assets/images/theme/header_flower.webp'
 
 import {
   BsPalette2
@@ -220,6 +221,7 @@ export default function Home() {
               switch (dirtySwitch) {
                 case 'dark': return headerImageDark;
                 case 'light': return headerImage;
+                case 'flower': return headerImageFlower;
                 default: return headerImageDark;
               }
             })()}
