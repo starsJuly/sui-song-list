@@ -191,7 +191,7 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
         title={currentSong.song_name}
       >
       </audio>
-      <div className="flex items-center fixed bottom-0 left-0 w-full bg-music-player-bg text-white pl-[1rem] z-10">
+      <div className="flex items-center fixed bottom-0 left-0 w-full bg-music-player-bg text-label pl-[1rem] z-10">
         <div className="mr-2 w-[3rem] h-[3rem] relative">
           <Image src={artworkUrl} alt="artwork"
             loader={({src}) => src}
