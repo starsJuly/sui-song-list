@@ -57,7 +57,7 @@ const FeaturedSongItem = ({ props: [song, EffThis] }) => {
       </div>
       <div className="flex flex-row items-start pr-10">
         <span className={`text-label flex flex-row items-center ${get_artwork_url(bvid_list) !== "/favicon.png" ? "inline" : "hidden"}`}>
-          <span className="text-palette-7">{bili2_icon()}</span>
+          <span className="text-accent">{bili2_icon()}</span>
           <HiMiniPlay className="mr-1 ml-3" onClick={
             () => {
               EffThis.play_music_for_name(song.song_name);
@@ -97,9 +97,9 @@ const FeaturedSongItem = ({ props: [song, EffThis] }) => {
           <span className={`ml-[0.5rem] h-[1.2rem] inline-flex 
             items-center rounded-full
             px-2 py-1 font-medium mr-2
-          text-palette-9 ring-1 ring-inset 
-          ring-palette-9 text-xs shrink-0
-            transition-colors duration-100 hover:ring-white hover:text-white hover:bg-palette-9`}
+          text-secondary-label ring-1 ring-inset 
+          ring-secondary-label text-xs shrink-0
+            transition-colors duration-100 hover:ring-white hover:text-white hover:bg-secondary-label`}
             onClick={(e) => {
               e.stopPropagation();
               alert("暂时没有歌切记录；；");

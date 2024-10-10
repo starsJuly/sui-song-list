@@ -1,5 +1,6 @@
 import { toast } from 'react-toastify'
 import copy from 'copy-to-clipboard'
+import Cookies from 'js-cookie';
 
 const copy_show_text_max_count = 100;
 
@@ -41,18 +42,64 @@ export const latest_date = (date) => {
 }
 
 export const is_favorite_song = (name) => {
-  return typeof window !== 'undefined'
-    && localStorage.getItem(name) !== null;
+  if (typeof window !== 'undefined') {
+    const version = localStorage.getItem('version');
+    if (version !== '2') {
+      return localStorage.getItem(name) !== null;
+    }
+    const bookmarks = localStorage.getItem('bookmarks');
+    // check has key
+    if (bookmarks !== null) {
+      const bookmarks_obj = JSON.parse(bookmarks);
+      return bookmarks_obj[name] !== undefined;
+    }
+  }
+  return false;
 }
 
 export const toggle_favorite_song = (name, current, f) => {
   if (typeof window !== 'undefined') {
-    if (current) {
-      localStorage.removeItem(name);
+    let bookmarks = localStorage.getItem('bookmarks');
+    if (bookmarks === null) {
+      bookmarks = {};
     } else {
-      localStorage.setItem(name, Date.now());
+      bookmarks = JSON.parse(bookmarks);
     }
+    if (current) {
+      delete bookmarks[name];
+    } else {
+      bookmarks[name] = Date.now();
+    }
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
     f(!current);
   }
 }
 
+export const favorite_date = (name) => {
+  if (typeof window !== 'undefined') {
+    const bookmarks = localStorage.getItem('bookmarks');
+    if (bookmarks !== null) {
+      const bookmarks_obj = JSON.parse(bookmarks);
+      return bookmarks_obj[name];
+    }
+  }
+  return null;
+}
+
+export const migrate_localstorage = (songlist) => {
+  if (typeof window !== 'undefined') {
+    let version = localStorage.getItem('version');
+    if (version == '2') {
+      return;
+    }
+    let bookmarks = {};
+    songlist.forEach((song) => {
+      if (localStorage.getItem(song.song_name) !== null) {
+        bookmarks[song.song_name] = localStorage.getItem(song.song_name);
+        localStorage.removeItem(song.song_name);
+      }
+    });
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    localStorage.setItem('version', '2');
+  }
+}

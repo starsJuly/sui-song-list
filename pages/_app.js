@@ -7,6 +7,8 @@ import Head from 'next/head'
 
 import { ToastContainer } from 'react-toastify'
 
+import { ThemeProvider } from 'next-themes'
+
 function MyApp ({ Component, pageProps }) {
   Router.events.on('routeChangeComplete', (url) => {
     try {
@@ -17,7 +19,9 @@ function MyApp ({ Component, pageProps }) {
   return (
     <>
       <Head></Head>
-      <Component {...pageProps} />
+      <ThemeProvider enableSystem={false} defaultTheme='dark' attribute="data-theme" themes={['light', 'dark']}>
+        <Component {...pageProps} />
+      </ThemeProvider>
       <ToastContainer
         theme="light"
         position="top-right"

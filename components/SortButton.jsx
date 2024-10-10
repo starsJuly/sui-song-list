@@ -37,16 +37,16 @@ export default function SortBtn({ props: [
   return (
     <div className="relative inline-block text-left mr-2 mb-2 shrink-0">
       <div className={`relative inline-flex justify-center gap-x-1.5
-         rounded-xl text-sm shadow-sm ring-1 
-         ring-inset ring-gray-300 hover:bg-gray-50
-         bg-white text-gray-900
+         rounded-xl text-sm
+         ring-inset ring-gray-300 
+         bg-tertiary-background text-label transition-all duration-100
          `}
         ref={ref}
         onClick={() => {
           setIsOpen(!isOpen);
         }}
       >
-        <div className="relative flex items-center divide-x divide-solid divide-gray-300"
+        <div className="relative flex items-center divide-x divide-solid divide-secondary-label"
         >
           <button type="button" className="inline-flex items-center
             px-2 py-2 text-sm pr-4"
@@ -68,7 +68,7 @@ export default function SortBtn({ props: [
         <motion.div
           className='origin-top-right absolute left-0 mt-2 w-32 z-10 
           rounded-md shadow-lg 
-          bg-white ring-1 ring-black 
+          bg-tertiary-background ring-1 ring-black 
           ring-opacity-5 focus:outline-none 
           h-[10rem] overflow-y-auto' 
           role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1"
@@ -90,8 +90,8 @@ export default function SortBtn({ props: [
                     style={{
                       cursor: theme.cursor.pointer,
                     }}
-                    className={`block px-4 py-2 text-sm text-gray-700 
-                      ${option === filter_state.sorting_method ? 'bg-oen-color-1' : 'bg-white'}
+                    className={`block px-4 py-2 text-sm text-label
+                      ${option === filter_state.sorting_method ? 'bg-accent-oen/30' : 'bg-tertiary-background'}
                     `} 
                     role="menuitem" tabIndex="-1" id="menu-item-3"
                     key={option}

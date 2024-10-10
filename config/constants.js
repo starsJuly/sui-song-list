@@ -21,35 +21,40 @@ const config = {
       url: "https://live.bilibili.com/25788785",
       name: "直播间",
       icon: "/assets/icon/bilibili_logo_padded.png",
-      background: "bg-bilibili-bg-light",
-      textcolor: "text-bilibili-fg-light",
-      shadowcolor: "shadow-bilibili-fg-light"
+      background: "bg-bilibili-bg",
+      textcolor: "text-bilibili-fg",
+      shadowcolor: "shadow-bilibili-fg"
     },
     {
       url: "https://pome.vip/Gz75k7hF",
       name: "提问箱",
       icon: "/assets/icon/pome.png",
-      background: "bg-pome-bg-light",
-      textcolor: "text-pome-fg-light",
-      shadowcolor: "shadow-pome-fg-light"
+      background: "bg-pome-bg",
+      textcolor: "text-pome-fg",
+      shadowcolor: "shadow-pome-fg"
     },
     {
       url: "https://weibo.com/u/7785772638",
       name: "微博",
       icon: "/assets/icon/weibo.png",
-      background: "bg-weibo-bg-light",
-      textcolor: "text-weibo-fg-light",
-      shadowcolor: "shadow-weibo-fg-light"
+      background: "bg-weibo-bg",
+      textcolor: "text-weibo-fg",
+      shadowcolor: "shadow-weibo-fg"
     },
     {
       url: "https://vrp.live/member/SUI",
       name: "官网介绍",
       icon: "/assets/images/self_intro.png",
-      background: "bg-vr-bg-light",
-      textcolor: "text-vr-fg-light",
-      shadowcolor: "shadow-vr-fg-light"
+      background: "bg-vr-bg",
+      textcolor: "text-vr-fg",
+      shadowcolor: "shadow-vr-fg"
     },
   ],
+
+  theme: {
+    'light':  '爱之类的话语',
+    'dark': '魔偶马戏团',
+  }
 }
 
 const generate_theme = () => {
