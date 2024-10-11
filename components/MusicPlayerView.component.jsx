@@ -109,7 +109,7 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
       artist: currentSong.artist,
       album: document.title,
       artwork: [
-        { src: artworkUrl, sizes: '256x256', type: 'image/png' },
+        { src: artworkUrl+'&media=1', sizes: '256x256', type: 'image/png' },
       ],
     });
   }, [currentSong, artworkUrl]);
@@ -191,7 +191,11 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
         title={currentSong.song_name}
       >
       </audio>
-      <div className="flex items-center fixed bottom-0 left-0 w-full bg-music-player-bg text-label pl-[1rem] z-10">
+      <div className="flex items-center fixed 
+        bottom-3 w-[95%] backdrop-blur-xl
+        bg-music-player-bg/90 text-label pl-[1rem] 
+        z-10 max-w-[1100px] shadow-xl
+        rounded-xl left-[2.5%] xl:left-auto">
         <div className="mr-2 w-[3rem] h-[3rem] relative">
           <Image src={artworkUrl} alt="artwork"
             loader={({src}) => src}

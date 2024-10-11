@@ -14,6 +14,7 @@ module.exports = {
         'main-cursor': "url('/assets/cursor/v2/pointer.png'), pointer",
       },
       screens: {
+        'xl': '1100px',
         '3xl': '1600px',
         '4xl': '1920px',
         '5xl': '2560px',

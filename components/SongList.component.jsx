@@ -442,7 +442,7 @@ export default function SongList
               </div>
               <div className="hidden flex-row items-center sm:flex justify-between sm:w-[30%]">
                 <div className="break-all text-sm text-secondary-label pl-[0.8rem] hidden sm:block">{song_info.artist}</div>
-                <div className="text-nowrap w-min-[120px] text-secondary-label pl-[0.8rem] text-sm hidden sm:block">{out.last_date}</div>
+                <div className="text-nowrap w-min-[120px] text-secondary-label pl-[0.8rem] text-sm hidden sm:block pr-[1rem]">{out.last_date}</div>
               </div>
             </motion.div>
           </td>
