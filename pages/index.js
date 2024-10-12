@@ -209,6 +209,12 @@ export default function Home() {
           as="image"
           type="image/gif"
         />
+        <link
+          rel="preload"
+          href='https://api.suij1sui.space/api/v2/avatar'
+          as="image"
+          type='image/webp'
+        />
       </Head>
 
       <div

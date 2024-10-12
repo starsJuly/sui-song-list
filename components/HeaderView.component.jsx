@@ -102,7 +102,9 @@ const StyledI = ({handle_click}) => {
 
 const HeaderView = ({ props: [EffThis] }) => {
   const [clicks, set_clicks] = useState(1);
-  const [avatar_url, set_avatar_url] = useState('/assets/images/banner_image.webp');
+  const [avatar_url, set_avatar_url] = useState(
+    "https://api.suij1sui.space/api/v2/avatar"
+  );
   const [is_theme_selection_open, set_is_theme_selection_open] = useState(false);
   useEffect(() => {
     if (clicks > 5) {
