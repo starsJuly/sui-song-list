@@ -488,8 +488,8 @@ function FixedTool() {
   if (!to_top_btn_is_visible) return (<div></div>);
   
   return (
-    <div className='flex flex-col items-start 
-      bottom-[5rem] right-[1rem] fixed space-y-1'>
+    <div className='flex flex-col items-start right-[1rem]
+      bottom-[5rem] fixed space-y-1 sm:right-[calc(1rem+(100vw-(min(100vw,1100px)))/2)]'>
       <button
         className={`
         flex items-center rounded-full shrink-0 
