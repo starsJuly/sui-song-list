@@ -83,6 +83,11 @@ const PillList = ({ props: [song_info, song_idx, BVID, EffThis,] }) => {
             set_is_favorite(!is_favorite);
             if (!is_favorite) {
               set_show_love(true);
+              navigator.sendBeacon('https://api.suij1sui.space/api/v2/action', JSON.stringify({
+                action: "bookmark",
+                name: song_info.song_name,
+                timestamp: Date.now(),
+              }))
             }
           });
         }}
@@ -192,6 +197,11 @@ const CompactButtonList = ({ props: [song_info, song_idx, BVID, EffThis,] }) => 
                 set_is_favorite(!is_favorite);
                 if (!is_favorite) {
                   set_show_love(true);
+                  navigator.sendBeacon('https://api.suij1sui.space/api/v2/action', JSON.stringify({
+                    action: "bookmark",
+                    name: song_info.song_name,
+                    timestamp: Date.now(),
+                  }));
                 }
               });
             }}
@@ -369,7 +379,17 @@ export default function SongList
                 group/tablename break-all sm:w-[70%]
                 text-base sm:hover:cursor-main-cursor"
                 onClick={
-                  () => global_controllers.copy_to_clipboard(song_info.song_name)
+                  () => {
+                    global_controllers.copy_to_clipboard(song_info.song_name)
+                    navigator.sendBeacon(
+                      "https://api.suij1sui.space/api/v2/action",
+                      JSON.stringify({
+                        action: "copy",
+                        name: song_info.song_name,
+                        timestamp: Date.now(),
+                      })
+                    );
+                  }
                 }>
                 <div className="flex flex-row items-center justify-between">
                   <div className="flex flex-row items-center h-[4.5rem]">
@@ -416,6 +436,14 @@ export default function SongList
                           (event) => {
                             event.stopPropagation();
                             global_controllers.copy_to_clipboard(song_info.song_translated_name)
+                            navigator.sendBeacon(
+                              "https://api.suij1sui.space/api/v2/action",
+                              JSON.stringify({
+                                action: "copy",
+                                name: song_info.song_name,
+                                timestamp: Date.now(),
+                              })
+                            );
                           }
                         }>
                           {out.translated_name}
