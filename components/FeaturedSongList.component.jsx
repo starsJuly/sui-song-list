@@ -25,7 +25,9 @@ import {
 
 import { motion } from "framer-motion";
 
-const FeaturedSongItem = ({ props: [song, EffThis] }) => {
+const FeaturedSongItem = (props) => {
+  const song = props.song;
+  const EffThis = props.effthis;
   const [is_favorite, set_is_favorite] = useState(null);
   useEffect(() => {
     set_is_favorite(is_favorite_song(song.song_name));
@@ -115,20 +117,10 @@ const FeaturedSongItem = ({ props: [song, EffThis] }) => {
   );
 };
 
-const FeaturedSongList = ({ props: [EffThis] }) => {
-  const sorted_list = song_list.sort((a, b) => {
-    const a_date = a.date_list
-      .split(/，/g)
-      .map((a) => Date.parse(a))
-      .filter((a) => !isNaN(a))
-      .sort();
-    const b_date = b.date_list
-      .split(/，/g)
-      .map((a) => Date.parse(a))
-      .filter((a) => !isNaN(a))
-      .sort();
-    return b_date[b_date.length - 1] - a_date[a_date.length - 1];
-  });
+const FeaturedSongList = (props) => {
+  const EffThis = props.effthis;
+  const datasrc = props.datasrc;
+  const sorted_list = datasrc(song_list);
 
   const [scroll_position, set_scroll_position] = useState({
     scrollTop: 0,
@@ -180,7 +172,7 @@ const FeaturedSongList = ({ props: [EffThis] }) => {
                     <div key={idx}>
                       {sorted_list.slice(idx, idx + 3).map((song, i) => {
                         return (
-                          <FeaturedSongItem props={[song, EffThis]} key={i} />
+                          <FeaturedSongItem song={song} effthis={EffThis} key={i} />
                         );
                       })}
                     </div>
