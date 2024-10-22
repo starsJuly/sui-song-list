@@ -120,8 +120,19 @@ const FeaturedSongItem = (props) => {
 const FeaturedSongList = (props) => {
   const EffThis = props.effthis;
   const datasrc = props.datasrc;
-  const sorted_list = datasrc(song_list);
-
+  const title = props.title;
+  const [sorted_list, set_sorted_list] = useState([]);
+  useEffect(() => {
+    async function fetch_data() {
+      try {
+        const response = await datasrc(song_list);
+        set_sorted_list(response);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetch_data();
+  }, []);
   const [scroll_position, set_scroll_position] = useState({
     scrollTop: 0,
     scrollLeft: 0,
@@ -150,43 +161,64 @@ const FeaturedSongList = (props) => {
     <>
       <div className="pl-3 pr-3 mt-3 w-[100vw] sm:max-w-[1100px] relative">
         <div className="inline-block w-[100%] overflow-x-hidden">
-          <div className='flex flex-row items-center mb-2'>
-            <div className='w-[1.5rem] h-[1.5rem]  relative mr-1 rounded-full overflow-hidden'>
-              <Image src={'/assets/images/emoticon_stars_in_your_eyes.webp'}
-                width={0} height={0} sizes='100vw' layout='fill'
-                unoptimized objectFit='cover' alt='stars'
+          <div className="flex flex-row items-center mb-2">
+            <div className="w-[1.5rem] h-[1.5rem]  relative mr-1 rounded-full overflow-hidden">
+              <Image
+                src={"/assets/images/emoticon_stars_in_your_eyes.webp"}
+                width={0}
+                height={0}
+                sizes="100vw"
+                layout="fill"
+                unoptimized
+                objectFit="cover"
+                alt="stars"
               />
             </div>
             <span className="text-subtitle text-secondary-label font-semibold">
-              最近更新
+              {title}
             </span>
           </div>
           <div className="relative">
-            <div className="w-full overflow-x-scroll featured-list no-scrollbar"
+            <div
+              className="w-full overflow-x-scroll featured-list no-scrollbar"
               onScroll={handle_scroll}
               ref={list_ref}
             >
-              <div className="flex flex-row transition-all duration-300">
-                {[0, 3, 6].map((idx) => {
-                  return (
-                    <div key={idx}>
-                      {sorted_list.slice(idx, idx + 3).map((song, i) => {
-                        return (
-                          <FeaturedSongItem song={song} effthis={EffThis} key={i} />
-                        );
-                      })}
-                    </div>
-                  );
-                })}
-              </div>
+              {Array.isArray(sorted_list) && sorted_list.length > 0 ? (
+                <div className="flex flex-row transition-all duration-300">
+                  {[0, 3, 6].map((idx) => {
+                    return (
+                      <div key={idx}>
+                        {sorted_list.slice(idx, idx + 3).map((song, i) => {
+                          return (
+                            <FeaturedSongItem
+                              song={song}
+                              effthis={EffThis}
+                              key={i}
+                            />
+                          );
+                        })}
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="text-sm text-secondary-label text-center">
+                  获取数据失败
+                </div>
+              )}
             </div>
-            <div className="absolute right-[-0.21rem] top-[-0.5rem] h-[100%] flex items-center text-label font-semibold"
-              onClick={() => chevronClick(1)}>
-              <HiChevronRight className="text-subtitle"/>
+            <div
+              className="absolute right-[-0.21rem] top-[-0.5rem] h-[100%] flex items-center text-label font-semibold"
+              onClick={() => chevronClick(1)}
+            >
+              <HiChevronRight className="text-subtitle" />
             </div>
-            <div className="absolute left-[-0.21rem] top-[-0.5rem] h-[100%] flex items-center text-label font-semibold"
-              onClick={() => chevronClick(-1)}>
-              <HiChevronLeft className="text-subtitle"/>
+            <div
+              className="absolute left-[-0.21rem] top-[-0.5rem] h-[100%] flex items-center text-label font-semibold"
+              onClick={() => chevronClick(-1)}
+            >
+              <HiChevronLeft className="text-subtitle" />
             </div>
           </div>
         </div>

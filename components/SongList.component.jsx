@@ -274,7 +274,7 @@ export default function SongList
     return inputList.slice(visibleStart, visibleStart + visibleLength);
   }, [inputList, visibleLength, visibleStart]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (rowRef.current) {
       setRowHeight(rowRef.current.clientHeight + 12);
     }
@@ -285,7 +285,7 @@ export default function SongList
 
   let scrollCallback = useCallback(() => {
     if (tableRef.current) {
-      let offset = window.scrollY - tableOffset;
+      let offset = window.scrollY - tableRef.current.offsetTop;
       if (offset < 0) {
         offset = 0;
       }

@@ -241,22 +241,34 @@ export default function Home() {
         <section className={styles.main}>
           <HeaderView props={[EffThis]}/>
           <FeaturedSongList effthis={EffThis} datasrc={
-              (song_list) => {
-                return song_list.sort((a, b) => {
-                  const a_date = a.date_list
-                        .split(/，/g)
-                    .map((a) => Date.parse(a))
-                    .filter((a) => !isNaN(a))
-                        .sort();
-                        const b_date = b.date_list
-                        .split(/，/g)
-                    .map((a) => Date.parse(a))
-                    .filter((a) => !isNaN(a))
-                        .sort();
-                        return b_date[b_date.length - 1] - a_date[a_date.length - 1];
+            async (song_list) => {
+              let list = null;
+              await fetch("https://api.suij1sui.space/api/v2/featured")
+                .then((res) => res.json())
+                .then((data) => {
+                  list = data;
                 });
+              return list;
             }
-          }/>
+          } title="听啥呢饼" />
+          <FeaturedSongList effthis={EffThis} datasrc={
+              async (list) => {
+                list.sort((a, b) => {
+                  const a_date = a.date_list
+                    .split(/，/g)
+                    .map((a) => Date.parse(a))
+                    .filter((a) => !isNaN(a))
+                    .sort();
+                  const b_date = b.date_list
+                    .split(/，/g)
+                    .map((a) => Date.parse(a))
+                    .filter((a) => !isNaN(a))
+                    .sort();
+                  return b_date[b_date.length - 1] - a_date[a_date.length - 1];
+                });
+                return list;
+            }
+          } title="最近更新"/>
           <SongListFilter props={[filter_state, searchBox, EffThis]} />
           <FilteredList props={[filter_state, searchBox, EffThis]} />
           <MusicPlayerView props={[currently_playing, EffThis]} />
@@ -389,7 +401,7 @@ const FilteredList = memo(function FilteredList({ props: [ filter_state, searchB
         return a_date[a_date.length - 1] - b_date[b_date.length - 1];
       } else if (filter_state.sorting_method === 'infrequently') {
         return a.song_count - b.song_count;
-      } else if (filter_state.sorting_method === 'recently') {
+      } else if (filter_state.sorting_method === 'recently' || filter_state.sorting_method === 'default') {
         const a_date = a.date_list.split(/，/g)
           .map(a => Date.parse(a)).filter(a => !isNaN(a))
           .sort();
@@ -424,9 +436,7 @@ const FilteredList = memo(function FilteredList({ props: [ filter_state, searchB
     </>
   )
 }, (prev, next) => {
-  console.log(JSON.stringify(prev));
   if (Object.is(prev, next)) return true;
-  console.log('objects not equal');
   
   const prev_keys = Object.keys(prev);
   const next_keys = Object.keys(next);
