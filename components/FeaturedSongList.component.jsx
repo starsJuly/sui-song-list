@@ -203,7 +203,7 @@ const FeaturedSongList = (props) => {
                   })}
                 </div>
               ) : (
-                <div className="text-sm text-secondary-label text-center">
+                <div className="text-[1rem] text-secondary-label text-center">
                   获取数据失败
                 </div>
               )}
