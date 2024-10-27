@@ -4,8 +4,14 @@ import {
   BsSkipForwardFill,
   BsFillPlayFill,
   BsFillPauseFill,
+  BsBookmarkPlus,
+  BsBookmarkHeartFill,
 } from "react-icons/bs";
 import Image from 'next/image';
+import { 
+  is_favorite_song, 
+  toggle_favorite_song 
+} from '../config/controllers';
 
 const next_playable_song = (song_list, idx) => {
   for (let i = (idx + 1) % song_list.length; ; 
@@ -63,6 +69,7 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
 
   const [artworkUrl, setArtworkUrl] = useState("favicon.png");
   const [bvid, setBvid] = useState("");
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     if (idx !== -1) {
@@ -92,6 +99,7 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
       song_name: song_list[idx].song_name,
       artist: song_list[idx].artist,
     });
+    setIsFavorite(is_favorite_song(song_list[idx].song_name));
     setIsPlaying(true);
     audioRef.current.src = data_url + bvid;
     audioRef.current.play(); 
@@ -237,8 +245,24 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
           <BsSkipForwardFill />
         </div>
         <div className="mt-2 mb-2 ml-4">
-          <div className="text-base font-bold">
-            {currentSong.song_name}
+          <div className='flex flex-row items-center'>
+            <button className="text-base mr-1"
+             onClick={
+               () => {
+                 toggle_favorite_song(currentSong.song_name, 
+                    isFavorite, setIsFavorite);
+               }
+             }
+             hidden={!isPlaying}>
+              {
+                is_favorite_song(currentSong.song_name) ? 
+                <BsBookmarkHeartFill /> :
+                <BsBookmarkPlus />
+              }
+            </button>
+            <div className="text-base font-bold">
+              {currentSong.song_name}
+            </div>
           </div>
           <div className="font-light text-sm">
             {currentSong.artist}
