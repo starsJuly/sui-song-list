@@ -253,7 +253,7 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
                     isFavorite, setIsFavorite);
                }
              }
-             hidden={!isPlaying}>
+             hidden={currentSong.song_name === '---'}>
               {
                 is_favorite_song(currentSong.song_name) ? 
                 <BsBookmarkHeartFill /> :
