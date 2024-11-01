@@ -126,7 +126,7 @@ module.exports = {
 
         'vr-bg': '#1D3222',
         'vr-fg': '#6BE98C',
-        
+
         // generated from #87EAFF
         'oen-blue': '#87EAFF',
         'oen-color-1': "#e1fdff",
@@ -153,7 +153,7 @@ module.exports = {
         'oen-color-18': "#bb2747",
         'oen-color-19': "#a71f3f",
         'oen-color-20': "#941335",
-        
+
         'label': '#F0D59E',
         'secondary-label': '#EDC69A',
         'tertiary-label': '#733E2E',
@@ -170,7 +170,7 @@ module.exports = {
         'secondary-background': '#2A1D16',
         'tertiary-background': '#33241B',
         'main-page-background': '#170E0C'
-        
+
       },
       flower: {
         // ["A282A1", "895F65", "D35B68", "FBF9FC", "F9E7F7", "DEE4F7", "F9CCD7", "312025"]
@@ -232,6 +232,70 @@ module.exports = {
         'main-page-background': '#DEE4F7',
         'secondary-background': '#312025',
         'tertiary-background': '#FBF9FC',
+      },
+
+      marvelous: {
+        'badge-play': '#DA5D77',
+        'bilibili': '#00AEEC',
+        'music-player-bg': '#7E4937',
+        'item-hover': '#45BEEA',
+
+        'pome-bg': '#171A35',
+        'pome-fg': '#6866ff',
+
+        'weibo-bg': '#341A1D',
+        'weibo-fg': '#F3526F',
+
+        'bilibili-bg': '#1B2932',
+        'bilibili-fg': '#37abe9',
+
+        'vr-bg': '#1D3222',
+        'vr-fg': '#6BE98C',
+
+
+        // generated from #87EAFF
+        'oen-blue': '#87EAFF',
+        'oen-color-1': "#e1fdff",
+        'oen-color-2': "#ccf8ff",
+        'oen-color-3': "#9ceeff",
+        'oen-color-4': "#68e4fe",
+        'oen-color-5': "#43dbfd",
+        'oen-color-6': "#2fd6fd",
+        'oen-color-7': "#1dd4fe",
+        'oen-color-8': "#00bbe3",
+        'oen-color-9': "#00a7cb",
+        'oen-color-10': "#0090b3",
+
+        // generated from #DA5D77
+        'oen-red': '#DA5D77',
+        'oen-red-2': '#E97365',
+        'oen-color-11': "#ffeaf1",
+        'oen-color-12': "#fbd6df",
+        'oen-color-13': "#efadbb",
+        'oen-color-14': "#e38095",
+        'oen-color-15': "#da5b75",
+        'oen-color-16': "#d44361",
+        'oen-color-17': "#d23657",
+        'oen-color-18': "#bb2747",
+        'oen-color-19': "#a71f3f",
+        'oen-color-20': "#941335",
+
+        'label': '#A18FA3',
+        'secondary-label': '#9C818E',
+        'tertiary-label': '#4A414F',
+        'accent': '#812722',
+        'accent-bg': '#311016',
+        'accent-fg': '#946170',
+        'accent-oen': '#87EAFF',
+        'accent-oen-2': '#DA5D77',
+        'accent-2': '#FBF2C6',
+        'accent-3': '#E97365',
+        'placeholder': '#34281C',
+        'background': '#4A414F',
+        'background-2': '#534E54',
+        'secondary-background': '#060608',
+        'tertiary-background': '#534E54',
+        'main-page-background': '#25253a'
       }
     })
   ],

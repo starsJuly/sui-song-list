@@ -28,7 +28,8 @@ import {
   is_favorite_song, 
   set_theme, 
   favorite_date,
-  migrate_localstorage
+  migrate_localstorage,
+  upgrade_app
 } from '../config/controllers'
 
 import styled, { css } from "styled-components";
@@ -38,6 +39,7 @@ import { song_list } from '../config/song_list'
 import headerImage from '../public/assets/images/theme/header.webp'
 import headerImageDark from '../public/assets/images/theme/header_dark.webp'
 import headerImageFlower from '../public/assets/images/theme/header_flower.webp'
+import headerImageMarvelous from '../public/assets/images/theme/header_marvelous.webp'
 
 import {
   BsPalette2
@@ -167,6 +169,10 @@ export default function Home() {
 
   const [dirtySwitch, setDirtySwitch] = useState('');
   useEffect(() => {
+    upgrade_app('2.0.1', () => {
+      EffThis.set_theme('marvelous');
+      setDirtySwitch('marvelous');
+    })
     setDirtySwitch(theme);
   }, [theme]);
   
@@ -228,7 +234,8 @@ export default function Home() {
                 case 'dark': return headerImageDark;
                 case 'light': return headerImage;
                 case 'flower': return headerImageFlower;
-                default: return headerImageDark;
+                case 'marvelous': return headerImageMarvelous;
+                default: return headerImageMarvelous;
               }
             })()}
             className="header-image"

@@ -44,7 +44,7 @@ export const latest_date = (date) => {
 export const is_favorite_song = (name) => {
   if (typeof window !== 'undefined') {
     const version = localStorage.getItem('version');
-    if (version !== '2') {
+    if (version < '2') {
       return localStorage.getItem(name) !== null;
     }
     const bookmarks = localStorage.getItem('bookmarks');
@@ -89,7 +89,7 @@ export const favorite_date = (name) => {
 export const migrate_localstorage = (songlist) => {
   if (typeof window !== 'undefined') {
     let version = localStorage.getItem('version');
-    if (version == '2') {
+    if (version >= '2') {
       return;
     }
     let bookmarks = {};
@@ -101,5 +101,15 @@ export const migrate_localstorage = (songlist) => {
     });
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
     localStorage.setItem('version', '2');
+  }
+}
+
+export const upgrade_app = (version, cb) => {
+  if (typeof window !== 'undefined') {
+    let current_version = localStorage.getItem('version');
+    if (current_version !== version) {
+      cb();
+      localStorage.setItem('version', version);
+    }
   }
 }

@@ -55,6 +55,7 @@ const config = {
     'light':  '爱之类的话语',
     'dark': '魔偶马戏团',
     'flower': '花做成的海',
+    'marvelous': '奇妙夜',
   }
 }
 
