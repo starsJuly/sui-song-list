@@ -237,7 +237,7 @@ module.exports = {
       marvelous: {
         'badge-play': '#DA5D77',
         'bilibili': '#00AEEC',
-        'music-player-bg': '#7E4937',
+        'music-player-bg': '#63392C',
         'item-hover': '#45BEEA',
 
         'pome-bg': '#171A35',
