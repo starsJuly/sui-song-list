@@ -83,14 +83,19 @@ const PillList = ({ props: [song_info, song_idx, BVID, EffThis,] }) => {
             set_is_favorite(!is_favorite);
             if (!is_favorite) {
               set_show_love(true);
+              navigator.sendBeacon('https://api.suij1sui.space/api/v2/action', JSON.stringify({
+                action: "bookmark",
+                name: song_info.song_name,
+                timestamp: Date.now(),
+              }))
             }
           });
         }}
       >
         {
           is_favorite
-            ? <BsBookmarkHeartFill className="text-oen-red hover:text-palette-2 transition-colors duration-100" />
-            : <BsBookmarkPlus className="text-oen-color-10 hover:text-palette-2 transition-colors duration-100" />
+            ? <BsBookmarkHeartFill className="text-accent-3 hover:text-accent-3 transition-colors duration-100" />
+            : <BsBookmarkPlus className="text-label hover:text-accent-3 transition-colors duration-100" />
         }
         {
           show_love 
@@ -192,6 +197,11 @@ const CompactButtonList = ({ props: [song_info, song_idx, BVID, EffThis,] }) => 
                 set_is_favorite(!is_favorite);
                 if (!is_favorite) {
                   set_show_love(true);
+                  navigator.sendBeacon('https://api.suij1sui.space/api/v2/action', JSON.stringify({
+                    action: "bookmark",
+                    name: song_info.song_name,
+                    timestamp: Date.now(),
+                  }));
                 }
               });
             }}
@@ -219,10 +229,10 @@ const CompactButtonList = ({ props: [song_info, song_idx, BVID, EffThis,] }) => 
         <span className={`ml-[0.5rem] h-[1.2rem] inline-flex 
           items-center rounded-full
           px-2 py-1 font-medium 
-        text-palette-9 ring-1 ring-inset 
-        ring-palette-9 text-xs shrink-0
+        text-secondary-label ring-1 ring-inset 
+        ring-secondary-label text-xs shrink-0
           transition-colors duration-100 ${has_record ? 'hidden' : 'inline'}
-          hover:ring-white hover:text-white hover:bg-palette-9`}
+          hover:ring-white hover:text-white hover:bg-secondary-label`}
           onClick={(e) => {
             e.stopPropagation();
             alert("暂时没有歌切记录；；");
@@ -264,7 +274,7 @@ export default function SongList
     return inputList.slice(visibleStart, visibleStart + visibleLength);
   }, [inputList, visibleLength, visibleStart]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (rowRef.current) {
       setRowHeight(rowRef.current.clientHeight + 12);
     }
@@ -275,7 +285,7 @@ export default function SongList
 
   let scrollCallback = useCallback(() => {
     if (tableRef.current) {
-      let offset = window.scrollY - tableOffset;
+      let offset = window.scrollY - tableRef.current.offsetTop;
       if (offset < 0) {
         offset = 0;
       }
@@ -369,7 +379,17 @@ export default function SongList
                 group/tablename break-all sm:w-[70%]
                 text-base sm:hover:cursor-main-cursor"
                 onClick={
-                  () => global_controllers.copy_to_clipboard(song_info.song_name)
+                  () => {
+                    global_controllers.copy_to_clipboard(song_info.song_name)
+                    navigator.sendBeacon(
+                      "https://api.suij1sui.space/api/v2/action",
+                      JSON.stringify({
+                        action: "copy",
+                        name: song_info.song_name,
+                        timestamp: Date.now(),
+                      })
+                    );
+                  }
                 }>
                 <div className="flex flex-row items-center justify-between">
                   <div className="flex flex-row items-center h-[4.5rem]">
@@ -416,6 +436,14 @@ export default function SongList
                           (event) => {
                             event.stopPropagation();
                             global_controllers.copy_to_clipboard(song_info.song_translated_name)
+                            navigator.sendBeacon(
+                              "https://api.suij1sui.space/api/v2/action",
+                              JSON.stringify({
+                                action: "copy",
+                                name: song_info.song_name,
+                                timestamp: Date.now(),
+                              })
+                            );
                           }
                         }>
                           {out.translated_name}
@@ -442,7 +470,7 @@ export default function SongList
               </div>
               <div className="hidden flex-row items-center sm:flex justify-between sm:w-[30%]">
                 <div className="break-all text-sm text-secondary-label pl-[0.8rem] hidden sm:block">{song_info.artist}</div>
-                <div className="text-nowrap w-min-[120px] text-secondary-label pl-[0.8rem] text-sm hidden sm:block">{out.last_date}</div>
+                <div className="text-nowrap w-min-[120px] text-secondary-label pl-[0.8rem] text-sm hidden sm:block pr-[1rem]">{out.last_date}</div>
               </div>
             </motion.div>
           </td>

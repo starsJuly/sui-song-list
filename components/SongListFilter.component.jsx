@@ -43,18 +43,18 @@ export default function SongListFilter({ props: [ filter_state, searchBox, EffTh
           <span>筛选</span>
         </div>
         <div className="inline-flex items-center w-full flex-wrap sm:!flex-nowrap pl-3">
-          <div className="relative rounded-xl shadow-sm 
+          <div className="relative rounded-xl 
             justify-center mr-2 mb-2 grow hidden sm:inline-block">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-              <span className="text-gray-500 sm:text-sm">
+              <span className="text-label sm:text-sm">
                 <MagnifyingGlassIcon className="inline h-5 w-5 ml-0" />
               </span>
             </div>
             <input type="text" className="block w-full rounded-xl border-0 
-              py-1.5 pl-10 pr-20 text-gray-900 ring-1 focus:outline-palette-7
-              ring-inset ring-gray-300 placeholder:text-gray-400 
+              py-1.5 pl-10 pr-20 text-label ring-0 focus:outline-accent
+              ring-inset placeholder:text-secondary-label
               focus:ring-0 focus:ring-inset focus:ring-oen-color-1
-              sm:text-sm sm:leading-6" placeholder="搜索"
+              sm:text-sm sm:leading-6 bg-tertiary-background" placeholder="搜索"
               onChange={(e) => EffThis.do_set_search(e.target.value)}
             />
           </div>
@@ -89,16 +89,16 @@ export default function SongListFilter({ props: [ filter_state, searchBox, EffTh
           <RandomFilterBtn />
         </div>
         <div className="relative pl-3">
-          <div className="relative rounded-xl shadow-sm 
-            justify-center mr-2 mb-2 w-full inline-block sm:hidden">
+          <div className="relative rounded-xl 
+            justify-center  transition-all duration-100 mr-2 mb-2 w-full inline-block sm:hidden">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
               <span className="text-gray-500 sm:text-sm">
                 <MagnifyingGlassIcon className="inline h-5 w-5 ml-0" />
               </span>
             </div>
             <input type="text" className="block w-full rounded-xl border-0 
-            py-1.5 pl-10 pr-20 text-gray-900
-            ring-inset placeholder:text-gray-400 focus:outline-palette-7
+            py-1.5 pl-10 pr-20 text-gray-900 bg-tertiary-background
+            ring-inset placeholder:text-secondary-label focus:outline-accent
             focus:ring-0 focus:ring-inset focus:ring-oen-color-1
             sm:text-sm sm:leading-6 text-sm" placeholder="搜索"
               onChange={(e) => EffThis.do_set_search(e.target.value)}
@@ -113,10 +113,9 @@ export default function SongListFilter({ props: [ filter_state, searchBox, EffTh
 const LocalSongListBtn = ({ props: [ is_active, EffThis, ] }) => {
   return (
     <div className={`relative inline-flex justify-center gap-x-1.5
-      rounded-xl text-sm shadow-sm ring-1 transition-all
-      ring-inset ring-gray-300 shrink-0
-      ${is_active ? 'bg-oen-color-1' : 'bg-white'}
-      ${is_active ? 'text-oen-color-9' : 'text-gray-900'}
+      rounded-xl text-sm transition-all duration-100 shrink-0
+      ${is_active ? 'bg-accent-bg' : 'bg-tertiary-background'}
+      ${is_active ? 'text-accent-fg' : 'text-label'}
       mr-2 mb-2
       `}
     >
@@ -139,10 +138,10 @@ function LanguageFilterBtn ({ props: [ is_active, lang, EffThis, ] }) {
   const cancel_or_filter = is_active ? '' : lang;
   return (
     <div className={`relative inline-flex justify-center gap-x-1.5
-         rounded-xl text-sm shadow-sm ring-1 mr-2 mb-2
-         ring-inset ring-gray-300 shrink-0
-         ${is_active ? 'bg-oen-color-1' : 'bg-white'}
-         ${is_active ? 'text-oen-color-9' : 'text-gray-900'}
+         rounded-xl text-sm mr-2 mb-2
+         ring-inset shrink-0
+          ${is_active ? 'bg-accent-bg' : 'bg-tertiary-background'}
+          ${is_active ? 'text-accent-fg' : 'text-label'}
          `}
     >
       <button type="button" className="justify-center
@@ -169,8 +168,8 @@ function RandomFilterBtn () {
 
   return (
     <div className="relative inline-flex justify-center gap-x-1.5
-         rounded-xl text-sm shadow-sm ring-1 items-center
-         ring-inset ring-gray-300 bg-white mr-2 mb-2
+         rounded-xl text-sm items-center
+         ring-inset text-label bg-tertiary-background mr-2 mb-2
          shrink-0"
     >
       <button type="button" className="justify-center

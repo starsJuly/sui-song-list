@@ -25,7 +25,9 @@ import {
 
 import { motion } from "framer-motion";
 
-const FeaturedSongItem = ({ props: [song, EffThis] }) => {
+const FeaturedSongItem = (props) => {
+  const song = props.song;
+  const EffThis = props.effthis;
   const [is_favorite, set_is_favorite] = useState(null);
   useEffect(() => {
     set_is_favorite(is_favorite_song(song.song_name));
@@ -37,7 +39,7 @@ const FeaturedSongItem = ({ props: [song, EffThis] }) => {
   return (
     <div className="flex flex-row justify-between items-center mb-3 w-[21rem] sm:w-[30rem]">
       <div className="flex flex-row items-center">
-        <div className="rounded-lg w-[2.5rem] h-[2.5rem] object-cover relative">
+        <div className="shrink-0 rounded-lg w-[2.5rem] h-[2.5rem] object-cover relative">
           <Image src={get_artwork_url(bvid_list)} 
             width={0} height={0} layout="fill" objectFit="cover"
             loader={({src}) => src} sizes="100vw"
@@ -45,10 +47,10 @@ const FeaturedSongItem = ({ props: [song, EffThis] }) => {
           />
         </div>
         <div className="flex flex-col pl-3">
-          <div className="text-sm text-label flex flex-row space-x-3">
+          <div className="text-sm text-label flex flex-row space-x-3 max-w-[9rem] sm:max-w-[16rem] truncate text-ellipsis">
             <span>{song.song_name}</span>
           </div>
-          <div className="text-xs text-secondary-label flex flex-row space-x-1">
+          <div className="text-xs text-secondary-label flex flex-row space-x-1 max-w-[9rem] sm:max-w-[20rem] truncate text-ellipsis">
             <span>{song.artist}</span>
             <span>&#x2022;</span>
             <span>{latest_date(song.date_list)}</span>
@@ -57,7 +59,7 @@ const FeaturedSongItem = ({ props: [song, EffThis] }) => {
       </div>
       <div className="flex flex-row items-start pr-10">
         <span className={`text-label flex flex-row items-center ${get_artwork_url(bvid_list) !== "/favicon.png" ? "inline" : "hidden"}`}>
-          <span className="text-palette-7">{bili2_icon()}</span>
+          <span className="text-accent">{bili2_icon()}</span>
           <HiMiniPlay className="mr-1 ml-3" onClick={
             () => {
               EffThis.play_music_for_name(song.song_name);
@@ -97,9 +99,9 @@ const FeaturedSongItem = ({ props: [song, EffThis] }) => {
           <span className={`ml-[0.5rem] h-[1.2rem] inline-flex 
             items-center rounded-full
             px-2 py-1 font-medium mr-2
-          text-palette-9 ring-1 ring-inset 
-          ring-palette-9 text-xs shrink-0
-            transition-colors duration-100 hover:ring-white hover:text-white hover:bg-palette-9`}
+          text-secondary-label ring-1 ring-inset 
+          ring-secondary-label text-xs shrink-0
+            transition-colors duration-100 hover:ring-white hover:text-white hover:bg-secondary-label`}
             onClick={(e) => {
               e.stopPropagation();
               alert("暂时没有歌切记录；；");
@@ -115,21 +117,22 @@ const FeaturedSongItem = ({ props: [song, EffThis] }) => {
   );
 };
 
-const FeaturedSongList = ({ props: [EffThis] }) => {
-  const sorted_list = song_list.sort((a, b) => {
-    const a_date = a.date_list
-      .split(/，/g)
-      .map((a) => Date.parse(a))
-      .filter((a) => !isNaN(a))
-      .sort();
-    const b_date = b.date_list
-      .split(/，/g)
-      .map((a) => Date.parse(a))
-      .filter((a) => !isNaN(a))
-      .sort();
-    return b_date[b_date.length - 1] - a_date[a_date.length - 1];
-  });
-
+const FeaturedSongList = (props) => {
+  const EffThis = props.effthis;
+  const datasrc = props.datasrc;
+  const title = props.title;
+  const [sorted_list, set_sorted_list] = useState([]);
+  useEffect(() => {
+    async function fetch_data() {
+      try {
+        const response = await datasrc(song_list);
+        set_sorted_list(response);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetch_data();
+  }, []);
   const [scroll_position, set_scroll_position] = useState({
     scrollTop: 0,
     scrollLeft: 0,
@@ -158,43 +161,64 @@ const FeaturedSongList = ({ props: [EffThis] }) => {
     <>
       <div className="pl-3 pr-3 mt-3 w-[100vw] sm:max-w-[1100px] relative">
         <div className="inline-block w-[100%] overflow-x-hidden">
-          <div className='flex flex-row items-center mb-2'>
-            <div className='w-[1.5rem] h-[1.5rem]  relative mr-1 rounded-full overflow-hidden'>
-              <Image src={'/assets/images/emoticon_stars_in_your_eyes.webp'}
-                width={0} height={0} sizes='100vw' layout='fill'
-                unoptimized objectFit='cover' alt='stars'
+          <div className="flex flex-row items-center mb-2">
+            <div className="w-[1.5rem] h-[1.5rem]  relative mr-1 rounded-full overflow-hidden">
+              <Image
+                src={"/assets/images/emoticon_stars_in_your_eyes.webp"}
+                width={0}
+                height={0}
+                sizes="100vw"
+                layout="fill"
+                unoptimized
+                objectFit="cover"
+                alt="stars"
               />
             </div>
             <span className="text-subtitle text-secondary-label font-semibold">
-              最近更新
+              {title}
             </span>
           </div>
           <div className="relative">
-            <div className="w-full overflow-x-scroll featured-list no-scrollbar"
+            <div
+              className="w-full overflow-x-scroll featured-list no-scrollbar"
               onScroll={handle_scroll}
               ref={list_ref}
             >
-              <div className="flex flex-row transition-all duration-300">
-                {[0, 3, 6].map((idx) => {
-                  return (
-                    <div key={idx}>
-                      {sorted_list.slice(idx, idx + 3).map((song, i) => {
-                        return (
-                          <FeaturedSongItem props={[song, EffThis]} key={i} />
-                        );
-                      })}
-                    </div>
-                  );
-                })}
-              </div>
+              {Array.isArray(sorted_list) && sorted_list.length > 0 ? (
+                <div className="flex flex-row transition-all duration-300">
+                  {[0, 3, 6].map((idx) => {
+                    return (
+                      <div key={idx}>
+                        {sorted_list.slice(idx, idx + 3).map((song, i) => {
+                          return (
+                            <FeaturedSongItem
+                              song={song}
+                              effthis={EffThis}
+                              key={i}
+                            />
+                          );
+                        })}
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="text-[1rem] text-secondary-label text-center">
+                  获取数据失败
+                </div>
+              )}
             </div>
-            <div className="absolute right-[-0.21rem] top-[-0.5rem] h-[100%] flex items-center text-label font-semibold"
-              onClick={() => chevronClick(1)}>
-              <HiChevronRight className="text-subtitle"/>
+            <div
+              className="absolute right-[-0.21rem] top-[-0.5rem] h-[100%] flex items-center text-label font-semibold"
+              onClick={() => chevronClick(1)}
+            >
+              <HiChevronRight className="text-subtitle" />
             </div>
-            <div className="absolute left-[-0.21rem] top-[-0.5rem] h-[100%] flex items-center text-label font-semibold"
-              onClick={() => chevronClick(-1)}>
-              <HiChevronLeft className="text-subtitle"/>
+            <div
+              className="absolute left-[-0.21rem] top-[-0.5rem] h-[100%] flex items-center text-label font-semibold"
+              onClick={() => chevronClick(-1)}
+            >
+              <HiChevronLeft className="text-subtitle" />
             </div>
           </div>
         </div>

@@ -4,8 +4,14 @@ import {
   BsSkipForwardFill,
   BsFillPlayFill,
   BsFillPauseFill,
+  BsBookmarkPlus,
+  BsBookmarkHeartFill,
 } from "react-icons/bs";
 import Image from 'next/image';
+import { 
+  is_favorite_song, 
+  toggle_favorite_song 
+} from '../config/controllers';
 
 const next_playable_song = (song_list, idx) => {
   for (let i = (idx + 1) % song_list.length; ; 
@@ -63,6 +69,7 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
 
   const [artworkUrl, setArtworkUrl] = useState("favicon.png");
   const [bvid, setBvid] = useState("");
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     if (idx !== -1) {
@@ -92,6 +99,7 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
       song_name: song_list[idx].song_name,
       artist: song_list[idx].artist,
     });
+    setIsFavorite(is_favorite_song(song_list[idx].song_name));
     setIsPlaying(true);
     audioRef.current.src = data_url + bvid;
     audioRef.current.play(); 
@@ -109,7 +117,7 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
       artist: currentSong.artist,
       album: document.title,
       artwork: [
-        { src: artworkUrl, sizes: '256x256', type: 'image/png' },
+        { src: artworkUrl+'&media=1', sizes: '256x256', type: 'image/png' },
       ],
     });
   }, [currentSong, artworkUrl]);
@@ -191,7 +199,11 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
         title={currentSong.song_name}
       >
       </audio>
-      <div className="flex items-center fixed bottom-0 left-0 w-full bg-music-player-bg text-white pl-[1rem] z-10">
+      <div className="flex items-center fixed 
+        bottom-3 w-[95%] backdrop-blur-xl
+        bg-music-player-bg/90 text-label pl-[1rem] 
+        z-10 max-w-[1100px] shadow-xl
+        rounded-xl left-[2.5%] xl:left-auto">
         <div className="mr-2 w-[3rem] h-[3rem] relative">
           <Image src={artworkUrl} alt="artwork"
             loader={({src}) => src}
@@ -233,8 +245,24 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
           <BsSkipForwardFill />
         </div>
         <div className="mt-2 mb-2 ml-4">
-          <div className="text-base font-bold">
-            {currentSong.song_name}
+          <div className='flex flex-row items-center'>
+            <button className="text-base mr-1"
+             onClick={
+               () => {
+                 toggle_favorite_song(currentSong.song_name, 
+                    isFavorite, setIsFavorite);
+               }
+             }
+             hidden={currentSong.song_name === '---'}>
+              {
+                is_favorite_song(currentSong.song_name) ? 
+                <BsBookmarkHeartFill /> :
+                <BsBookmarkPlus />
+              }
+            </button>
+            <div className="text-base font-bold">
+              {currentSong.song_name}
+            </div>
           </div>
           <div className="font-light text-sm">
             {currentSong.artist}

@@ -21,18 +21,39 @@ import imageLoader from '../utils/ImageLoader'
 
 import config, { theme } from '../config/constants'
 
-import { eff_get, eff_set } from '../config/controllers'
+import { 
+  eff_get, 
+  eff_set, 
+  get_theme, 
+  is_favorite_song, 
+  set_theme, 
+  favorite_date,
+  migrate_localstorage,
+  upgrade_app
+} from '../config/controllers'
 
 import styled, { css } from "styled-components";
 
 import { song_list } from '../config/song_list'
 
-import headerImage from '../public/assets/images/header.png'
+import headerImage from '../public/assets/images/theme/header.webp'
+import headerImageDark from '../public/assets/images/theme/header_dark.webp'
+import headerImageFlower from '../public/assets/images/theme/header_flower.webp'
+import headerImageMarvelous from '../public/assets/images/theme/header_marvelous.webp'
+
+import {
+  BsPalette2
+} from 'react-icons/bs'
+import {
+  HiChevronUp
+} from 'react-icons/hi'
+
+import { useTheme } from 'next-themes'
 
 const BackgroundView = () => {
   return (
     <div
-      className={styles.outerContainer}
+      className={`${styles.outerContainer} transition-all duration-300 bg-main-page-background`}
       style={{ cursor: theme.cursor.normal }}
     />
   );
@@ -58,6 +79,12 @@ export default function Home() {
   const [ bvid_selected          ] = EffThis.bvid_selected       = useState('');
 
   const [ currently_playing ] = EffThis.currently_playing = useState(-1);
+
+  const {theme, setTheme} = useTheme();
+
+  useEffect(() => {
+    migrate_localstorage(song_list);
+  }, []);
 
   // EffThis.functions
   useEffect(() => {
@@ -88,7 +115,11 @@ export default function Home() {
         eff_set(EffThis, 'currently_playing', idx);
       }
     }
-  }, [ EffThis ]);
+    EffThis.set_theme = (theme) => {
+      setTheme(theme);
+    }
+    EffThis.current_theme = () => theme;
+  }, [ EffThis, theme ]);
 
   // state variables
   const [filter_state] = EffThis.filter_state = useState({
@@ -135,62 +166,142 @@ export default function Home() {
     EffThis.do_set_search = (search) => eff_set(EffThis, 'searchBox', search);
 
   }, [EffThis]);
+
+  const [dirtySwitch, setDirtySwitch] = useState('');
+  useEffect(() => {
+    upgrade_app('2.0.1', () => {
+      EffThis.set_theme('marvelous');
+      setDirtySwitch('marvelous');
+    })
+    setDirtySwitch(theme);
+  }, [theme]);
   
   const title = `${config.Name}的歌单`;
   return (
-    <div>
-      <BackgroundView/>
+    <div data-theme={theme}>
+      <BackgroundView />
       <Head>
         <title>{title}</title>
         <meta
-          name = "keywords"
-          content = { `B站,bilibili,哔哩哔哩,vtuber,虚拟主播,电台唱见,歌单,${ config.Name }` }
+          name="keywords"
+          content={`B站,bilibili,哔哩哔哩,vtuber,虚拟主播,电台唱见,歌单,${config.Name}`}
         />
-        <meta name = "description" content = { `${ config.Name }的歌单` }/>
-        <link rel = "icon" type = "image/x-icon" href = "/favicon.png"></link>
-        <link rel='preload' href='/assets/images/emoticon_love.webp' as='image' />
-        <link rel='preload' href='/assets/images/emoticon_stars_in_your_eyes.webp' as='image' />
-        <link rel='preload' href='/assets/images/emoticon_bgs1314baobaomuamualovelove.webp' as='image' />
-        <link rel='preload' href='/assets/images/bgs1314baobaomuamualovelove.gif' as='image' type='image/gif' />
-        <link rel='preload' href='/assets/images/question_mark.gif' as='image' type='image/gif' />
+        <meta name="description" content={`${config.Name}的歌单`} />
+        <link rel="icon" type="image/x-icon" href="/favicon.png"></link>
+        <link
+          rel="preload"
+          href="/assets/images/emoticon_love.webp"
+          as="image"
+        />
+        <link
+          rel="preload"
+          href="/assets/images/emoticon_stars_in_your_eyes.webp"
+          as="image"
+        />
+        <link
+          rel="preload"
+          href="/assets/images/emoticon_bgs1314baobaomuamualovelove.webp"
+          as="image"
+        />
+        <link
+          rel="preload"
+          href="/assets/images/bgs1314baobaomuamualovelove.gif"
+          as="image"
+          type="image/gif"
+        />
+        <link
+          rel="preload"
+          href="/assets/images/question_mark.gif"
+          as="image"
+          type="image/gif"
+        />
+        <link
+          rel="preload"
+          href='https://api.suij1sui.space/api/v2/avatar'
+          as="image"
+          type='image/webp'
+        />
       </Head>
 
-      <div className='z-[100] bg-gradient-to-b 
-        from-transparent to-[30rem] w-screen'>
-        <div className='absolute right-0 top-0 w-full sm:w-[80%] 3xl:w-[75%] 4xl:w-[70%] 5xl:w-[65%]'>
-          <Image src={headerImage}
-            className='header-image'
-            alt="header" unoptimized layout='responsive' 
-            loader={({src}) => src}
+      <div
+        className="z-[100] bg-gradient-to-b 
+        from-transparent to-[30rem] w-screen"
+      >
+        <div className="absolute right-0 top-0 w-full sm:w-[85%] 3xl:w-[75%] 4xl:w-[70%] 5xl:w-[65%]">
+          <Image
+            src={(() => {
+              switch (dirtySwitch) {
+                case 'dark': return headerImageDark;
+                case 'light': return headerImage;
+                case 'flower': return headerImageFlower;
+                case 'marvelous': return headerImageMarvelous;
+                default: return headerImageMarvelous;
+              }
+            })()}
+            className="header-image"
+            alt="header"
+            unoptimized
+            layout="responsive"
+            loader={({ src }) => src}
           />
         </div>
-        <section className = { styles.main }>
-          <HeaderView />
-          <FeaturedSongList props={[EffThis]}/>
+        <section className={styles.main}>
+          <HeaderView props={[EffThis]}/>
+          <FeaturedSongList effthis={EffThis} datasrc={
+            async (song_list) => {
+              let list = null;
+              await fetch("https://api.suij1sui.space/api/v2/featured")
+                .then((res) => res.json())
+                .then((data) => {
+                  list = data;
+                });
+              return list;
+            }
+          } title="听啥呢饼" />
+          <FeaturedSongList effthis={EffThis} datasrc={
+              async (list) => {
+                list.sort((a, b) => {
+                  const a_date = a.date_list
+                    .split(/，/g)
+                    .map((a) => Date.parse(a))
+                    .filter((a) => !isNaN(a))
+                    .sort();
+                  const b_date = b.date_list
+                    .split(/，/g)
+                    .map((a) => Date.parse(a))
+                    .filter((a) => !isNaN(a))
+                    .sort();
+                  return b_date[b_date.length - 1] - a_date[a_date.length - 1];
+                });
+                return list;
+            }
+          } title="最近更新"/>
           <SongListFilter props={[filter_state, searchBox, EffThis]} />
-          <FilteredList props={[ filter_state, searchBox, EffThis ]} />
-          <MusicPlayerView
-            props={[currently_playing, EffThis]}
-          />
+          <FilteredList props={[filter_state, searchBox, EffThis]} />
+          <MusicPlayerView props={[currently_playing, EffThis]} />
         </section>
 
         <FixedTool />
-          
-        <Link href = { config.Repository } passHref>
-          <footer className = { styles.footer }>
+
+        <Link href={config.Repository} passHref>
+          <footer className={styles.footer}>
             <Image
-              loader = { imageLoader }
-              alt = ''
-              width = {32}
-              height = {32}
-              src = 'assets/images/github.png'
+              loader={imageLoader}
+              alt=""
+              width={32}
+              height={32}
+              src="assets/images/github.png"
             />
             {/* <a>{ config.Footer }</a> */}
           </footer>
         </Link>
         <BiliPlayerModal
-          props = {[
-            bili_player_title, bili_player_visibility, bvid_list, bvid_selected, EffThis
+          props={[
+            bili_player_title,
+            bili_player_visibility,
+            bvid_list,
+            bvid_selected,
+            EffThis,
           ]}
         />
       </div>
@@ -245,7 +356,7 @@ const FilteredList = memo(function FilteredList({ props: [ filter_state, searchB
   //过滤歌单列表
   const filteredSongList = song_list
     .map((song) => {
-      if (typeof window !== 'undefined' && localStorage.getItem(song.song_name) !== null) {
+      if (typeof window !== 'undefined' && is_favorite_song(song.song_name)) {
         song.is_local = true;
       } else {
         song.is_local = false;
@@ -297,7 +408,7 @@ const FilteredList = memo(function FilteredList({ props: [ filter_state, searchB
         return a_date[a_date.length - 1] - b_date[b_date.length - 1];
       } else if (filter_state.sorting_method === 'infrequently') {
         return a.song_count - b.song_count;
-      } else if (filter_state.sorting_method === 'recently') {
+      } else if (filter_state.sorting_method === 'recently' || filter_state.sorting_method === 'default') {
         const a_date = a.date_list.split(/，/g)
           .map(a => Date.parse(a)).filter(a => !isNaN(a))
           .sort();
@@ -308,8 +419,8 @@ const FilteredList = memo(function FilteredList({ props: [ filter_state, searchB
       } else if (filter_state.sorting_method === 'frequently') {
         return b.song_count - a.song_count;
       } else if (filter_state.is_local) {
-        let a_time = localStorage.getItem(a.song_name);
-        let b_time = localStorage.getItem(b.song_name);
+        let a_time = favorite_date(a.song_name);
+        let b_time = favorite_date(b.song_name);
         if (a_time && b_time) {
           return b_time - a_time;
         } else {
@@ -332,9 +443,7 @@ const FilteredList = memo(function FilteredList({ props: [ filter_state, searchB
     </>
   )
 }, (prev, next) => {
-  console.log(JSON.stringify(prev));
   if (Object.is(prev, next)) return true;
-  console.log('objects not equal');
   
   const prev_keys = Object.keys(prev);
   const next_keys = Object.keys(next);
@@ -408,26 +517,25 @@ function FixedTool() {
   }, []);
   
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
-
+  
   if (!to_top_btn_is_visible) return (<div></div>);
-
+  
   return (
-    <button
-      onClick = { scrollToTop }
-      className = { styles.backToTopBtn }
-      title="返回顶部"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        viewBox="0 0 16 16"
+    <div className='flex flex-col items-start right-[1rem]
+      bottom-[5rem] fixed space-y-1 sm:right-[calc(1rem+(100vw-(min(100vw,1100px)))/2)]'>
+      <button
+        className={`
+        flex items-center rounded-full shrink-0 
+        px-[0.7em] py-[0.1em] space-x-1
+        sm:hover:scale-110 transition-all duration-300 
+        backdrop-blur-xl bg-accent/10 text-sm
+        h-[2rem]`}
+        onClick={scrollToTop}
+        title='返回顶部'
       >
-        <path
-          fillRule="evenodd"
-          d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"
-        />
-      </svg>
-    </button>
+        <HiChevronUp className="text-base inline text-accent-fg" />
+        <span className="text-sm text-accent-fg">返回顶部</span>
+      </button>
+    </div>
   )
 }

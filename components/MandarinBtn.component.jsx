@@ -33,10 +33,9 @@ export default function MandarinBtn(
   return (
     <div className="relative inline-block text-left mr-2 mb-2 shrink-0">
       <div className={`relative inline-flex justify-center gap-x-1.5
-         rounded-xl text-sm shadow-sm ring-1 
-         ring-inset ring-gray-300 hover:bg-gray-50"
-         ${filter_state.lang === "华语" ? "bg-oen-color-1" : "bg-white"}
-         ${filter_state.lang === "华语" ? "text-oen-color-9" : "text-gray-900"}
+         rounded-xl text-sm transition-all duration-100"
+         ${filter_state.lang === "华语" ? "bg-accent-bg" : "bg-tertiary-background"}
+         ${filter_state.lang === "华语" ? "text-accent-fg shadow-none ring-1 ring-accent-fg" : "text-label"}
          `}
          ref={ref}
          onClick={() => {
@@ -44,7 +43,7 @@ export default function MandarinBtn(
          }}
       >
         <div className={`relative flex items-center divide-x divide-solid 
-          ${filter_state.lang === '华语' ? 'divide-oen-color-9' : 'divide-gray-300'}`}
+          ${filter_state.lang === '华语' ? 'divide-accent-fg' : 'divide-secondary-label'}`}
         >
           <button type="button" className="inline-flex items-center
             px-2 py-2 text-sm pr-4" 
@@ -63,7 +62,7 @@ export default function MandarinBtn(
           </button>
           <ChevronDownIcon aria-hidden="true" 
             className={`mr-1 h-6 w-6 inline
-            ${filter_state.lang === '华语' ? "text-oen-color-9" : "text-gray-400"}
+            ${filter_state.lang === '华语' ? "text-accent-fg" : "text-label"}
             `} 
           />
         </div>
@@ -71,10 +70,10 @@ export default function MandarinBtn(
       {(isOpen) && (
         <motion.div
           className='origin-top-right absolute left-0 mt-2 w-32 z-10 
-          rounded-md shadow-lg 
-          bg-white ring-1 ring-black 
+          rounded-md shadow-lg text-label
+          bg-tertiary-background ring-1 ring-black 
           ring-opacity-5 focus:outline-none 
-          h-[10rem] overflow-y-auto' 
+          h-[10rem] overflow-y-auto'
           role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1"
           ref={dropdownRef}
           initial={{ opacity: 0, scale: 0, transform: 'translateY(-15px)' }}
@@ -92,8 +91,8 @@ export default function MandarinBtn(
                     style={{
                       cursor: theme.cursor.pointer,
                     }}
-                    className={`block px-4 py-2 text-sm text-gray-700 
-                      ${alphabet === filter_state.initial ? 'bg-oen-color-1' : 'bg-white'}
+                    className={`block px-4 py-2 text-sm text-label
+                      ${alphabet === filter_state.initial ? 'bg-accent-oen/30' : 'bg-tertiary-background'}
                     `} 
                     role="menuitem" tabIndex="-1" id="menu-item-3"
                     key={ alphabet }
