@@ -169,9 +169,9 @@ export default function Home() {
 
   const [dirtySwitch, setDirtySwitch] = useState('');
   useEffect(() => {
-    upgrade_app('2.0.1', () => {
-      EffThis.set_theme('marvelous');
-      setDirtySwitch('marvelous');
+    upgrade_app('2.0.2', () => {
+      EffThis.set_theme('light');
+      setDirtySwitch('light');
     })
     setDirtySwitch(theme);
   }, [theme]);
