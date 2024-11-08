@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Image from "next/legacy/image";
 import config from '../config/constants';
 import { song_list } from "../config/song_list";
+import NumberTicker from "../components/NumberTicker.component";
 
 import {
   HiHeart
@@ -154,7 +155,10 @@ const HeaderView = ({ props: [EffThis] }) => {
                   </span>
                   <div className="flex flex-row items-center space-x-3">
                     <span className="sm:text-subtitle">
-                      已收录的歌曲 {song_list.length} 首
+                      已收录的歌曲 <NumberTicker
+                        value={song_list.length}
+                        className="mx-1 text-label dark:text-label"
+                      /> 首
                     </span>
                     <button
                       className="backdrop-blur-md bg-accent/20
@@ -186,7 +190,10 @@ const HeaderView = ({ props: [EffThis] }) => {
                             transform: "translateY(0px)",
                           }}
                         >
-                          <div className="flex-col flex items-start space-y-1" role="none">
+                          <div
+                            className="flex-col flex items-start space-y-1"
+                            role="none"
+                          >
                             {[...theme_name_map].map(([theme, value]) => {
                               return (
                                 <div

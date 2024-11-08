@@ -1,6 +1,5 @@
 import { toast } from 'react-toastify'
 import copy from 'copy-to-clipboard'
-import Cookies from 'js-cookie';
 
 const copy_show_text_max_count = 100;
 
