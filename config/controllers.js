@@ -106,7 +106,7 @@ export const migrate_localstorage = (songlist) => {
 export const upgrade_app = (version, cb) => {
   if (typeof window !== 'undefined') {
     let current_version = localStorage.getItem('version');
-    if (current_version !== version) {
+    if (current_version < version) {
       cb();
       localStorage.setItem('version', version);
     }

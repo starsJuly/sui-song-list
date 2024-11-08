@@ -235,7 +235,7 @@ export default function Home() {
                 case 'light': return headerImage;
                 case 'flower': return headerImageFlower;
                 case 'marvelous': return headerImageMarvelous;
-                default: return headerImageMarvelous;
+                default: return headerImage;
               }
             })()}
             className="header-image"
