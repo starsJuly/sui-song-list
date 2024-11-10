@@ -31,6 +31,7 @@ const HomeList = () => {
           config.HomeList.map((c, idx) => {
             return (
               <BlurFade
+                key={idx}
                 delay={0.2 + idx * 0.1}
                 inView
                 className="flex items-center rounded-full shrink-0"
