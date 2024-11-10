@@ -3,6 +3,7 @@ import Image from "next/legacy/image";
 import config from '../config/constants';
 import { song_list } from "../config/song_list";
 import NumberTicker from "../components/NumberTicker.component";
+import BlurFade from './ui/blur-fade';
 
 import {
   HiHeart
@@ -24,13 +25,18 @@ const HomeList = () => {
     <>
       <div className='flex items-center
         flex-nowrap w-full overflow-x-auto
-        no-scrollbar overflow-y-visible py-1'
+        no-scrollbar overflow-y-visible py-2'
       >
         {
           config.HomeList.map((c, idx) => {
             return (
-              <button
-                className={`
+              <BlurFade
+                delay={0.2 + idx * 0.1}
+                inView
+                className="flex items-center rounded-full shrink-0"
+              >
+                <button
+                  className={`
                   ${c.textcolor} ${c.background} ${c.shadowcolor}
                   flex items-center rounded-full shrink-0 
                   ${idx == 0 ? "ml-[1rem]" : "ml-2"}
@@ -38,19 +44,20 @@ const HomeList = () => {
                   px-[0.7em] py-[0.3em] relative space-x-2
                   sm:hover:scale-110 transition-all duration-300
                 `}
-                onClick={() => window.open(c.url)}
-                key={idx}
-              >
-                <Image
-                  src={c.icon}
-                  alt={c.name}
-                  width={16}
-                  height={16}
-                  loader={({ src }) => src}
-                  unoptimized
-                />
-                <span className="text-sm">{c.name}</span>
-              </button>
+                  onClick={() => window.open(c.url)}
+                  key={idx}
+                >
+                  <Image
+                    src={c.icon}
+                    alt={c.name}
+                    width={16}
+                    height={16}
+                    loader={({ src }) => src}
+                    unoptimized
+                  />
+                  <span className="text-sm">{c.name}</span>
+                </button>
+              </BlurFade>
             );
           })
         }
@@ -119,17 +126,19 @@ const HeaderView = ({ props: [EffThis] }) => {
       <div>
         <div className="pt-[15rem] sm:pt-[25rem] 5xl:pt-[35rem]">
           <div className="flex items-center">
-            <div className="mr-2 ml-[1rem] hidden relative sm:w-[9rem] sm:h-[9rem] sm:block">
-              <Image
-                src={avatar_url}
-                alt="liver-avatar"
-                loader={({ src }) => src}
-                layout="fill"
-                objectFit="contain"
-                unoptimized
-                className="rounded-full"
-              />
-            </div>
+            <BlurFade delay={0.25} inView>
+              <div className="mr-2 ml-[1rem] hidden relative sm:w-[9rem] sm:h-[9rem] sm:block">
+                <Image
+                  src={avatar_url}
+                  alt="liver-avatar"
+                  loader={({ src }) => src}
+                  layout="fill"
+                  objectFit="contain"
+                  unoptimized
+                  className="rounded-full"
+                />
+              </div>
+            </BlurFade>
             <div className="flex flex-col items-start">
               <div className="flex items-center ml-[1rem] mb-2">
                 <div className="mr-2 w-[3.5rem] h-[3.5rem] relative sm:hidden">
@@ -145,79 +154,86 @@ const HeaderView = ({ props: [EffThis] }) => {
                 </div>
                 <div className="text-base text-label flex-col relative">
                   <span className="font-bold block sm:text-title w-fit relative">
-                    <span>{config.Name}</span>
-                    <StyledI
-                      className="absolute top-0 right-0"
-                      handle_click={() => {
-                        set_clicks(clicks + 1);
-                      }}
-                    />
+                    <BlurFade delay={0} inView>
+                      <span>{config.Name}</span>
+                      <StyledI
+                        className="absolute top-0 right-0"
+                        handle_click={() => {
+                          set_clicks(clicks + 1);
+                        }}
+                      />
+                    </BlurFade>
                   </span>
-                  <div className="flex flex-row items-center space-x-3">
-                    <span className="sm:text-subtitle">
-                      已收录的歌曲 <NumberTicker
-                        value={song_list.length}
-                        className="mx-1 text-label dark:text-label"
-                      /> 首
-                    </span>
-                    <button
-                      className="backdrop-blur-md bg-accent/20
-                      h-[1.5rem] rounded-full right-0
-                      flex items-center justify-center flex-row space-x-1 px-2"
-                      onClick={() => {
-                        set_is_theme_selection_open(!is_theme_selection_open);
-                      }}
-                    >
-                      <BsPalette2 className="text-xs inline text-accent-fg" />
-                      <span className="text-xs text-accent-fg">切换主题</span>
-                      {is_theme_selection_open ? (
-                        <motion.div
-                          className="origin-top-right absolute right-0 mt-2 w-32 
-                          rounded-md bottom-[2rem]
-                          focus:outline-none z-[100] overflow-y-auto"
-                          aria-orientation="vertical"
-                          aria-labelledby="menu-button"
-                          tabIndex="-1"
-                          ref={dropdownRef}
-                          initial={{
-                            opacity: 0,
-                            scale: 0,
-                            transform: "translateY(15px)",
-                          }}
-                          animate={{
-                            opacity: [0, 1],
-                            scale: [0, 0.5, 1],
-                            transform: "translateY(0px)",
+                  <BlurFade delay={0.05} inView>
+                    <div className="flex flex-row items-center space-x-3">
+                      <span className="sm:text-subtitle">
+                        已收录的歌曲{" "}
+                        <NumberTicker
+                          value={song_list.length}
+                          delay={0.3}
+                          className="mx-1 text-label dark:text-label"
+                        />{" "}
+                        首
+                      </span>
+                      <button
+                        className="backdrop-blur-md bg-accent/20
+                        h-[1.5rem] rounded-full right-0
+                        flex items-center justify-center flex-row space-x-1 px-2"
+                          onClick={() => {
+                            set_is_theme_selection_open(!is_theme_selection_open);
                           }}
                         >
-                          <div
-                            className="flex-col flex items-start space-y-1"
-                            role="none"
+                        <BsPalette2 className="text-xs inline text-accent-fg" />
+                        <span className="text-xs text-accent-fg">切换主题</span>
+                        {is_theme_selection_open ? (
+                          <motion.div
+                            className="origin-top-right absolute right-0 mt-2 w-32 
+                            rounded-md bottom-[2rem]
+                            focus:outline-none z-[100] overflow-y-auto"
+                            aria-orientation="vertical"
+                            aria-labelledby="menu-button"
+                            tabIndex="-1"
+                            ref={dropdownRef}
+                            initial={{
+                              opacity: 0,
+                              scale: 0,
+                              transform: "translateY(15px)",
+                            }}
+                            animate={{
+                              opacity: [0, 1],
+                              scale: [0, 0.5, 1],
+                              transform: "translateY(0px)",
+                            }}
                           >
-                            {[...theme_name_map].map(([theme, value]) => {
-                              return (
-                                <div
-                                  onClick={() => {
-                                    set_is_theme_selection_open(false);
-                                    EffThis.set_theme(theme);
-                                  }}
-                                  className="items-center px-3 space-x-1 py-2 text-sm text-label flex flex-row
+                            <div
+                              className="flex-col flex items-start space-y-1"
+                              role="none"
+                            >
+                              {[...theme_name_map].map(([theme, value]) => {
+                                return (
+                                  <div
+                                    onClick={() => {
+                                      set_is_theme_selection_open(false);
+                                      EffThis.set_theme(theme);
+                                    }}
+                                    className="items-center px-3 space-x-1 py-2 text-sm text-label flex flex-row
                                   bg-accent-bg rounded-full w-[8rem] overflow-clip"
-                                  role="menuitem"
-                                  tabIndex="-1"
-                                  id="menu-item-3"
-                                  key={value}
-                                >
-                                  <RiPaletteFill className="inline" />
-                                  <span>{value}</span>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </motion.div>
-                      ) : null}
-                    </button>
-                  </div>
+                                    role="menuitem"
+                                    tabIndex="-1"
+                                    id="menu-item-3"
+                                    key={value}
+                                  >
+                                    <RiPaletteFill className="inline" />
+                                    <span>{value}</span>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </motion.div>
+                        ) : null}
+                      </button>
+                    </div>
+                  </BlurFade>
                 </div>
               </div>
               <HomeList />
