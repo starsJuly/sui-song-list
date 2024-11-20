@@ -252,7 +252,7 @@ export default function Home() {
                 playsInline
                 className="header-image relative right-0 top-0"
                 width="100%"
-                src="/assets/images/theme/brisk.webm"
+                src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk"
               />
           }
         </div>
