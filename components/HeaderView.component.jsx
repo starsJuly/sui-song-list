@@ -177,7 +177,7 @@ const HeaderView = ({ props: [EffThis] }) => {
                         首
                       </span>
                       <button
-                        className="backdrop-blur-md bg-accent/20
+                        className="backdrop-blur-md bg-accent-bg/50
                         h-[1.5rem] rounded-full right-0
                         flex items-center justify-center flex-row space-x-1 px-2"
                           onClick={() => {
@@ -188,7 +188,7 @@ const HeaderView = ({ props: [EffThis] }) => {
                         <span className="text-xs text-accent-fg">切换主题</span>
                         {is_theme_selection_open ? (
                           <motion.div
-                            className="origin-top-right absolute right-0 mt-2 w-32 
+                            className="origin-top-right absolute right-0 mt-2 w-30 
                             rounded-md bottom-[2rem]
                             focus:outline-none z-[100] overflow-y-auto"
                             aria-orientation="vertical"
@@ -218,7 +218,7 @@ const HeaderView = ({ props: [EffThis] }) => {
                                       EffThis.set_theme(theme);
                                     }}
                                     className="items-center px-3 space-x-1 py-2 text-sm text-label flex flex-row
-                                  bg-accent-bg rounded-full w-[8rem] overflow-clip"
+                                  bg-accent-bg rounded-full w-[9rem] overflow-clip"
                                     role="menuitem"
                                     tabIndex="-1"
                                     id="menu-item-3"

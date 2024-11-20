@@ -56,6 +56,7 @@ const config = {
     'dark': '魔偶马戏团',
     'flower': '花做成的海',
     'marvelous': '奇妙夜',
+    'brisk': '白云红叶两悠悠',
   }
 }
 

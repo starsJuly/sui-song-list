@@ -169,9 +169,9 @@ export default function Home() {
 
   const [dirtySwitch, setDirtySwitch] = useState('');
   useEffect(() => {
-    upgrade_app('2.0.2', () => {
-      EffThis.set_theme('light');
-      setDirtySwitch('light');
+    upgrade_app('2.0.3', () => {
+      EffThis.set_theme('brisk');
+      setDirtySwitch('brisk');
     })
     setDirtySwitch(theme);
   }, [theme]);
@@ -228,22 +228,33 @@ export default function Home() {
         from-transparent to-[30rem] w-screen"
       >
         <div className="absolute right-0 top-0 w-full sm:w-[85%] 3xl:w-[75%] 4xl:w-[70%] 5xl:w-[65%]">
-          <Image
-            src={(() => {
-              switch (dirtySwitch) {
-                case 'dark': return headerImageDark;
-                case 'light': return headerImage;
-                case 'flower': return headerImageFlower;
-                case 'marvelous': return headerImageMarvelous;
-                default: return headerImage;
-              }
-            })()}
-            className="header-image"
-            alt="header"
-            unoptimized
-            layout="responsive"
-            loader={({ src }) => src}
-          />
+          { dirtySwitch !== 'brisk' ?
+            <Image
+              src={(() => {
+                switch (dirtySwitch) {
+                  case 'dark': return headerImageDark;
+                  case 'light': return headerImage;
+                  case 'flower': return headerImageFlower;
+                  case 'marvelous': return headerImageMarvelous;
+                  default: return headerImage;
+                }
+              })()}
+              className="header-image"
+              alt="header"
+              unoptimized
+              layout="responsive"
+              loader={({ src }) => src}
+            />
+            : <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="header-image relative right-0 top-0"
+                width="100%"
+                src="/assets/images/theme/brisk.webm"
+              />
+          }
         </div>
         <section className={styles.main}>
           <HeaderView props={[EffThis]}/>

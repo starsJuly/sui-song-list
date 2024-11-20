@@ -296,6 +296,68 @@ module.exports = {
         'secondary-background': '#060608',
         'tertiary-background': '#534E54',
         'main-page-background': '#25253a'
+      },
+      brisk: {
+        'badge-play': '#F4D182',
+        'bilibili': '#ccf3ff',
+        'music-player-bg': '#825843',
+        'item-hover': '#45BEEA',
+
+        'pome-bg': '#eaeaff',
+        'pome-fg': '#3b37fd',
+
+        'weibo-bg': '#ffe8ec',
+        'weibo-fg': '#f44152',
+
+        'bilibili-bg': '#e3faff',
+        'bilibili-fg': '#37abe9',
+
+        'vr-bg': '#e5feee',
+        'vr-fg': '#53e383',
+        
+        // generated from #87EAFF
+        'oen-blue': '#87EAFF',
+        'oen-color-1': "#e1fdff",
+        'oen-color-2': "#ccf8ff",
+        'oen-color-3': "#9ceeff",
+        'oen-color-4': "#68e4fe",
+        'oen-color-5': "#43dbfd",
+        'oen-color-6': "#2fd6fd",
+        'oen-color-7': "#1dd4fe",
+        'oen-color-8': "#00bbe3",
+        'oen-color-9': "#00a7cb",
+        'oen-color-10': "#0090b3",
+
+        // generated from #DA5D77
+        'oen-red': '#DA5D77',
+        'oen-red-2': '#E97365',
+        'oen-color-11': "#ffeaf1",
+        'oen-color-12': "#fbd6df",
+        'oen-color-13': "#efadbb",
+        'oen-color-14': "#e38095",
+        'oen-color-15': "#da5b75",
+        'oen-color-16': "#d44361",
+        'oen-color-17': "#d23657",
+        'oen-color-18': "#bb2747",
+        'oen-color-19': "#a71f3f",
+        'oen-color-20': "#941335",
+
+        'label': '#F4D182',
+        'secondary-label': '#E5B580',
+        'tertiary-label': '#CB8545',
+        'accent': '#E5B580',
+        'accent-bg': '#A6572E',
+        'accent-fg': '#D1AB87',
+        'accent-oen': '#AC7D54',
+        'accent-oen-2': '#796458',
+        'accent-2': '#FBF2C6',
+        'accent-3': '#E97365',
+        'placeholder': '#34281C',
+        'background': '#825843',
+        'background-2': '#534E54',
+        'secondary-background': '#796458',
+        'tertiary-background': '#633F35',
+        'main-page-background': '#A06648'
       }
     })
   ],
