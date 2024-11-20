@@ -252,7 +252,9 @@ export default function Home() {
                 playsInline
                 className="header-image relative right-0 top-0"
                 width="100%"
-                src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk"
+                type="video/webm"
+                preload='auto'
+                src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk.webm"
               />
           }
         </div>
