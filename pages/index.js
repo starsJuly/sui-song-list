@@ -252,13 +252,10 @@ export default function Home() {
                 playsInline
                 className="header-image relative right-0 top-0"
                 width="100%"
-                type="video/webm"
-                src={
-                  typeof window.safari !== "undefined" ?
-                  "https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk.mov" :
-                  "https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk.webm"
-                }
-              />
+              >
+                <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk.webm" type="video/webm" />
+                <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk.mov" />
+              </video>
           }
         </div>
         <section className={styles.main}>
