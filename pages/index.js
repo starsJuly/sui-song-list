@@ -253,8 +253,11 @@ export default function Home() {
                 className="header-image relative right-0 top-0"
                 width="100%"
                 type="video/webm"
-                preload='auto'
-                src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk.webm"
+                src={
+                  typeof window.safari !== "undefined" ?
+                  "https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk.mov" :
+                  "https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk.webm"
+                }
               />
           }
         </div>
