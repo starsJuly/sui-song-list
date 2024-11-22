@@ -40,6 +40,7 @@ import headerImage from '../public/assets/images/theme/header.webp'
 import headerImageDark from '../public/assets/images/theme/header_dark.webp'
 import headerImageFlower from '../public/assets/images/theme/header_flower.webp'
 import headerImageMarvelous from '../public/assets/images/theme/header_marvelous.webp'
+import headerImageBrisk from '../public/assets/images/theme/header_brisk.webp'
 
 import {
   BsPalette2
@@ -168,13 +169,30 @@ export default function Home() {
   }, [EffThis]);
 
   const [dirtySwitch, setDirtySwitch] = useState('');
+  const [dynamicTheme, setDynamicTheme] = useState(true);
+  const videoRef = React.useRef(null);
   useEffect(() => {
     upgrade_app('2.0.3', () => {
       EffThis.set_theme('brisk');
       setDirtySwitch('brisk');
+      setDynamicTheme(true);
     })
     setDirtySwitch(theme);
+    setDynamicTheme(theme === 'brisk');
   }, [theme]);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current
+        .play()
+        .then(() => { })
+        .catch((e) => {
+          setDynamicTheme(false);
+          setDirtySwitch(theme);
+          return e;
+        });
+    }
+  }, [dirtySwitch, theme]);
   
   const title = `${config.Name}的歌单`;
   return (
@@ -228,7 +246,7 @@ export default function Home() {
         from-transparent to-[30rem] w-screen"
       >
         <div className="absolute right-0 top-0 w-full sm:w-[85%] 3xl:w-[75%] 4xl:w-[70%] 5xl:w-[65%]">
-          { dirtySwitch !== 'brisk' ?
+          { dirtySwitch !== 'brisk' || dynamicTheme == false ?
             <Image
               src={(() => {
                 switch (dirtySwitch) {
@@ -236,6 +254,7 @@ export default function Home() {
                   case 'light': return headerImage;
                   case 'flower': return headerImageFlower;
                   case 'marvelous': return headerImageMarvelous;
+                  case 'brisk': return headerImageBrisk;
                   default: return headerImage;
                 }
               })()}
@@ -247,11 +266,14 @@ export default function Home() {
             />
             : <video
                 autoPlay
+                ref={videoRef}
                 loop
                 muted
                 playsInline
+                disablePictureInPicture={true}
                 className="header-image relative right-0 top-0"
                 width="100%"
+                poster={headerImageBrisk}
               >
                 <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk.webm" type="video/webm" />
                 <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk.mov" />
