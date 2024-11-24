@@ -178,7 +178,7 @@ export default function Home() {
       setDynamicTheme(true);
     })
     setDirtySwitch(theme);
-    setDynamicTheme(theme === 'brisk');
+    setDynamicTheme(config.theme[theme].dynamic);
   }, [theme]);
 
   useEffect(() => {
@@ -246,7 +246,7 @@ export default function Home() {
         from-transparent to-[30rem] w-screen"
       >
         <div className="absolute right-0 top-0 w-full sm:w-[85%] 3xl:w-[75%] 4xl:w-[70%] 5xl:w-[65%]">
-          { dirtySwitch !== 'brisk' || dynamicTheme == false ?
+          { !dynamicTheme ?
             <Image
               src={(() => {
                 switch (dirtySwitch) {
