@@ -1,43 +1,37 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/legacy/image";
-import config from '../config/constants';
+import config from "../config/constants";
 import { song_list } from "../config/song_list";
 import NumberTicker from "../components/NumberTicker.component";
-import BlurFade from './ui/blur-fade';
+import BlurFade from "./ui/blur-fade";
 
-import {
-  HiHeart
-} from "react-icons/hi";
-import {
-  BsPalette2
-} from "react-icons/bs";
-import { 
-  RiPaletteFill 
-} from "react-icons/ri";
+import { HiHeart } from "react-icons/hi";
+import { BsPalette2 } from "react-icons/bs";
+import { RiPaletteFill } from "react-icons/ri";
 
 import { motion } from "framer-motion";
 
-import question_mark from '../public/assets/images/question_mark.gif';
-import bgs1314baobaomuamualovelove from '../public/assets/images/bgs1314baobaomuamualovelove.gif';
+import question_mark from "../public/assets/images/question_mark.gif";
+import bgs1314baobaomuamualovelove from "../public/assets/images/bgs1314baobaomuamualovelove.gif";
 
 const HomeList = () => {
-  return(
+  return (
     <>
-      <div className='flex items-center
+      <div
+        className="flex items-center
         flex-nowrap w-full overflow-x-auto
-        no-scrollbar overflow-y-visible py-2'
+        no-scrollbar overflow-y-visible py-2"
       >
-        {
-          config.HomeList.map((c, idx) => {
-            return (
-              <BlurFade
-                key={idx}
-                delay={0.2 + idx * 0.1}
-                inView
-                className="flex items-center rounded-full shrink-0"
-              >
-                <button
-                  className={`
+        {config.HomeList.map((c, idx) => {
+          return (
+            <BlurFade
+              key={idx}
+              delay={0.2 + idx * 0.1}
+              inView
+              className="flex items-center rounded-full shrink-0"
+            >
+              <button
+                className={`
                   ${c.textcolor} ${c.background} ${c.shadowcolor}
                   flex items-center rounded-full shrink-0 
                   ${idx == 0 ? "ml-[1rem]" : "ml-2"}
@@ -45,30 +39,29 @@ const HomeList = () => {
                   px-[0.7em] py-[0.3em] relative space-x-2
                   sm:hover:scale-110 transition-all duration-300
                 `}
-                  onClick={() => window.open(c.url)}
-                  key={idx}
-                >
-                  <Image
-                    src={c.icon}
-                    alt={c.name}
-                    width={16}
-                    height={16}
-                    loader={({ src }) => src}
-                    unoptimized
-                  />
-                  <span className="text-sm">{c.name}</span>
-                </button>
-              </BlurFade>
-            );
-          })
-        }
+                onClick={() => window.open(c.url)}
+                key={idx}
+              >
+                <Image
+                  src={c.icon}
+                  alt={c.name}
+                  width={16}
+                  height={16}
+                  loader={({ src }) => src}
+                  unoptimized
+                />
+                <span className="text-sm">{c.name}</span>
+              </button>
+            </BlurFade>
+          );
+        })}
       </div>
     </>
-  )
-}
+  );
+};
 
-const StyledI = ({handle_click}) => {
-  const [text, set_text] = useState('点点试试呢');
+const StyledI = ({ handle_click }) => {
+  const [text, set_text] = useState("点点试试呢");
   const [clicks, set_clicks] = useState(1);
   useEffect(() => {
     if (clicks > 5) {
@@ -79,45 +72,58 @@ const StyledI = ({handle_click}) => {
   }, [clicks]);
   return (
     <div className="absolute bottom-0 right-0 text-base sm:text-title flex flex-col items-center text-label group/heart pointer-events-none">
-      <div className='font-normal text-base absolute 
+      <div
+        className="font-normal text-base absolute 
         right-0 -top-[3rem] shrink-0 text-nowrap backdrop-blur-xl opacity-0 transition-all
-        inline sm:group-hover/heart:!opacity-100 text-right bg-accent/10 rounded-full px-3 py-1 duration-150'>
-        <span className='flex flex-row items-center space-x-1'>
-          <div className='relative w-[1.2rem] h-[1.2rem]'>
-          <Image src={clicks <= 5 ? question_mark : bgs1314baobaomuamualovelove}
-            width={0} height={0} sizes='100vw'
-            layout='fill' objectFit='contain' unoptimized alt='cute_image'
-          />
+        inline sm:group-hover/heart:!opacity-100 text-right bg-accent/10 rounded-full px-3 py-1 duration-150"
+      >
+        <span className="flex flex-row items-center space-x-1">
+          <div className="relative w-[1.2rem] h-[1.2rem]">
+            <Image
+              src={clicks <= 5 ? question_mark : bgs1314baobaomuamualovelove}
+              width={0}
+              height={0}
+              sizes="100vw"
+              layout="fill"
+              objectFit="contain"
+              unoptimized
+              alt="cute_image"
+            />
           </div>
           <span>{text}</span>
         </span>
         <div className="w-10 h-10 absolute top-[1.80rem] left-10 overflow-hidden inline-block">
-          <div className='w-[10px] h-[10px] right-6
+          <div
+            className="w-[10px] h-[10px] right-6
             -rotate-45 transform absolute -top-[5px]
-            backdrop-blur-xl bg-accent/10'>
-          </div>
+            backdrop-blur-xl bg-accent/10"
+          ></div>
         </div>
       </div>
-      <HiHeart className="font-semibold !text-oen-red-2 text-[0.35rem] sm:text-base absolute bottom-[1.1rem] sm:bottom-[2.3rem] pointer-events-auto" 
+      <HiHeart
+        className="font-semibold !text-oen-red-2 text-[0.35rem] sm:text-base absolute bottom-[1.1rem] sm:bottom-[2.3rem] pointer-events-auto"
         onClick={() => {
           handle_click();
-          set_clicks(clicks+1);
+          set_clicks(clicks + 1);
         }}
-        />
+      />
       <span className="font-semibold">I</span>
     </div>
   );
-}
+};
 
 const HeaderView = ({ props: [EffThis] }) => {
   const [clicks, set_clicks] = useState(1);
   const [avatar_url, set_avatar_url] = useState(
     "https://api.suij1sui.space/api/v2/avatar"
   );
-  const [is_theme_selection_open, set_is_theme_selection_open] = useState(false);
+  const [is_theme_selection_open, set_is_theme_selection_open] =
+    useState(false);
   useEffect(() => {
     if (clicks > 5) {
-      set_avatar_url("/assets/images/emoticon_bgs1314baobaomuamualovelove.webp");
+      set_avatar_url(
+        "/assets/images/emoticon_bgs1314baobaomuamualovelove.webp"
+      );
     }
   }, [clicks]);
   const dropdownRef = useRef(null);
@@ -180,10 +186,10 @@ const HeaderView = ({ props: [EffThis] }) => {
                         className="backdrop-blur-md bg-accent-bg/50
                         h-[1.5rem] rounded-full right-0
                         flex items-center justify-center flex-row space-x-1 px-2"
-                          onClick={() => {
-                            set_is_theme_selection_open(!is_theme_selection_open);
-                          }}
-                        >
+                        onClick={() => {
+                          set_is_theme_selection_open(!is_theme_selection_open);
+                        }}
+                      >
                         <BsPalette2 className="text-xs inline text-accent-fg" />
                         <span className="text-xs text-accent-fg">切换主题</span>
                         {is_theme_selection_open ? (
@@ -244,6 +250,6 @@ const HeaderView = ({ props: [EffThis] }) => {
       </div>
     </>
   );
-}
+};
 
 export default HeaderView;
