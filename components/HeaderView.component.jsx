@@ -222,10 +222,10 @@ const HeaderView = ({ props: [EffThis] }) => {
                                     role="menuitem"
                                     tabIndex="-1"
                                     id="menu-item-3"
-                                    key={value}
+                                    key={value.name}
                                   >
                                     <RiPaletteFill className="inline" />
-                                    <span>{value}</span>
+                                    <span>{value.name}</span>
                                   </div>
                                 );
                               })}

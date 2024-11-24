@@ -52,11 +52,26 @@ const config = {
   ],
 
   theme: {
-    'light':  '爱之类的话语',
-    'dark': '魔偶马戏团',
-    'flower': '花做成的海',
-    'marvelous': '奇妙夜',
-    'brisk': '白云红叶两悠悠',
+    'light':  {
+      name: '爱之类的话语',
+      dynamic: false,
+    },
+    'dark': {
+      name: '魔偶马戏团',
+      dynamic: false,
+    },
+    'flower': {
+      name: '花做成的海',
+      dynamic: false,
+    },
+    'marvelous': {
+      name: '奇妙夜',
+      dynamic: false,
+    },
+    'brisk': {
+      name: '白云红叶两悠悠',
+      dynamic: true,
+    }
   }
 }
 
