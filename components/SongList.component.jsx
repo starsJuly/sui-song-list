@@ -153,28 +153,28 @@ const PillList = ({ props: [song_info, song_idx, BVID, EffThis,] }) => {
   );
 }
 
-const CompactButtonList = ({ props: [song_info, song_idx, BVID, EffThis,] }) => {
-    const [is_favorite, set_is_favorite] = useState(null);
+const CompactButtonList = ({ props: [songInfo, songIdx, BVID, EffThis,] }) => {
+    const [isFavorite, setIsFavorite] = useState(null);
     useEffect(() => {
-      const is_local = is_favorite_song(song_info.song_name);
-      set_is_favorite(is_local);
-    }, [EffThis, song_info]);
+      const isLocal = is_favorite_song(songInfo.song_name);
+      setIsFavorite(isLocal);
+    }, [EffThis, songInfo]);
 
-    const has_record = get_artwork_url(BVID.trim().split(/，/g)) !== '/favicon.png'; 
+    const hasRecord = get_artwork_url(BVID.trim().split(/，/g)) !== '/favicon.png'; 
 
-    const [show_love, set_show_love] = useState(false);
+    const [showLove, setShowLove] = useState(false);
 
     return (
       <>
         <div className="shrink-0">
-        <div className={`sm:hidden flex flex-row ${has_record ? 'inline' : 'hidden'} items-center mr-[-0.5rem]`}>
+        <div className={`sm:hidden flex flex-row ${hasRecord ? 'inline' : 'hidden'} items-center mr-[-0.5rem]`}>
           <span
             className="text-bilibili text-[1rem]"
             onClick={
               (e) => {
                 e.stopPropagation();
                 EffThis.show_bili_player({
-                  title: song_info.song_name,
+                  title: songInfo.song_name,
                   bvid: BVID,
                 });
               }
@@ -185,7 +185,7 @@ const CompactButtonList = ({ props: [song_info, song_idx, BVID, EffThis,] }) => 
           <span onClick={
             (e) => {
               e.stopPropagation();
-              EffThis.play_music_at(song_idx);
+              EffThis.play_music_at(songIdx);
             }
           }>
             <HiMiniPlay className="ml-3 text-label text-[1rem]" />
@@ -193,30 +193,30 @@ const CompactButtonList = ({ props: [song_info, song_idx, BVID, EffThis,] }) => 
           <span className="inline-flex relative items-center justify-center w-[2rem] h-[2rem]"
             onClick={(e) => {
               e.stopPropagation();
-              toggle_favorite_song(song_info.song_name, is_favorite, () => {
-                set_is_favorite(!is_favorite);
-                if (!is_favorite) {
-                  set_show_love(true);
+              toggle_favorite_song(songInfo.song_name, isFavorite, () => {
+                setIsFavorite(!isFavorite);
+                if (!isFavorite) {
+                  setShowLove(true);
                   navigator.sendBeacon('https://api.suij1sui.space/api/v2/action', JSON.stringify({
                     action: "bookmark",
-                    name: song_info.song_name,
+                    name: songInfo.song_name,
                     timestamp: Date.now(),
                   }));
                 }
               });
             }}
           >
-            {is_favorite ? (
+            {isFavorite ? (
               <BsBookmarkHeartFill className="text-oen-red text-[1rem]" />
             ) : (
               <BsBookmarkPlus className="text-label text-[1rem]" />
             )}
             {
-              show_love ?
+              showLove ?
               <motion.div className="absolute h-[2rem] w-[2rem] bg-black rounded-full overflow-hidden top-0 right-0 left-0 bottom-0"
                 initial={{ opacity: 0, scale: 0, transform: 'translateY(0px)' }}
                 animate={{ opacity: [0, 1, 1, 1, 0], scale: [0, 1, 1, 1, 1], transform: 'translateY(-15px)' }}
-                onAnimationComplete={() => set_show_love(false)}
+                onAnimationComplete={() => setShowLove(false)}
               >
                 <Image src="/assets/images/emoticon_love.webp" alt="artwork"
                   width={0} height={0} sizes="100vw" layout="fill" unoptimized
@@ -226,12 +226,12 @@ const CompactButtonList = ({ props: [song_info, song_idx, BVID, EffThis,] }) => 
             }
           </span>
         </div>
-        <span className={`ml-[0.5rem] h-[1.2rem] inline-flex 
+        <button className={`ml-[0.5rem] h-[1.2rem] inline-flex 
           items-center rounded-full
           px-2 py-1 font-medium 
         text-secondary-label ring-1 ring-inset 
         ring-secondary-label text-xs shrink-0
-          transition-colors duration-100 ${has_record ? 'hidden' : 'inline'}
+          transition-colors duration-100 ${hasRecord ? 'hidden' : 'inline'}
           hover:ring-white hover:text-white hover:bg-secondary-label`}
           onClick={(e) => {
             e.stopPropagation();
@@ -241,7 +241,7 @@ const CompactButtonList = ({ props: [song_info, song_idx, BVID, EffThis,] }) => 
           <div className="inline">
             无记录
           </div>
-        </span>
+        </button>
         </div>
       </>
     );
@@ -309,10 +309,10 @@ export default function SongList
   }, [scrollCallback]); 
 
   const song_table_normal = () => {
-    const song_table_row = (song_info, song_idx) => {
+    const song_table_row = (songInfo, songIdx) => {
       let out = {};
-      if (typeof song_info.song_translated_name === 'string') {
-        const name = song_info.song_translated_name.trim();
+      if (typeof songInfo.song_translated_name === 'string') {
+        const name = songInfo.song_translated_name.trim();
         if (name.length) {
           out.translated_name = (
             <div className="group/translated flex items-center align-middle sm:text-[0.9rem] sm:p-0 sm:hover:cursor-main-cursor text-secondary-label transition-colors duration-100">
@@ -329,24 +329,24 @@ export default function SongList
         }
       }
 
-      if (typeof song_info.date_list === 'string') {
-        let date_list = song_info.date_list.trim().split(/，/g).map(a => Date.parse(a)).filter(a => !isNaN(a));
+      if (typeof songInfo.date_list === 'string') {
+        let date_list = songInfo.date_list.trim().split(/，/g).map(a => Date.parse(a)).filter(a => !isNaN(a));
         if (date_list.length) {
           date_list.sort();
           const last = new Date(date_list[date_list.length - 1]);
-          out.last_date = (`${last.getFullYear()}-${last.getMonth() + 1}-${last.getDate()} / ${song_info.song_count}`)
+          out.last_date = (`${last.getFullYear()}-${last.getMonth() + 1}-${last.getDate()} / ${songInfo.song_count}`)
         }
       }
 
       out.BVID = '';
       let bvid_list = null;
-      if (typeof song_info.BVID === 'string') {
-        const bvid_list_plain = song_info.BVID.trim();
+      if (typeof songInfo.BVID === 'string') {
+        const bvid_list_plain = songInfo.BVID.trim();
         if (bvid_list_plain.length) {
           out.BVID = bvid_list_plain;
           out.bili2_icon = <>
             <div className="hidden sm:inline">
-              <PillList props={[song_info, song_idx, out.BVID, EffThis]} />
+              <PillList props={[songInfo, songIdx, out.BVID, EffThis]} />
             </div>
           </>;
         }
@@ -368,7 +368,7 @@ export default function SongList
           rounded-lg
           sm:hover:backdrop-blur-3xl 
           sm:hover:backdrop-brightness-125 
-          transition-all duration-300`} key={song_info.index}
+          transition-all duration-300`} key={songInfo.index}
           ref={rowRef}
         >
           <td>
@@ -380,12 +380,12 @@ export default function SongList
                 text-base sm:hover:cursor-main-cursor"
                 onClick={
                   () => {
-                    global_controllers.copy_to_clipboard(song_info.song_name)
+                    global_controllers.copy_to_clipboard(songInfo.song_name)
                     navigator.sendBeacon(
                       "https://api.suij1sui.space/api/v2/action",
                       JSON.stringify({
                         action: "copy",
-                        name: song_info.song_name,
+                        name: songInfo.song_name,
                         timestamp: Date.now(),
                       })
                     );
@@ -419,7 +419,7 @@ export default function SongList
                             <span className="sm:group-hover/songname:underline text-sm 
                               sm:text-base text-label text-nowrap max-w-[50vw] 
                               overflow-hidden text-ellipsis sm:overflow-visible">
-                              {song_info.song_name.replace(/\s/g, '  ')}
+                              {songInfo.song_name.replace(/\s/g, '  ')}
                             </span>
                             <BsCopy className="ml-[0.5rem] opacity-[.0] 
                                   hidden
@@ -435,12 +435,12 @@ export default function SongList
                         <div className="sm:hover:underline text-label font-normal" onClick={
                           (event) => {
                             event.stopPropagation();
-                            global_controllers.copy_to_clipboard(song_info.song_translated_name)
+                            global_controllers.copy_to_clipboard(songInfo.song_translated_name)
                             navigator.sendBeacon(
                               "https://api.suij1sui.space/api/v2/action",
                               JSON.stringify({
                                 action: "copy",
-                                name: song_info.song_name,
+                                name: songInfo.song_name,
                                 timestamp: Date.now(),
                               })
                             );
@@ -448,12 +448,12 @@ export default function SongList
                         }>
                           {out.translated_name}
                         </div>
-                        <span className="text-secondary-label text-xs hidden sm:block">{song_info.remarks}</span>
+                        <span className="text-secondary-label text-xs hidden sm:block">{songInfo.remarks}</span>
                       </div>
                       <div className="flex flex-row flex-nowrap">
                         <div className="block sm:hidden pl-[0.8rem] text-xs text-secondary-label text-nowrap max-w-[30vw]
                           overflow-hidden sm:overflow-visible sm:text-wrap text-ellipsis">
-                          {song_info.artist}
+                          {songInfo.artist}
                         </div>
                         <div className="block sm:hidden pl-[0.3rem] text-xs text-secondary-label text-nowrap max-w-[50vw]
                           overflow-hidden sm:overflow-visible sm:text-wrap text-ellipsis">
@@ -463,13 +463,13 @@ export default function SongList
                     </div>
                   </div>
                   <div>
-                    <CompactButtonList className="sm:hidden" props={[song_info, song_idx, out.BVID, EffThis]} />
+                    <CompactButtonList className="sm:hidden" props={[songInfo, songIdx, out.BVID, EffThis]} />
                     {out.bili2_icon}
                   </div>
                 </div>
               </div>
               <div className="hidden flex-row items-center sm:flex justify-between sm:w-[30%]">
-                <div className="break-all text-sm text-secondary-label pl-[0.8rem] hidden sm:block">{song_info.artist}</div>
+                <div className="break-all text-sm text-secondary-label pl-[0.8rem] hidden sm:block">{songInfo.artist}</div>
                 <div className="text-nowrap w-min-[120px] text-secondary-label pl-[0.8rem] text-sm hidden sm:block pr-[1rem]">{out.last_date}</div>
               </div>
             </motion.div>
