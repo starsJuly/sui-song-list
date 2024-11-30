@@ -6,6 +6,7 @@ import NumberTicker from "../components/NumberTicker.component";
 import BlurFade from "./ui/blur-fade";
 
 import { HiHeart } from "react-icons/hi";
+import { HiMiniPlusCircle } from "react-icons/hi2";
 import { BsPalette2 } from "react-icons/bs";
 import { RiPaletteFill } from "react-icons/ri";
 
@@ -60,14 +61,14 @@ const HomeList = () => {
   );
 };
 
-const StyledI = ({ handle_click }) => {
-  const [text, set_text] = useState("点点试试呢");
-  const [clicks, set_clicks] = useState(1);
+const StyledI = ({ handleClick }) => {
+  const [text, setText] = useState("点点试试呢");
+  const [clicks, setClicks] = useState(1);
   useEffect(() => {
     if (clicks > 5) {
-      set_text("bgs1314baobaomuamualovelove");
+      setText("bgs1314baobaomuamualovelove");
     } else if (clicks > 2) {
-      set_text("再多试几次");
+      setText("再多试几次");
     }
   }, [clicks]);
   return (
@@ -103,8 +104,8 @@ const StyledI = ({ handle_click }) => {
       <HiHeart
         className="font-semibold !text-oen-red-2 text-[0.35rem] sm:text-base absolute bottom-[1.1rem] sm:bottom-[2.3rem] pointer-events-auto"
         onClick={() => {
-          handle_click();
-          set_clicks(clicks + 1);
+          handleClick();
+          setClicks(clicks + 1);
         }}
       />
       <span className="font-semibold">I</span>
@@ -113,15 +114,15 @@ const StyledI = ({ handle_click }) => {
 };
 
 const HeaderView = ({ props: [EffThis] }) => {
-  const [clicks, set_clicks] = useState(1);
-  const [avatar_url, set_avatar_url] = useState(
+  const [clicks, setClicks] = useState(1);
+  const [avatarUrl, setAvatarUrl] = useState(
     "https://api.suij1sui.space/api/v2/avatar"
   );
-  const [is_theme_selection_open, set_is_theme_selection_open] =
+  const [isThemeSelectionOpen, setIsThemeSelectionOpen] =
     useState(false);
   useEffect(() => {
     if (clicks > 5) {
-      set_avatar_url(
+      setAvatarUrl(
         "/assets/images/emoticon_bgs1314baobaomuamualovelove.webp"
       );
     }
@@ -136,7 +137,7 @@ const HeaderView = ({ props: [EffThis] }) => {
             <BlurFade delay={0.25} inView>
               <div className="mr-2 ml-[1rem] hidden relative sm:w-[9rem] sm:h-[9rem] sm:block">
                 <Image
-                  src={avatar_url}
+                  src={avatarUrl}
                   alt="liver-avatar"
                   loader={({ src }) => src}
                   layout="fill"
@@ -150,7 +151,7 @@ const HeaderView = ({ props: [EffThis] }) => {
               <div className="flex items-center ml-[1rem] mb-2">
                 <div className="mr-2 w-[3.5rem] h-[3.5rem] relative sm:hidden">
                   <Image
-                    src={avatar_url}
+                    src={avatarUrl}
                     alt="liver-avatar"
                     loader={({ src }) => src}
                     layout="fill"
@@ -165,8 +166,8 @@ const HeaderView = ({ props: [EffThis] }) => {
                       <span>{config.Name}</span>
                       <StyledI
                         className="absolute top-0 right-0"
-                        handle_click={() => {
-                          set_clicks(clicks + 1);
+                        handleClick={() => {
+                          setClicks(clicks + 1);
                         }}
                       />
                     </BlurFade>
@@ -184,15 +185,27 @@ const HeaderView = ({ props: [EffThis] }) => {
                       </span>
                       <button
                         className="backdrop-blur-md bg-accent-bg/50
+                        h-[1.5rem] rounded-full right-0 hidden sm:flex
+                        items-center justify-center flex-row space-x-1 px-2"
+                        onClick={() => {
+                          window.open(
+                          );
+                        }}
+                      >
+                        <HiMiniPlusCircle className="text-xs inline text-accent-fg" />
+                        <span className="text-xs text-accent-fg">添加歌曲</span>
+                      </button>
+                      <button
+                        className="backdrop-blur-md bg-accent-bg/50
                         h-[1.5rem] rounded-full right-0
                         flex items-center justify-center flex-row space-x-1 px-2"
                         onClick={() => {
-                          set_is_theme_selection_open(!is_theme_selection_open);
+                          setIsThemeSelectionOpen(!isThemeSelectionOpen);
                         }}
                       >
                         <BsPalette2 className="text-xs inline text-accent-fg" />
                         <span className="text-xs text-accent-fg">切换主题</span>
-                        {is_theme_selection_open ? (
+                        {isThemeSelectionOpen ? (
                           <motion.div
                             className="origin-top-right absolute right-0 mt-2 w-30 
                             rounded-md bottom-[2rem]
@@ -220,7 +233,7 @@ const HeaderView = ({ props: [EffThis] }) => {
                                 return (
                                   <div
                                     onClick={() => {
-                                      set_is_theme_selection_open(false);
+                                      setIsThemeSelectionOpen(false);
                                       EffThis.set_theme(theme);
                                     }}
                                     className="items-center px-3 space-x-1 py-2 text-sm text-label flex flex-row
