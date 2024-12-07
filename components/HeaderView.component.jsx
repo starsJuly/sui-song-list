@@ -4,6 +4,7 @@ import config from "../config/constants";
 import { song_list } from "../config/song_list";
 import NumberTicker from "../components/NumberTicker.component";
 import BlurFade from "./ui/blur-fade";
+import confetti from "canvas-confetti";
 
 import { HiHeart } from "react-icons/hi";
 import { HiMiniPlusCircle } from "react-icons/hi2";
@@ -129,6 +130,38 @@ const HeaderView = ({ props: [EffThis] }) => {
   }, [clicks]);
   const dropdownRef = useRef(null);
   const theme_name_map = new Map(Object.entries(config.theme));
+
+  const handleClick = () => {
+    const defaults = {
+      spread: 360,
+      ticks: 50,
+      gravity: 0,
+      decay: 0.94,
+      startVelocity: 30,
+      colors: ["#FFE400", "#FFBD00", "#E89400", "#FFCA6C", "#FDFFB8"],
+    };
+ 
+    const shoot = () => {
+      confetti({
+        ...defaults,
+        particleCount: 40,
+        scalar: 1.2,
+        shapes: ["star"],
+      });
+ 
+      confetti({
+        ...defaults,
+        particleCount: 10,
+        scalar: 0.75,
+        shapes: ["circle"],
+      });
+    };
+ 
+    setTimeout(shoot, 0);
+    setTimeout(shoot, 100);
+    setTimeout(shoot, 200);
+  };
+
   return (
     <>
       <div>
@@ -176,12 +209,16 @@ const HeaderView = ({ props: [EffThis] }) => {
                     <div className="flex flex-row items-center space-x-3">
                       <span className="sm:text-subtitle">
                         已收录的歌曲{" "}
-                        <NumberTicker
-                          value={song_list.length}
-                          delay={0.3}
-                          className="mx-1 text-label dark:text-label"
-                        />{" "}
-                        首
+                        <button
+                          onClick={handleClick}
+                        >
+                          <NumberTicker
+                            value={song_list.length}
+                            delay={0.3}
+                            className="mx-1 text-label dark:text-label relative"
+                          />
+                        </button>
+                        {" "}首
                       </span>
                       <button
                         className="backdrop-blur-md bg-accent-bg/50
