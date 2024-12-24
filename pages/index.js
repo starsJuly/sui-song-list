@@ -273,7 +273,6 @@ export default function Home() {
                 disablePictureInPicture={true}
                 className="header-image relative right-0 top-0"
                 width="100%"
-                poster={headerImageBrisk}
               >
               {(
                 () => {

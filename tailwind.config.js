@@ -361,7 +361,7 @@ module.exports = {
       },
 
       idol: {
-        'badge-play': '#684F7D',
+        'badge-play': '#570F12',
         'bilibili': '#302A4B',
         'music-player-bg': '#593A51',
         'item-hover': '#45BEEA',
@@ -411,7 +411,7 @@ module.exports = {
         'accent': '#E77379',
         'accent-bg': '#9189BD',
         'accent-fg': '#6A589D',
-        'accent-oen': '#BDCDEF',
+        'accent-oen': '#6A589D',
         'accent-oen-2': '#593A51',
         'accent-2': '#7B6190',
         'accent-3': '#9E6B85',
