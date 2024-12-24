@@ -71,6 +71,10 @@ const config = {
     'brisk': {
       name: '白云红叶两悠悠',
       dynamic: true,
+    },
+    'idol': {
+      name: '没有想好',
+      dynamic: true,
     }
   }
 }

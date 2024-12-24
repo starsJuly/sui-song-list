@@ -172,9 +172,9 @@ export default function Home() {
   const [dynamicTheme, setDynamicTheme] = useState(true);
   const videoRef = React.useRef(null);
   useEffect(() => {
-    upgrade_app('2.0.3', () => {
-      EffThis.set_theme('brisk');
-      setDirtySwitch('brisk');
+    upgrade_app('2.0.4', () => {
+      EffThis.set_theme('idol');
+      setDirtySwitch('idol');
       setDynamicTheme(true);
     })
     setDirtySwitch(theme);
@@ -275,8 +275,34 @@ export default function Home() {
                 width="100%"
                 poster={headerImageBrisk}
               >
-                <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk.webm" type="video/webm" />
-                <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk.mov" />
+              {(
+                () => {
+                  switch (dirtySwitch) {
+                    case 'brisk':
+                      return (
+                        <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk.webm" type="video/webm" />
+                      )
+                    case 'idol':
+                      return (
+                        <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=idol.webm" type="video/webm" />
+                      )
+                  }
+                }
+              )()}
+              {(
+                () => {
+                  switch (dirtySwitch) {
+                    case 'brisk':
+                      return (
+                        <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk.mov" type="video/mp4" />
+                      )
+                    case 'idol':
+                      return (
+                        <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=idol.mov" type="video/mp4" />
+                      )
+                  }
+                }
+              )()}
               </video>
           }
         </div>

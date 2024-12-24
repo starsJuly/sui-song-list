@@ -358,6 +358,67 @@ module.exports = {
         'secondary-background': '#796458',
         'tertiary-background': '#633F35',
         'main-page-background': '#A06648'
+      },
+
+      idol: {
+        'badge-play': '#684F7D',
+        'bilibili': '#302A4B',
+        'music-player-bg': '#593A51',
+
+        'pome-bg': '#eaeaff',
+        'pome-fg': '#3b37fd',
+
+        'weibo-bg': '#ffe8ec',
+        'weibo-fg': '#f44152',
+
+        'bilibili-bg': '#e3faff',
+        'bilibili-fg': '#37abe9',
+
+        'vr-bg': '#e5feee',
+        'vr-fg': '#53e383',
+
+        // generated from #87EAFF
+        'oen-blue': '#87EAFF',
+        'oen-color-1': "#e1fdff",
+        'oen-color-2': "#ccf8ff",
+        'oen-color-3': "#9ceeff",
+        'oen-color-4': "#68e4fe",
+        'oen-color-5': "#43dbfd",
+        'oen-color-6': "#2fd6fd",
+        'oen-color-7': "#1dd4fe",
+        'oen-color-8': "#00bbe3",
+        'oen-color-9': "#00a7cb",
+        'oen-color-10': "#0090b3",
+
+        // generated from #DA5D77
+        'oen-red': '#DA5D77',
+        'oen-red-2': '#E97365',
+        'oen-color-11': "#ffeaf1",
+        'oen-color-12': "#fbd6df",
+        'oen-color-13': "#efadbb",
+        'oen-color-14': "#e38095",
+        'oen-color-15': "#da5b75",
+        'oen-color-16': "#d44361",
+        'oen-color-17': "#d23657",
+        'oen-color-18': "#bb2747",
+        'oen-color-19': "#a71f3f",
+        'oen-color-20': "#941335",
+
+        'label': '#BDCDEF',
+        'secondary-label': '#C2B4D2',
+        'tertiary-label': '#44314B',
+        'accent': '#7B5167',
+        'accent-bg': '#9189BD',
+        'accent-fg': '#6A589D',
+        'accent-oen': '#BDCDEF',
+        'accent-oen-2': '#593A51',
+        'accent-2': '#7B6190',
+        'accent-3': '#9E6B85',
+        'background': '#44314B',
+        'background-2': '#302A4B',
+        'secondary-background': '#593A51',
+        'tertiary-background': '#6A589D',
+        'main-page-background': '#887DB3'
       }
     })
   ],
