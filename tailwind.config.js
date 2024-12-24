@@ -364,6 +364,7 @@ module.exports = {
         'badge-play': '#684F7D',
         'bilibili': '#302A4B',
         'music-player-bg': '#593A51',
+        'item-hover': '#45BEEA',
 
         'pome-bg': '#eaeaff',
         'pome-fg': '#3b37fd',
@@ -407,7 +408,7 @@ module.exports = {
         'label': '#BDCDEF',
         'secondary-label': '#C2B4D2',
         'tertiary-label': '#44314B',
-        'accent': '#7B5167',
+        'accent': '#E77379',
         'accent-bg': '#9189BD',
         'accent-fg': '#6A589D',
         'accent-oen': '#BDCDEF',
