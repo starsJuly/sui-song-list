@@ -41,6 +41,7 @@ import headerImageDark from '../public/assets/images/theme/header_dark.webp'
 import headerImageFlower from '../public/assets/images/theme/header_flower.webp'
 import headerImageMarvelous from '../public/assets/images/theme/header_marvelous.webp'
 import headerImageBrisk from '../public/assets/images/theme/header_brisk.webp'
+import headerImageIdol from '../public/assets/images/theme/header_idol.webp'
 
 import {
   BsPalette2
@@ -255,6 +256,7 @@ export default function Home() {
                   case 'flower': return headerImageFlower;
                   case 'marvelous': return headerImageMarvelous;
                   case 'brisk': return headerImageBrisk;
+                  case 'idol': return headerImageIdol;
                   default: return headerImage;
                 }
               })()}
