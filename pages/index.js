@@ -274,34 +274,27 @@ export default function Home() {
                 className="header-image relative right-0 top-0"
                 width="100%"
               >
-              {(
-                () => {
-                  switch (dirtySwitch) {
-                    case 'brisk':
-                      return (
-                        <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk.webm" type="video/webm" />
-                      )
-                    case 'idol':
-                      return (
-                        <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=idol.webm" type="video/webm" />
-                      )
+                {(
+                  () => {
+                    switch (dirtySwitch) {
+                      case 'brisk':
+                        return (
+                          <>
+                            <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk.mp4" type="video/mp4" />
+                            <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk.webm" type="video/webm" />
+                          </>
+                        )
+                      case 'idol':
+                        return (
+                          <>
+                            <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=idol.mp4" type="video/mp4" />
+                            <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=idol.webm" type="video/webm" />
+                          </>
+                        )
+                  
+                    }    
                   }
-                }
-              )()}
-              {(
-                () => {
-                  switch (dirtySwitch) {
-                    case 'brisk':
-                      return (
-                        <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk.mov" type="video/mp4" />
-                      )
-                    case 'idol':
-                      return (
-                        <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=idol.mov" type="video/mp4" />
-                      )
-                  }
-                }
-              )()}
+                )()}
               </video>
           }
         </div>
