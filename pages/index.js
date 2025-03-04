@@ -42,6 +42,7 @@ import headerImageFlower from '../public/assets/images/theme/header_flower.webp'
 import headerImageMarvelous from '../public/assets/images/theme/header_marvelous.webp'
 import headerImageBrisk from '../public/assets/images/theme/header_brisk.webp'
 import headerImageIdol from '../public/assets/images/theme/header_idol.webp'
+import headerImageLazy from '../public/assets/images/theme/header_lazy.webp'
 
 import {
   BsPalette2
@@ -173,10 +174,10 @@ export default function Home() {
   const [dynamicTheme, setDynamicTheme] = useState(true);
   const videoRef = React.useRef(null);
   useEffect(() => {
-    upgrade_app('2.0.4', () => {
-      EffThis.set_theme('idol');
-      setDirtySwitch('idol');
-      setDynamicTheme(true);
+    upgrade_app('2.0.5', () => {
+      EffThis.set_theme('lazy');
+      setDirtySwitch('lazy');
+      setDynamicTheme(false);
     })
     setDirtySwitch(theme);
     setDynamicTheme(config.theme[theme].dynamic);
@@ -257,6 +258,7 @@ export default function Home() {
                   case 'marvelous': return headerImageMarvelous;
                   case 'brisk': return headerImageBrisk;
                   case 'idol': return headerImageIdol;
+                  case 'lazy': return headerImageLazy;
                   default: return headerImage;
                 }
               })()}

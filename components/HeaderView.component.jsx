@@ -209,39 +209,37 @@ const HeaderView = ({ props: [EffThis] }) => {
                     <div className="flex flex-row items-center space-x-3">
                       <span className="sm:text-subtitle">
                         已收录的歌曲{" "}
-                        <button
-                          onClick={handleClick}
-                        >
+                        <button onClick={handleClick}>
                           <NumberTicker
                             value={song_list.length}
                             delay={0.3}
                             className="mx-1 text-label dark:text-label relative"
                           />
-                        </button>
-                        {" "}首
+                        </button>{" "}
+                        首
                       </span>
                       <button
-                        className="backdrop-blur-md bg-accent-bg/50
+                        className="bg-accent-bg
                         h-[1.5rem] rounded-full right-0 hidden sm:flex
                         items-center justify-center flex-row space-x-1 px-2"
                         onClick={() => {
-                          window.open(
-                          );
+                          window.open();
                         }}
                       >
                         <HiMiniPlusCircle className="text-xs inline text-accent-fg" />
                         <span className="text-xs text-accent-fg">添加歌曲</span>
                       </button>
                       <button
-                        className="backdrop-blur-md bg-accent-bg/50
-                        h-[1.5rem] rounded-full right-0
+                        className="bg-accent-bg h-[1.5rem] rounded-full right-0
                         flex items-center justify-center flex-row space-x-1 px-2"
                         onClick={() => {
                           setIsThemeSelectionOpen(!isThemeSelectionOpen);
                         }}
                       >
                         <BsPalette2 className="text-xs inline text-accent-fg" />
-                        <span className="text-xs text-accent-fg">切换主题</span>
+                        <span className="text-xs text-accent-fg ">
+                          切换主题
+                        </span>
                         {isThemeSelectionOpen ? (
                           <motion.div
                             className="origin-top-right absolute right-0 mt-2 w-30 

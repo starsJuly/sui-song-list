@@ -74,8 +74,12 @@ const config = {
     },
     'idol': {
       name: '没有想好',
-      dynamic: true,
-    }
+      dynamic: false,
+    },
+    'lazy': {
+      name: '懒倦慵吟守岁诗',
+      dynamic: false,
+    },
   }
 }
 
