@@ -174,13 +174,13 @@ export default function Home() {
   const [dynamicTheme, setDynamicTheme] = useState(true);
   const videoRef = React.useRef(null);
   useEffect(() => {
+    setDirtySwitch(theme);
+    setDynamicTheme(config.theme[theme].dynamic);
     upgrade_app('2.0.5', () => {
       EffThis.set_theme('lazy');
       setDirtySwitch('lazy');
       setDynamicTheme(false);
     })
-    setDirtySwitch(theme);
-    setDynamicTheme(config.theme[theme].dynamic);
   }, [theme]);
 
   useEffect(() => {
@@ -251,7 +251,7 @@ export default function Home() {
           { !dynamicTheme ?
             <Image
               src={(() => {
-                switch (dirtySwitch) {
+                switch (theme) {
                   case 'dark': return headerImageDark;
                   case 'light': return headerImage;
                   case 'flower': return headerImageFlower;
