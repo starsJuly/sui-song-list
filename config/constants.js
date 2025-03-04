@@ -73,7 +73,7 @@ const config = {
       dynamic: true,
     },
     'idol': {
-      name: '没有想好',
+      name: '娉婷似不任罗绮',
       dynamic: false,
     },
     'lazy': {
