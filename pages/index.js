@@ -307,6 +307,12 @@ export default function Home() {
           as="image"
           type='image/webp'
         />
+        <link
+          rel="preload"
+          href='/assets/images/theme/header_shining_front.png'
+          as="image"
+          type='image/png'
+        />
       </Head>
 
       <div
