@@ -89,6 +89,14 @@ a {
   mask: linear-gradient(90deg, black 90%, transparent 100%);
 }
 
+.main-section {
+  min-height: 10vh;
+  min-width: min-content;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+
 @media(min-width: 1024px) {
   .header-image {
     mask: radial-gradient(farthest-side at 100% 0%, black 70%, transparent 100%);
@@ -103,6 +111,24 @@ a {
 
 @media(max-width:640px) {
   .header-image {
+    mask: linear-gradient(180deg, black 50%, transparent 100%);
+  }
+}
+
+@media(min-width: 1024px) {
+  .header-image-front {
+    mask: radial-gradient(farthest-side at 100% 0%, black 90%, transparent 100%);
+  }
+}
+
+@media(min-width:640px) and (max-width:1024px) {
+  .header-image-front {
+    mask: radial-gradient(farthest-side at 100% 0%, black 90%, transparent 100%);
+  }
+}
+
+@media(max-width:640px) {
+  .header-image-front {
     mask: linear-gradient(180deg, black 50%, transparent 100%);
   }
 }

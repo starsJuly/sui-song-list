@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from 'react'
+import React, { memo, useCallback, useEffect, useState, useRef } from 'react'
 
 import Head from 'next/head'
 import Link from 'next/link'
@@ -43,6 +43,8 @@ import headerImageMarvelous from '../public/assets/images/theme/header_marvelous
 import headerImageBrisk from '../public/assets/images/theme/header_brisk.webp'
 import headerImageIdol from '../public/assets/images/theme/header_idol.webp'
 import headerImageLazy from '../public/assets/images/theme/header_lazy.webp'
+import headerImageShining from '../public/assets/images/theme/header_shining.webp'
+import headerImageShiningFront from '../public/assets/images/theme/header_shining_front.png'
 
 import {
   BsPalette2
@@ -61,6 +63,70 @@ const BackgroundView = () => {
     />
   );
 };
+
+function ActivityImage() {
+  const INACTIVE_TIMEOUT = 3 * 1000;
+
+  const [isActive, setIsActive] = useState(false);
+  const [initActive, setInitActive] = useState(false);
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setInitActive(true);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const handleActivity = () => {
+      setIsActive(true);
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+      timerRef.current = window.setTimeout(() => {
+        setIsActive(false);
+      }, INACTIVE_TIMEOUT);
+    };
+
+    const events = [
+      'mousedown',
+      'mousemove',
+      'keydown',
+      'scroll',
+      'touchstart',
+    ];
+
+    events.forEach((ev) => window.addEventListener(ev, handleActivity));
+
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+      events.forEach((ev) => window.removeEventListener(ev, handleActivity));
+    };
+  }, []);
+
+  return (
+    <div className="absolute right-0 top-0 w-full sm:w-[85%] 3xl:w-[75%] 4xl:w-[70%] 5xl:w-[65%]">
+      <Image
+        src={(() => {
+          switch (theme) {
+            case 'shining': return headerImageShiningFront;
+            default: return headerImageShiningFront;
+          }
+        })()}
+        className={`header-image-front transition-opacity duration-500 header-image-front ${!isActive ? 'z-[100] opacity-100' : 'opacity-0 pointer-events-none}'}`}
+        alt="header"
+        unoptimized
+        layout="responsive"
+        loader={({ src }) => src}
+      />
+    </div>
+  );
+}
+
 
 export default function Home() {
   // EffThis
@@ -176,9 +242,9 @@ export default function Home() {
   useEffect(() => {
     setDirtySwitch(theme);
     setDynamicTheme(config.theme[theme].dynamic);
-    upgrade_app('2.0.5', () => {
-      EffThis.set_theme('lazy');
-      setDirtySwitch('lazy');
+    upgrade_app('2.0.6', () => {
+      EffThis.set_theme('shining');
+      setDirtySwitch('shining');
       setDynamicTheme(false);
     })
   }, [theme]);
@@ -259,6 +325,7 @@ export default function Home() {
                   case 'brisk': return headerImageBrisk;
                   case 'idol': return headerImageIdol;
                   case 'lazy': return headerImageLazy;
+                  case 'shining': return headerImageShining;
                   default: return headerImage;
                 }
               })()}
@@ -302,7 +369,11 @@ export default function Home() {
               </video>
           }
         </div>
-        <section className={styles.main}>
+        {
+          dirtySwitch === 'shining' &&
+          <ActivityImage />
+        }
+        <section className={"main-section z-[99]"}>
           <HeaderView props={[EffThis]}/>
           <FeaturedSongList effthis={EffThis} datasrc={
             async (song_list) => {

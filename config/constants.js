@@ -80,6 +80,10 @@ const config = {
       name: '懒倦慵吟守岁诗',
       dynamic: false,
     },
+    'shining': {
+      name: 'Effulgence',
+      dynamic: false,
+    },
   }
 }
 
