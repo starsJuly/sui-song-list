@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState, useRef } from 'react'
+import React, { memo, useCallback, useEffect, useState, useRef, useSyncExternalStore } from 'react'
 
 import Head from 'next/head'
 import Link from 'next/link'
@@ -63,6 +63,19 @@ const BackgroundView = () => {
     />
   );
 };
+
+function subscribe(callback) {
+  window.addEventListener('storage', callback);
+  return () => window.removeEventListener('storage', callback);
+}
+
+function getSnapshot() {
+  return (window.localStorage.getItem('theme') || 'shining');
+}
+
+export function useThemeName() {
+  return useSyncExternalStore(subscribe, getSnapshot, () => []);
+}
 
 function ActivityImage() {
   const INACTIVE_TIMEOUT = 3 * 1000;
@@ -265,6 +278,8 @@ export default function Home() {
     }
   }, [dirtySwitch, theme]);
   
+  const themeName = useThemeName();
+
   const title = `${config.Name}的歌单`;
   return (
     <div data-theme={theme}>
@@ -379,7 +394,7 @@ export default function Home() {
           }
         </div>
         {
-          dirtySwitch === 'shining' &&
+          themeName === 'shining' &&
           <ActivityImage />
         }
         <section className={"main-section z-[99]"}>
