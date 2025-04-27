@@ -122,6 +122,9 @@ function ActivityImage() {
         unoptimized
         layout="responsive"
         loader={({ src }) => src}
+        onLoad={() => {
+          setIsActive(false);
+        }}
       />
     </div>
   );
