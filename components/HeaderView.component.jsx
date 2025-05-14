@@ -205,7 +205,7 @@ const HeaderView = ({ props: [EffThis] }) => {
                       />
                     </BlurFade>
                   </span>
-                  <BlurFade delay={0.05} inView>
+                  <BlurFade className="relative z-[10]" delay={0.05} inView>
                     <div className="flex flex-row items-center space-x-3">
                       <span className="sm:text-subtitle">
                         已收录的歌曲{" "}
@@ -230,7 +230,7 @@ const HeaderView = ({ props: [EffThis] }) => {
                         <span className="text-xs text-accent-fg">添加歌曲</span>
                       </button>
                       <button
-                        className="bg-accent-bg h-[1.5rem] rounded-full right-0
+                        className="relative bg-accent-bg h-[1.5rem] rounded-full right-0
                         flex items-center justify-center flex-row space-x-1 px-2"
                         onClick={() => {
                           setIsThemeSelectionOpen(!isThemeSelectionOpen);
@@ -243,7 +243,7 @@ const HeaderView = ({ props: [EffThis] }) => {
                         {isThemeSelectionOpen ? (
                           <motion.div
                             className="origin-top-right absolute right-0 mt-2 w-30 
-                            rounded-md bottom-[2rem]
+                            rounded-md top-[1.2rem]
                             focus:outline-none z-[100] overflow-y-auto"
                             aria-orientation="vertical"
                             aria-labelledby="menu-button"

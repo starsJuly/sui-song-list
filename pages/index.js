@@ -397,7 +397,7 @@ export default function Home() {
           themeName === 'shining' &&
           <ActivityImage />
         }
-        <section className={"main-section z-[99]"}>
+        <section className={"main-section"}>
           <HeaderView props={[EffThis]}/>
           <FeaturedSongList effthis={EffThis} datasrc={
             async (song_list) => {
