@@ -461,45 +461,6 @@ export default function Home() {
   );
 }
 
-function CornerIcons () {
-  return (
-    <>
-      <Link href = { "https://live.bilibili.com/" + config.BiliLiveRoomID } passHref>
-        <a target = "_blank" style = {{ textDecoration: "none", color: "#1D0C26" }}>
-          <div className = { styles.goToLiveDiv }>
-            <div className = { styles.cornerToggle }>
-              <Image
-                loader = { imageLoader }
-                src = "assets/icon/bilibili_logo_padded.png"
-                alt = "去直播间"
-                width = {50}
-                height = {50}
-              />
-              <b>
-                <i>直 播 间</i>
-              </b>
-            </div>
-          </div>
-        </a>
-      </Link>
-      <div className={styles.offCanvasToggleDiv} onClick={() => window.open(config.VRMember)}>
-        <div className={styles.cornerToggle}>
-          <Image
-            loader={imageLoader}
-            src="assets/images/self_intro.png"
-            alt="打开自我介绍"
-            width={50}
-            height={50}
-          />
-          <b>
-            <i>官网介绍</i>
-          </b>
-        </div>
-      </div>
-    </>
-  );
-}
-
 import { content_contains } from '../utils/search_engine'
 
 /** 过滤器控件 */
