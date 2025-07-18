@@ -29,7 +29,7 @@ export const get_artwork_url = (bvid_list) => {
       latest_bvid = latest_bvid.slice(0, -1);
     }
     if (latest_bvid.length > 0) {
-      artwork_url = `https://api.suij1sui.space/api/v1/video/info?bvid=${latest_bvid}&pic=1`;
+      artwork_url = `https://api.suij1sui.space/api/v2/video/info?bvid=${latest_bvid}&pic=1`;
     }
   }
   return artwork_url;

@@ -43,7 +43,6 @@ const is_playable = (song_list, idx) => {
   return song_list[idx].BVID.length > 0;
 }
 
-const info_url = "https://api.suij1sui.space/api/v1/video/info?bvid=";
 const data_url = "https://api.suij1sui.space/api/v2/video/rdata?bvid=";
 
 const MusicPlayerView = ({ props: [idx, EffThis] }) => {
@@ -124,7 +123,7 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
 
   const fetch_artwork = async (bvid) => {
     setArtworkUrl(
-      `https://api.suij1sui.space/api/v1/video/info?bvid=${bvid}&pic=1`
+      `https://api.suij1sui.space/api/v2/video/info?bvid=${bvid}&pic=1`
     );
   }
 
