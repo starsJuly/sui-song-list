@@ -252,15 +252,12 @@ export default function Home() {
 
   }, [EffThis]);
 
-  const [dirtySwitch, setDirtySwitch] = useState('');
   const [dynamicTheme, setDynamicTheme] = useState(true);
   const videoRef = React.useRef(null);
   useEffect(() => {
-    setDirtySwitch(theme);
     setDynamicTheme(config.theme[theme].dynamic);
     upgrade_app('2.0.6', () => {
       EffThis.set_theme('shining');
-      setDirtySwitch('shining');
       setDynamicTheme(false);
     })
   }, [theme]);
@@ -272,11 +269,10 @@ export default function Home() {
         .then(() => { })
         .catch((e) => {
           setDynamicTheme(false);
-          setDirtySwitch(theme);
           return e;
         });
     }
-  }, [dirtySwitch, theme]);
+  }, [theme]);
   
   const themeName = useThemeName();
 
@@ -371,7 +367,7 @@ export default function Home() {
               >
                 {(
                   () => {
-                    switch (dirtySwitch) {
+                    switch (themeName) {
                       case 'brisk':
                         return (
                           <>
@@ -400,7 +396,7 @@ export default function Home() {
         <section className={"main-section"}>
           <HeaderView props={[EffThis]}/>
           <FeaturedSongList effthis={EffThis} datasrc={
-            async (song_list) => {
+            async () => {
               let list = null;
               await fetch("https://api.suij1sui.space/api/v2/featured")
                 .then((res) => res.json())
