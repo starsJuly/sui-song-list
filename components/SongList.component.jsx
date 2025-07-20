@@ -364,64 +364,83 @@ export default function SongList
       }
 
       return (
-        <tr className={`${styles.song} 
+        <tr
+          className={`${styles.song} 
           rounded-lg
           sm:hover:backdrop-blur-3xl 
           sm:hover:backdrop-brightness-125 
-          transition-all duration-300`} key={songInfo.index}
+          transition-all duration-300`}
+          key={songInfo.index}
           ref={rowRef}
         >
           <td>
-            <motion.div className="flex flex-row items-center justify-between"
+            <motion.div
+              suppressHydrationWarning
+              className="flex flex-row items-center justify-between"
               initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: [0.5, 1, 1, 1, 1], scale: [0.9, 1, 1, 1, 1] }}>
-              <div className="song_table__name w-full
+              animate={{ opacity: [0.5, 1, 1, 1, 1], scale: [0.9, 1, 1, 1, 1] }}
+            >
+              <div
+                suppressHydrationWarning
+                className="song_table__name w-full
                 group/tablename break-all sm:w-[70%]
                 text-base sm:hover:cursor-main-cursor"
-                onClick={
-                  () => {
-                    global_controllers.copy_to_clipboard(songInfo.song_name)
-                    navigator.sendBeacon(
-                      "https://api.suij1sui.space/api/v2/action",
-                      JSON.stringify({
-                        action: "copy",
-                        name: songInfo.song_name,
-                        timestamp: Date.now(),
-                      })
-                    );
-                  }
-                }>
+                onClick={() => {
+                  global_controllers.copy_to_clipboard(songInfo.song_name);
+                  navigator.sendBeacon(
+                    "https://api.suij1sui.space/api/v2/action",
+                    JSON.stringify({
+                      action: "copy",
+                      name: songInfo.song_name,
+                      timestamp: Date.now(),
+                    })
+                  );
+                }}
+              >
                 <div className="flex flex-row items-center justify-between">
                   <div className="flex flex-row items-center h-[4.5rem]">
                     <div className="inline shrink-0 sm:ml-3 sm:w-[3.5rem] sm:h-[3.5rem] w-[3rem] h-[3rem] relative">
-                      <Image src={artwork_url} alt="artwork"
+                      <Image
+                        src={artwork_url}
+                        alt="artwork"
                         className="rounded-md shrink-0 text-sm object-cover"
                         unoptimized
                         onError={(e) => {
                           e.target.onerror = null;
-                          e.target.src = '/favicon.png';
+                          e.target.src = "/favicon.png";
                         }}
-                        layout="fill" objectFit="cover"
-                        width={0} height={0} size="100vw" loader={({src}) => src} 
+                        layout="fill"
+                        objectFit="cover"
+                        width={0}
+                        height={0}
+                        size="100vw"
+                        loader={({ src }) => src}
                       />
                     </div>
                     <div className="flex flex-col w-full">
-                      <div className="song-table-song-name 
+                      <div
+                        className="song-table-song-name 
                           group/songname items-center flex pl-[0.8rem] 
                           grouptext-white sm:pt-[0.5rem]
-                          transition-colors duration-100">
+                          transition-colors duration-100"
+                      >
                         <span className="flex flex-wrap items-center justify-between w-[100%]">
                           <span className="inline-flex align-middle items-center">
-                            <span className="mr-[0.5rem]
-                              inline sm:group-hover/songname:hidden">
-                            <BsMusicNoteBeamed className="text-label text-sm sm:text-base"/>
+                            <span
+                              className="mr-[0.5rem]
+                              inline sm:group-hover/songname:hidden"
+                            >
+                              <BsMusicNoteBeamed className="text-label text-sm sm:text-base" />
                             </span>
-                            <span className="sm:group-hover/songname:underline text-sm 
+                            <span
+                              className="sm:group-hover/songname:underline text-sm 
                               sm:text-base text-label text-nowrap max-w-[50vw] 
-                              overflow-hidden text-ellipsis sm:overflow-visible">
-                              {songInfo.song_name.replace(/\s/g, '  ')}
+                              overflow-hidden text-ellipsis sm:overflow-visible"
+                            >
+                              {songInfo.song_name.replace(/\s/g, "  ")}
                             </span>
-                            <BsCopy className="ml-[0.5rem] opacity-[.0] 
+                            <BsCopy
+                              className="ml-[0.5rem] opacity-[.0] 
                                   hidden
                                   h-[1rem] text-label
                                   sm:group-hover/songname:opacity-100 
@@ -432,10 +451,13 @@ export default function SongList
                         </span>
                       </div>
                       <div className="break-all text-sm font-normal pl-[0.8rem] sm:pb-[0.5rem]">
-                        <div className="sm:hover:underline text-label font-normal" onClick={
-                          (event) => {
+                        <div
+                          className="sm:hover:underline text-label font-normal"
+                          onClick={(event) => {
                             event.stopPropagation();
-                            global_controllers.copy_to_clipboard(songInfo.song_translated_name)
+                            global_controllers.copy_to_clipboard(
+                              songInfo.song_translated_name
+                            );
                             navigator.sendBeacon(
                               "https://api.suij1sui.space/api/v2/action",
                               JSON.stringify({
@@ -444,38 +466,51 @@ export default function SongList
                                 timestamp: Date.now(),
                               })
                             );
-                          }
-                        }>
+                          }}
+                        >
                           {out.translated_name}
                         </div>
-                        <span className="text-secondary-label text-xs hidden sm:block">{songInfo.remarks}</span>
+                        <span className="text-secondary-label text-xs hidden sm:block">
+                          {songInfo.remarks}
+                        </span>
                       </div>
                       <div className="flex flex-row flex-nowrap">
-                        <div className="block sm:hidden pl-[0.8rem] text-xs text-secondary-label text-nowrap max-w-[30vw]
-                          overflow-hidden sm:overflow-visible sm:text-wrap text-ellipsis">
+                        <div
+                          className="block sm:hidden pl-[0.8rem] text-xs text-secondary-label text-nowrap max-w-[30vw]
+                          overflow-hidden sm:overflow-visible sm:text-wrap text-ellipsis"
+                        >
                           {songInfo.artist}
                         </div>
-                        <div className="block sm:hidden pl-[0.3rem] text-xs text-secondary-label text-nowrap max-w-[50vw]
-                          overflow-hidden sm:overflow-visible sm:text-wrap text-ellipsis">
+                        <div
+                          className="block sm:hidden pl-[0.3rem] text-xs text-secondary-label text-nowrap max-w-[50vw]
+                          overflow-hidden sm:overflow-visible sm:text-wrap text-ellipsis"
+                        >
                           {out.last_date}
                         </div>
                       </div>
                     </div>
                   </div>
                   <div>
-                    <CompactButtonList className="sm:hidden" props={[songInfo, songIdx, out.BVID, EffThis]} />
+                    <CompactButtonList
+                      className="sm:hidden"
+                      props={[songInfo, songIdx, out.BVID, EffThis]}
+                    />
                     {out.bili2_icon}
                   </div>
                 </div>
               </div>
               <div className="hidden flex-row items-center sm:flex justify-between sm:w-[30%]">
-                <div className="break-all text-sm text-secondary-label pl-[0.8rem] hidden sm:block">{songInfo.artist}</div>
-                <div className="text-nowrap w-min-[120px] text-secondary-label pl-[0.8rem] text-sm hidden sm:block pr-[1rem]">{out.last_date}</div>
+                <div className="break-all text-sm text-secondary-label pl-[0.8rem] hidden sm:block">
+                  {songInfo.artist}
+                </div>
+                <div className="text-nowrap w-min-[120px] text-secondary-label pl-[0.8rem] text-sm hidden sm:block pr-[1rem]">
+                  {out.last_date}
+                </div>
               </div>
             </motion.div>
           </td>
         </tr>
-      )
+      );
     }
 
     return (
@@ -498,10 +533,12 @@ export default function SongList
       >
         <tbody className="song_table__tbody overflow-hidden">
           <PaddingElement
+            suppressHydrationWarning
             paddingHeight={paddingTop}
           ></PaddingElement>
           {visibleData.map((x) => song_table_row(x, x.idx))}
           <PaddingElement
+            suppressHydrationWarning
             paddingHeight={paddingBottom}
           ></PaddingElement>
         </tbody>
