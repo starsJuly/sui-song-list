@@ -83,7 +83,7 @@ const PillList = ({ props: [song_info, song_idx, BVID, EffThis,] }) => {
             set_is_favorite(!is_favorite);
             if (!is_favorite) {
               set_show_love(true);
-              navigator.sendBeacon('https://api.suij1sui.space/api/v2/action', JSON.stringify({
+              navigator.sendBeacon('/api/v2/action', JSON.stringify({
                 action: "bookmark",
                 name: song_info.song_name,
                 timestamp: Date.now(),
@@ -197,7 +197,7 @@ const CompactButtonList = ({ props: [songInfo, songIdx, BVID, EffThis,] }) => {
                 setIsFavorite(!isFavorite);
                 if (!isFavorite) {
                   setShowLove(true);
-                  navigator.sendBeacon('https://api.suij1sui.space/api/v2/action', JSON.stringify({
+                  navigator.sendBeacon('/api/v2/action', JSON.stringify({
                     action: "bookmark",
                     name: songInfo.song_name,
                     timestamp: Date.now(),
@@ -359,7 +359,7 @@ export default function SongList
           latest_bvid = latest_bvid.slice(0, -1);
         }
         if (latest_bvid.length > 0) {
-          artwork_url = `https://api.suij1sui.space/api/v2/video/info?bvid=${latest_bvid}&pic=1`;
+          artwork_url = `/api/v2/video/info?bvid=${latest_bvid}&pic=1`;
         }
       }
 
@@ -388,7 +388,7 @@ export default function SongList
                 onClick={() => {
                   global_controllers.copy_to_clipboard(songInfo.song_name);
                   navigator.sendBeacon(
-                    "https://api.suij1sui.space/api/v2/action",
+                    "/api/v2/action",
                     JSON.stringify({
                       action: "copy",
                       name: songInfo.song_name,
@@ -459,7 +459,7 @@ export default function SongList
                               songInfo.song_translated_name
                             );
                             navigator.sendBeacon(
-                              "https://api.suij1sui.space/api/v2/action",
+                              "/api/v2/action",
                               JSON.stringify({
                                 action: "copy",
                                 name: songInfo.song_name,

@@ -125,7 +125,7 @@ function ActivityImage() {
     <div className="absolute right-0 top-0 w-full sm:w-[85%] 3xl:w-[75%] 4xl:w-[70%] 5xl:w-[65%]">
       <Image
         src={(() => {
-          switch (theme) {
+          switch (themeName) {
             case 'shining': return headerImageShiningFront;
             default: return headerImageShiningFront;
           }
@@ -317,7 +317,7 @@ export default function Home() {
         />
         <link
           rel="preload"
-          href='https://api.suij1sui.space/api/v2/avatar'
+          href='/api/v2/avatar'
           as="image"
           type='image/webp'
         />
@@ -371,15 +371,15 @@ export default function Home() {
                       case 'brisk':
                         return (
                           <>
-                            <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk.mp4" type="video/mp4" />
-                            <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=brisk.webm" type="video/webm" />
+                            <source src="/api/v2/theme/dynamic?theme=brisk.mp4" type="video/mp4" />
+                            <source src="/api/v2/theme/dynamic?theme=brisk.webm" type="video/webm" />
                           </>
                         )
                       case 'idol':
                         return (
                           <>
-                            <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=idol.mp4" type="video/mp4" />
-                            <source src="https://api.suij1sui.space/api/v2/theme/dynamic?theme=idol.webm" type="video/webm" />
+                            <source src="/api/v2/theme/dynamic?theme=idol.mp4" type="video/mp4" />
+                            <source src="/api/v2/theme/dynamic?theme=idol.webm" type="video/webm" />
                           </>
                         )
                   
@@ -398,7 +398,7 @@ export default function Home() {
           <FeaturedSongList effthis={EffThis} datasrc={
             async () => {
               let list = null;
-              await fetch("https://api.suij1sui.space/api/v2/featured")
+              await fetch("/api/v2/featured")
                 .then((res) => res.json())
                 .then((data) => {
                   list = data;

@@ -117,7 +117,7 @@ const StyledI = ({ handleClick }) => {
 const HeaderView = ({ props: [EffThis] }) => {
   const [clicks, setClicks] = useState(1);
   const [avatarUrl, setAvatarUrl] = useState(
-    "https://api.suij1sui.space/api/v2/avatar"
+    "/api/v2/avatar"
   );
   const [isThemeSelectionOpen, setIsThemeSelectionOpen] =
     useState(false);
