@@ -43,7 +43,7 @@ const is_playable = (song_list, idx) => {
   return song_list[idx].BVID.length > 0;
 }
 
-const data_url = "/api/v2/video/rdata?bvid=";
+const data_url = "/api/v2/video/resource?bvid=";
 
 const MusicPlayerView = ({ props: [idx, EffThis] }) => {
   if (idx !== -1 && !is_playable(EffThis.current_album, idx)) {
@@ -123,7 +123,7 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
 
   const fetch_artwork = async (bvid) => {
     setArtworkUrl(
-      `/api/v2/video/rdata?bvid=${bvid}&pic=1`
+      `/api/v2/video/resource?bvid=${bvid}&pic=1`
     );
   }
 

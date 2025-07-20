@@ -29,7 +29,7 @@ export const get_artwork_url = (bvid_list) => {
       latest_bvid = latest_bvid.slice(0, -1);
     }
     if (latest_bvid.length > 0) {
-      artwork_url = `/api/v2/video/rdata?bvid=${latest_bvid}&pic=1`;
+      artwork_url = `/api/v2/video/resource?bvid=${latest_bvid}&pic=1`;
     }
   }
   return artwork_url;
