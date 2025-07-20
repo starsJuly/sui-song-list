@@ -121,6 +121,8 @@ function ActivityImage() {
     };
   }, []);
 
+  const themeName = useThemeName();
+
   return (
     <div className="absolute right-0 top-0 w-full sm:w-[85%] 3xl:w-[75%] 4xl:w-[70%] 5xl:w-[65%]">
       <Image
