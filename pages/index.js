@@ -77,7 +77,7 @@ export function useThemeName() {
   return useSyncExternalStore(subscribe, getSnapshot, () => []);
 }
 
-function ActivityImage() {
+function ActivityImage(props) {
   const INACTIVE_TIMEOUT = 3 * 1000;
 
   const [isActive, setIsActive] = useState(false);
@@ -126,12 +126,7 @@ function ActivityImage() {
   return (
     <div className="absolute right-0 top-0 w-full sm:w-[85%] 3xl:w-[75%] 4xl:w-[70%] 5xl:w-[65%]">
       <Image
-        src={(() => {
-          switch (themeName) {
-            case 'shining': return headerImageShiningFront;
-            default: return headerImageShiningFront;
-          }
-        })()}
+        src={props.selectTheme(themeName)}
         className={`header-image-front transition-opacity duration-500 header-image-front ${!isActive ? 'z-[100] opacity-100' : 'opacity-0 pointer-events-none}'}`}
         alt="header"
         unoptimized
@@ -393,7 +388,14 @@ export default function Home() {
         </div>
         {
           themeName === 'shining' &&
-          <ActivityImage />
+          <ActivityImage selectTheme={(themeName) => {
+            switch (themeName) {
+              case 'shining':
+                return headerImageShiningFront;
+              default:
+                return headerImageShining;
+            }
+          }}/>
         }
         <section className={"main-section"}>
           <HeaderView props={[EffThis]}/>
