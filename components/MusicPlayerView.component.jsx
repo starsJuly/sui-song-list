@@ -123,7 +123,7 @@ const MusicPlayerView = ({ props: [idx, EffThis] }) => {
 
   const fetch_artwork = async (bvid) => {
     setArtworkUrl(
-      `/api/v2/video/info?bvid=${bvid}&pic=1`
+      `/api/v2/video/rdata?bvid=${bvid}&pic=1`
     );
   }
 
