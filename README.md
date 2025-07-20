@@ -159,7 +159,7 @@ features:
 - 在 `.env.development` 和 `.env.production` 中设置 `NEXT_PUBLIC_API_BASE_URL` 为 API 服务器的地址。
 
 ### API Documentation
-样例服务器 ![server.py](server/server.py)
+样例服务器 ![server.py](server/app.py)
 
 - GET `/api/v2/avatar`
   ```
