@@ -153,6 +153,82 @@ features:
 - 为背景生成一组合适的颜色，放入 `tailwind.config.js` 的 `createThemes` 函数中
 - 在 `constants.config.theme` 中添加对应的主题名称映射
 
+## API Server Configuration
+
+要使用在线播放等等功能，需要配置 API 服务器。
+- 在 `.env.development` 和 `.env.production` 中设置 `NEXT_PUBLIC_API_BASE_URL` 为 API 服务器的地址。
+
+### API Documentation
+样例服务器 ![server.py](server/server.py)
+
+- GET `/api/v2/avatar`
+  ```
+  HTTP/1.1 200 OK
+  Content-Type: image/gif | image/webp
+
+  (binary data of gif or webp image)
+  ```
+- GET `/api/v2/video/resource?bvid=${bvid}&pic=${pic}`
+  - 处理关于一个歌切视频的所有相关请求
+  - With valid `bvid` and `pic == 1`
+    ```
+    HTTP/1.1 200 OK
+    Content-Type: image/webp
+
+    (binary image data, the thumbnail of the video)
+    ```
+  - With valid `bvid` and `pic == 0`
+    - If `request.headers.get('Range', None)`
+      ```
+      HTTP/1.1 206 Partial Content
+      Content-Type: audio/mpeg
+      Content-Range: bytes aaaa-bbbb/cccc
+
+      (partial binary mp3 data)
+      ``` 
+    - No `Range` header
+      ```
+      HTTP/1.1 200 OK
+      Content-Type: application/octet-stream
+
+      (binary mp3 data)
+      ```
+- GET `/api/v2/theme/dynamic?theme=${theme}`
+  - 返回给定名称的动态壁纸
+    ```
+    HTTP/1.1 206 Partial Content
+    Content-Type: type
+    Content-Range: bytes aaaa-bbbb/ccc
+
+    (partial binary mp4/mov/webm data)
+    ```
+- GET `/api/v2/featured/`
+  - 返回一个按照特定方式，例如播放量排序的歌切数组
+    ```
+    HTTP/1.1 200 OK
+    Content-Type: application/json
+
+    [
+      {
+        "BVID": "BV1hr421W7Qw，BV1sh41177y4，BV1tt421t7Fx，BV1ZM4m1z7b2，BV1bkareMEA9",
+        "artist": "ChiliChill",
+        "date_list": "2023/4/30，2024/3/4，2024/5/31，2024/8/6",
+        "index": 470,
+        "initial": "B",
+        "language": "华语",
+        "paid": 0,
+        "remarks": "",
+        "song_count": "4",
+        "song_name": "半醒",
+        "song_translated_name": "",
+        "sticky_top": 0,
+        "url": ""
+      },
+      ...
+    ]
+    ```
+
+
 ## Related Repositories
 
 + [song-list-of-nanakaie](https://github.com/alan314m/song-list-of-nanakaie)
