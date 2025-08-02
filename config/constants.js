@@ -84,6 +84,10 @@ const config = {
       name: 'Effulgence',
       dynamic: false,
     },
+    'neon': {
+      name: 'Neon',
+      dynamic: false,
+    }
   }
 }
 
@@ -110,6 +114,92 @@ const generate_theme = () => {
 
   return theme;
 };
+
+import { content_contains } from '../utils/search_engine'
+import { is_favorite_song, favorite_date } from '../config/controllers';
+
+export const filterSong = (songlist, searchBox, filter_state) => {
+  return songlist
+    .map((song) => {
+      if (typeof window !== 'undefined' && is_favorite_song(song.song_name)) {
+        song.is_local = true;
+      } else {
+        song.is_local = false;
+      }
+      if (searchBox === "bgs1314baobaomuamualovelove" && song.song_name === "One more time, One more chance") {
+        song.BVID = "BV1eVnueEEoc";
+        song.date_list = "2024-4-23";
+        song.song_count = 1;
+      }
+      return song;
+    })
+  .filter(
+    (song) =>
+      //搜索
+      content_contains([
+        song.language,
+        song.song_name,
+        song.song_translated_name,
+        song.artist,
+        song.remark,
+      ], searchBox === "bgs1314baobaomuamualovelove" ? "One more time, One more chance" : searchBox)
+      //语言
+      && (filter_state.lang != ""
+        ? song.language?.includes(filter_state.lang)
+        : true)
+      //首字母
+      && (filter_state.initial != ""
+        ? song.initial?.includes(filter_state.initial)
+        : true)
+      //类型
+      && (filter_state.remark != ""
+        ? song.remarks?.toLowerCase().includes(filter_state.remark)
+        : true)
+      //付费
+      && (filter_state.paid
+        ? song.paid == 1
+        : true)
+      && (filter_state.is_local
+        ? song.is_local
+        : true))
+  .sort((a, b) => {
+    if (filter_state.sorting_method === 'not_recently') {
+      const a_date = a.date_list.split(/，/g)
+        .map(a => Date.parse(a)).filter(a => !isNaN(a))
+        .sort();
+      const b_date = b.date_list.split(/，/g)
+        .map(a => Date.parse(a)).filter(a => !isNaN(a))
+        .sort();
+      return a_date[a_date.length - 1] - b_date[b_date.length - 1];
+    } else if (filter_state.sorting_method === 'infrequently') {
+      return a.song_count - b.song_count;
+    } else if (filter_state.sorting_method === 'recently' || filter_state.sorting_method === 'default') {
+      const a_date = a.date_list.split(/，/g)
+        .map(a => Date.parse(a)).filter(a => !isNaN(a))
+        .sort();
+      const b_date = b.date_list.split(/，/g)
+        .map(a => Date.parse(a)).filter(a => !isNaN(a))
+        .sort();
+      return b_date[b_date.length - 1] - a_date[a_date.length - 1];
+    } else if (filter_state.sorting_method === 'frequently') {
+      return b.song_count - a.song_count;
+    } else if (filter_state.is_local) {
+      let a_time = favorite_date(a.song_name);
+      let b_time = favorite_date(b.song_name);
+      if (a_time && b_time) {
+        return b_time - a_time;
+      } else {
+        return 0;
+      }
+    } else {
+      return 0;
+    }
+  })
+  .map((song, idx) => {
+    song.idx = idx;
+    return song;
+  });
+}
 
 export default config
 export const theme = generate_theme();

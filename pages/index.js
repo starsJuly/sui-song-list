@@ -20,6 +20,15 @@ import FeaturedSongList from '../components/FeaturedSongList.component'
 import imageLoader from '../utils/ImageLoader'
 
 import config, { theme } from '../config/constants'
+import { filterSong } from '../config/constants'
+
+import { 
+  RetroWindow, 
+  RetroButton,
+  RetroWindowContainer,
+} from '../components/retro/RetroWindow.component'
+import RetroSongList from '../components/retro/RetroSongList.component'
+import clsx from 'clsx'
 
 import { 
   eff_get, 
@@ -45,6 +54,11 @@ import headerImageIdol from '../public/assets/images/theme/header_idol.webp'
 import headerImageLazy from '../public/assets/images/theme/header_lazy.webp'
 import headerImageShining from '../public/assets/images/theme/header_shining.webp'
 import headerImageShiningFront from '../public/assets/images/theme/header_shining_front.png'
+
+import sui from '../public/assets/images/sui.png'
+import sui_new from '../public/assets/images/sui_new.webp'
+import sui_mixup from '../public/assets/images/sui_mixup.webp'
+import sui_neon from '../public/assets/images/sui_neon.webp'
 
 import {
   BsPalette2
@@ -253,8 +267,8 @@ export default function Home() {
   const videoRef = React.useRef(null);
   useEffect(() => {
     setDynamicTheme(config.theme[theme].dynamic);
-    upgrade_app('2.0.6', () => {
-      EffThis.set_theme('shining');
+    upgrade_app('3.0.0', () => {
+      EffThis.set_theme('neon');
       setDynamicTheme(false);
     })
   }, [theme]);
@@ -272,8 +286,129 @@ export default function Home() {
   }, [theme]);
   
   const themeName = useThemeName();
-
   const title = `${config.Name}的歌单`;
+  const liverName = config.Name;
+  
+  const [variant, setVariant] = useState('neon'); // 'neon' | 'classic'
+    
+  if (themeName == 'neon') {
+    return (
+      <div data-theme={theme}>
+        <Head>
+          <title>{title}</title>
+          <meta
+            name="keywords"
+            content={`B站,bilibili,哔哩哔哩,vtuber,虚拟主播,电台唱见,歌单,${config.Name}`}
+          />
+          <meta name="description" content={`${config.Name}的歌单`} />
+          <link rel="icon" type="image/x-icon" href="/favicon.png"></link>
+        </Head>
+          <div className="fixed inset-0">
+            <div className="absolute left-[20%] top-0 w-full">
+              <Image
+                src={sui}
+                alt='sui'
+                loader={({ src }) => src}
+                className="absolute w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        <section className={"main-section absolute"}>
+          <RetroWindowContainer>
+            <RetroWindow
+              title={"SUI_1.png"}
+              className="relative top-[36rem] left-[25rem] w-[50rem]"
+            >
+              <div className="">
+                <Image
+                  src={sui_new}
+                  alt="sui_new"
+                  width={0} height={0} 
+                  loader={({ src }) => src}
+                  sizes='100vw' layout='responsive'
+                  objectFit='cover' unoptimized
+                />
+              </div>
+            </RetroWindow>
+            <RetroWindow
+              title={"SUI_MIXUP.png"}
+              className="relative top-[20rem] left-[-10rem] w-[50rem]"
+            >
+              <div className="">
+                <Image
+                  src={sui_mixup}
+                  alt="sui_new"
+                  width={0} height={0}
+                  loader={({ src }) => src}
+                  sizes='100vw' layout='responsive'
+                  objectFit='cover' unoptimized
+                />
+              </div>
+            </RetroWindow>
+            <RetroWindow
+              title={"SUI_SHINING.png"}
+              className="relative top-[-65rem] left-[5rem] w-[30rem]"
+            >
+              <div className="">
+                <Image
+                  src={headerImageShining}
+                  alt="sui_shining"
+                  width={0} height={0}
+                  loader={({ src }) => src}
+                  sizes='100vw' layout='responsive'
+                  objectFit='cover' unoptimized
+                />
+              </div>
+            </RetroWindow>
+            <RetroWindow
+              title={"MUSIC.exe"}
+              className="relative top-[-30rem]"
+            >
+              <RetroSongList 
+                songList={song_list}
+              />
+            </RetroWindow>
+            <RetroWindow
+              variant={variant}
+              title={"README.md"}
+              className="relative w-[30rem] top-[-130rem]"
+            >
+              <div className="space-y-2 text-[1.3rem]">
+                <p className="text-title">{liverName}</p>
+                <p>
+                  已收录的歌曲 {song_list.length} 首
+                </p>
+                <p>Livestream&nbsp;#25788785</p>
+                <RetroButton onClick={() => {
+                    setTheme('light');
+                  }}
+                  className="p-2 text-[1rem]"
+                >
+                  回到旧版
+                </RetroButton>
+              </div>
+            </RetroWindow>
+            <RetroWindow
+              title={"SUI_NEON.png"}
+              className="relative top-[-160rem] left-[-5rem] w-[20rem]"
+            >
+              <div className="">
+                <Image
+                  src={sui_neon}
+                  alt="sui_neon"
+                  width={0} height={0}
+                  loader={({ src }) => src}
+                  sizes='100vw' layout='responsive'
+                  objectFit='cover' unoptimized
+                />
+              </div>
+            </RetroWindow>
+          </RetroWindowContainer>
+        </section>
+      </div>
+    );
+  }
+  
   return (
     <div data-theme={theme}>
       <BackgroundView />
@@ -461,92 +596,11 @@ export default function Home() {
   );
 }
 
-import { content_contains } from '../utils/search_engine'
-
 /** 过滤器控件 */
 const FilteredList = memo(function FilteredList({ props: [ filter_state, searchBox, EffThis ] }) {
-
+ 
   //过滤歌单列表
-  const filteredSongList = song_list
-    .map((song) => {
-      if (typeof window !== 'undefined' && is_favorite_song(song.song_name)) {
-        song.is_local = true;
-      } else {
-        song.is_local = false;
-      }
-      if (searchBox === "bgs1314baobaomuamualovelove" && song.song_name === "One more time, One more chance") {
-        song.BVID = "BV1eVnueEEoc";
-        song.date_list = "2024-4-23";
-        song.song_count = 1;
-      }
-      return song;
-    })
-    .filter(
-      (song) =>
-        //搜索
-        content_contains([
-          song.language,
-          song.song_name,
-          song.song_translated_name,
-          song.artist,
-          song.remark,
-        ], searchBox === "bgs1314baobaomuamualovelove" ? "One more time, One more chance" : searchBox)
-        //语言
-        && (filter_state.lang != ""
-            ? song.language?.includes(filter_state.lang)
-            : true)
-        //首字母
-        && (filter_state.initial != ""
-            ? song.initial?.includes(filter_state.initial)
-            : true)
-        //类型
-        && (filter_state.remark != ""
-            ? song.remarks?.toLowerCase().includes(filter_state.remark)
-            : true)
-        //付费
-        && (filter_state.paid
-            ? song.paid == 1
-            : true)
-        && (filter_state.is_local
-            ? song.is_local
-            : true))
-    .sort((a, b) => {
-      if (filter_state.sorting_method === 'not_recently') {
-        const a_date = a.date_list.split(/，/g)
-          .map(a => Date.parse(a)).filter(a => !isNaN(a))
-          .sort();
-        const b_date = b.date_list.split(/，/g)
-          .map(a => Date.parse(a)).filter(a => !isNaN(a))
-          .sort();
-        return a_date[a_date.length - 1] - b_date[b_date.length - 1];
-      } else if (filter_state.sorting_method === 'infrequently') {
-        return a.song_count - b.song_count;
-      } else if (filter_state.sorting_method === 'recently' || filter_state.sorting_method === 'default') {
-        const a_date = a.date_list.split(/，/g)
-          .map(a => Date.parse(a)).filter(a => !isNaN(a))
-          .sort();
-        const b_date = b.date_list.split(/，/g)
-          .map(a => Date.parse(a)).filter(a => !isNaN(a))
-          .sort();
-        return b_date[b_date.length - 1] - a_date[a_date.length - 1];
-      } else if (filter_state.sorting_method === 'frequently') {
-        return b.song_count - a.song_count;
-      } else if (filter_state.is_local) {
-        let a_time = favorite_date(a.song_name);
-        let b_time = favorite_date(b.song_name);
-        if (a_time && b_time) {
-          return b_time - a_time;
-        } else {
-          return 0;
-        }
-      } else {
-        return 0;
-      }
-    })
-    .map((song, idx) => {
-      song.idx = idx;
-      return song;
-    });
+  const filteredSongList = filterSong(song_list, searchBox, filter_state);
 
   EffThis.set_current_album(filteredSongList);
 
@@ -597,20 +651,7 @@ const FilteredList = memo(function FilteredList({ props: [ filter_state, searchB
 function SongListWrapper ({ props: [ List, EffThis ] }) {
   return (
     <Container fluid style = {{ minWidth: 'min-content' }}>
-     <div className = { styles.songListMarco }>
-        <div className='flex flex-row items-center'>
-          <div className='w-[1.5rem] h-[1.5rem] relative mr-1 rounded-full overflow-hidden'>
-            <Image src={'/assets/images/emoticon_hengheng.webp'}
-              width={0} height={0} sizes='100vw' layout='fill'
-              unoptimized objectFit='cover' alt='hengheng'
-            />
-          </div>
-          <span className='text-subtitle text-secondary-label font-semibold'>
-            全部歌曲
-          </span>
-        </div>
-        <SongList props = {[ List, EffThis ]}/>
-     </div>
+      <SongList props = {[ List, EffThis ]}/>
    </Container>
   );
 }

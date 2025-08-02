@@ -112,3 +112,49 @@ export const upgrade_app = (version, cb) => {
     }
   }
 }
+
+export const canonicalizeSong = (songInfo, songIdx) => {
+  let out = {};
+  out.song_translated_name = "";
+  if (typeof songInfo.song_translated_name === 'string') {
+    const name = songInfo.song_translated_name.trim();
+    if (name.length) {
+      out.song_translated_name = name;
+    }
+  }
+  if (typeof songInfo.date_list === 'string') {
+    let date_list = songInfo.date_list.trim().split(/，/g).map(a => Date.parse(a)).filter(a => !isNaN(a));
+    if (date_list.length) {
+      date_list.sort();
+      const last = new Date(date_list[date_list.length - 1]);
+      out.last_date = (`${last.getFullYear()}-${last.getMonth() + 1}-${last.getDate()}`);
+      out.count = songInfo.song_count
+    }
+  }
+  let bvid_list = null;
+  if (typeof songInfo.BVID === 'string') {
+    const bvid_list_plain = songInfo.BVID.trim();
+    if (bvid_list_plain.length) {
+      out.BVID = bvid_list_plain;
+    }
+    bvid_list = bvid_list_plain.split(/，/g);
+  }
+  out.bvid_list = bvid_list;
+  if (bvid_list !== null && bvid_list.length > 0) {
+    let latest_bvid = bvid_list[bvid_list.length - 1];
+    if (latest_bvid.endsWith("，")) {
+      latest_bvid = latest_bvid.slice(0, -1);
+    }
+    if (latest_bvid.length > 0) {
+      out.artwork_url = `/api/v2/video/resource?bvid=${latest_bvid}&pic=1`;
+    }
+  }
+  out.song_name = songInfo.song_name.trim();
+  out.artist = songInfo.artist.trim();
+  out.language = songInfo.language.trim();
+  out.initial = songInfo.initial.trim();
+  out.remarks = songInfo.remarks.trim().toLowerCase();
+  out.is_local = is_favorite_song(out.song_name);
+  out.song_idx = songIdx;
+  return out;
+}

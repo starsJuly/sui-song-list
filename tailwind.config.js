@@ -9,6 +9,26 @@ module.exports = {
     "./config/constants.js",
   ],
   theme: {
+    colors: {
+      neonBorder: '#9641d6',
+      neonAccent: '#ff37a6',
+      neonBg: '#1d1d24',
+      'neon-highlight': '#b1a4c5',
+      'neon-secondary-highlight': '#726883',
+      'neon-tetriary-highlight': '#1c1030',
+      'neon-background-1': '#8a3bc8',
+      'neon-background-2': '#2a253a',
+      'neon-background-text': '#b894d7',
+      'neon-text-1': '#ddd5de',
+      'neon-action-foreground': '#5de0e3',
+      'neon-action-background': '#16141d',
+      'neon-main-background': '#231f2a',
+
+      classicBorderLight: '#d8d8d8',
+      classicBorderDark: '#6b6b6b',
+      classicBar: '#003b9b',
+      classicBg: '#f7f7f7',
+    },
     extend: {
       cursor: {
         'main-cursor': "url('/assets/cursor/v2/pointer.png'), pointer",
@@ -544,6 +564,9 @@ module.exports = {
         'secondary-background': '#593A51',
         'tertiary-background': '#2B242E',
         'main-page-background': '#495F87'
+      },
+      neon: {
+        'main-page-background': '#231f2a',
       }
     })
   ],
