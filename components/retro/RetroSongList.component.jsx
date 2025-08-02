@@ -62,20 +62,20 @@ export default function RetroSongList({
           style={{ height: `${rowHeight}px` }}
         >
           <div
-          className="inline shrink-0
-          sm:w-[3.5rem] sm:h-[3.5rem] 
-          w-[3rem] h-[3rem] relative mr-1"
+            className="inline shrink-0
+            sm:w-[3.5rem] sm:h-[3.5rem] 
+            w-[3rem] h-[3rem] relative mr-1"
           >
           <Image
-              src={renderedSong.artwork_url || "/favicon.png"}
-              alt={renderedSong.song_name}
-              className="rounded-lg object-cover w-full h-full"
-              width={56}
-              height={56}
-              unoptimized
-              onError={(e) => {
-                e.target.src = "/favicon.png";
-              }}
+            src={renderedSong.artwork_url || "/favicon.png"}
+            alt={renderedSong.song_name}
+            className="object-cover w-full h-full"
+            width={56}
+            height={56}
+            unoptimized
+            onError={(e) => {
+              e.target.src = "/favicon.png";
+            }}
           />
           </div>
           <div className="
@@ -95,15 +95,15 @@ export default function RetroSongList({
           </div>
         </div>
         <div>
-          <div className="inline-flex flex-col pr-3 items-end">
+          <div className="inline-flex flex-col pr-3 items-end w-[15vw]">
             {
               renderedSong.artist &&
               renderedSong.artist.length > 0 &&
-              <p className="text-neon-text-1 text-sm">
+              <p className="text-neon-text-1 text-sm overflow-ellipsis shrink-0">
                 {renderedSong.artist}
               </p>
             }
-            <p className="text-neon-text-1 text-sm">
+            <p className="text-neon-text-1 text-sm overflow-ellipsis shrink-0">
               {`${renderedSong.last_date} / ${renderedSong.count}`}
             </p>
           </div>
