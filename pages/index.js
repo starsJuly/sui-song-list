@@ -332,7 +332,7 @@ export default function Home() {
             </RetroWindow>
             <RetroWindow
               title={"SUI_MIXUP.png"}
-              className="relative top-[20rem] left-[-10rem] w-[50rem]"
+              className="relative top-[10rem] left-[-10rem] w-[50rem]"
             >
               <div className="">
                 <Image
@@ -362,7 +362,7 @@ export default function Home() {
             </RetroWindow>
             <RetroWindow
               title={"MUSIC.exe"}
-              className="relative top-[-30rem]"
+              className="relative top-[-60rem]"
             >
               <RetroSongList 
                 songList={song_list}
@@ -382,9 +382,8 @@ export default function Home() {
                 <RetroButton onClick={() => {
                     setTheme('light');
                   }}
-                  className="p-2 text-[1rem]"
                 >
-                  回到旧版
+                  <div className='p-2 text-[1rem]'>回到旧版</div>
                 </RetroButton>
               </div>
             </RetroWindow>

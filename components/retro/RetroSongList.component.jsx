@@ -1,8 +1,11 @@
 import { filterSong } from "../../config/constants";
 import {
   RetroWindow, 
-  RetroButton 
+  RetroButton,
 } from "../../components/retro/RetroWindow.component";
+import {
+  RetroSearchBar,
+} from "../../components/retro/RetroSearchBar.component";
 import clsx from "clsx";
 import {
   useEffect,
@@ -20,9 +23,18 @@ export default function RetroSongList({
   rowHeight = 72,
   songListHeight = 0.8
 }) {
-  const inputList = songList;
+  const [inputList, setInputList] = useState(songList);
   const [pageIndex, setPageIndex] = useState(1);
   const [perPage, setPerPage] = useState(1);
+
+  const [filterState, setFilterState] = useState({
+    lang: "",
+    initial: "",
+    paid: false,
+    remark: "",
+    sorting_method: "default",
+    is_local: false,
+  });
 
   const recompute = () => {
     const vh = window.innerHeight;
@@ -31,7 +43,7 @@ export default function RetroSongList({
 
     const newTotalPage = Math.ceil(inputList.length / capacity);
     if (pageIndex >= newTotalPage) {
-      setPageIndex(newTotalPage - 1);
+      setPageIndex(newTotalPage);
     }
   }
 
@@ -51,7 +63,6 @@ export default function RetroSongList({
 
   const generateRow = (song, i) => {
     let renderedSong = canonicalizeSong(song, i);
-    console.log("Rendering song:", renderedSong);
     return (
       <div className="flex border-b border-gray-600 items-center justify-between"
         key={i}
@@ -113,7 +124,20 @@ export default function RetroSongList({
   }
 
   return (
-    <div className="flex flex-col" style={{ height: `${100 * songListHeight}vh` }}>
+    <div className="flex flex-col" style={{ height: `${100 * (songListHeight + 0.1)}vh` }}>
+      <RetroSearchBar
+        onUpdate={(searchTerm) => {
+          if (!searchTerm || searchTerm.trim() === "") {
+            setInputList(songList);
+            setPageIndex(1);
+            return;
+          }
+          const filteredSongs = filterSong(songList, searchTerm, filterState);
+          setInputList(filteredSongs);
+          setPageIndex(1);
+          recompute();
+        }}
+      />
       <div className="flex-1 overflow-auto">
         {pageItems.map((song, i) => (
             generateRow(song, i)
