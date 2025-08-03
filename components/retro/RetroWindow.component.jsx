@@ -21,19 +21,38 @@ import Draggable from "react-draggable";
 
 export function RetroBox({ 
   variant = "neon", 
+  isActive = false,
   className,
   children 
 }) {
   return (
     <div className={clsx("relative overflow-hidden", className)}>
-      <div className="absolute bottom-[2px] w-[100%] h-[2px] border-transparent pointer-events-none bg-neon-secondary-highlight"></div>
-      <div className="absolute right-[2px] w-[2px] h-[100%] border-transparent pointer-events-none bg-neon-secondary-highlight"></div>
+      {
+        isActive === false ? (
+          <>
+          <div className="absolute bottom-[2px] w-[100%] h-[2px] border-transparent pointer-events-none bg-neon-secondary-highlight"></div>
+          <div className="absolute right-[2px] w-[2px] h-[100%] border-transparent pointer-events-none bg-neon-secondary-highlight"></div>
 
-      <div className="absolute top-0 inset-0 h-[2px] w-[100%] border-transparent pointer-events-none bg-neon-highlight"></div>
-      <div className="absolute left-0 inset-x-0 w-[2px] h-[100%] border-transparent pointer-events-none bg-neon-highlight"></div>
+          <div className="absolute top-0 inset-0 h-[2px] w-[100%] border-transparent pointer-events-none bg-neon-highlight"></div>
+          <div className="absolute left-0 inset-x-0 w-[2px] h-[100%] border-transparent pointer-events-none bg-neon-highlight"></div>
 
-      <div className="absolute bottom-0 h-[2px] w-[100%] border-transparent pointer-events-none bg-neon-tetriary-highlight"></div>
-      <div className="absolute right-0 w-[2px] h-[100%] border-transparent pointer-events-none bg-neon-tetriary-highlight"></div>
+          <div className="absolute bottom-0 h-[2px] w-[100%] border-transparent pointer-events-none bg-neon-tetriary-highlight"></div>
+          <div className="absolute right-0 w-[2px] h-[100%] border-transparent pointer-events-none bg-neon-tetriary-highlight"></div>
+          </>
+        ) : (
+          <>
+          <div className="absolute top-[2px] w-[100%] h-[2px] border-transparent pointer-events-none bg-neon-secondary-highlight"></div>
+          <div className="absolute left-[2px] w-[2px] h-[100%] border-transparent pointer-events-none bg-neon-secondary-highlight"></div>
+          
+          <div className="absolute bottom-[0px] h-[2px] w-[100%] border-transparent pointer-events-none bg-neon-highlight"></div>
+          <div className="absolute right-[0px] w-[2px] h-[100%] border-transparent pointer-events-none bg-neon-highlight"></div>
+          
+          <div className="absolute top-0 h-[2px] w-[100%] border-transparent pointer-events-none bg-neon-tetriary-highlight"></div>
+          <div className="absolute left-0 w-[2px] h-[100%] border-transparent pointer-events-none bg-neon-tetriary-highlight"></div>
+          
+          </>
+        )
+      }
       {children}
     </div>
   );
@@ -44,19 +63,19 @@ export function RetroButton({
   children,
   onClick,
 }) {
+  const [isOnHover, setIsOnHover] = useState(false);
   return (
-    <button className={clsx("relative overflow-hidden", className)}
+    <button
+      className={clsx("relative overflow-hidden", className)}
       onClick={onClick}
+      onMouseEnter={() => setIsOnHover(true)}
+      onMouseLeave={() => setIsOnHover(false)}
     >
-      <div className="absolute bottom-[2px] w-[100%] h-[2px] border-transparent pointer-events-none bg-neon-secondary-highlight"></div>
-      <div className="absolute right-[2px] w-[2px] h-[100%] border-transparent pointer-events-none bg-neon-secondary-highlight"></div>
-
-      <div className="absolute top-0 inset-0 h-[2px] w-[100%] border-transparent pointer-events-none bg-neon-highlight"></div>
-      <div className="absolute left-0 inset-x-0 w-[2px] h-[100%] border-transparent pointer-events-none bg-neon-highlight"></div>
-
-      <div className="absolute bottom-0 h-[2px] w-[100%] border-transparent pointer-events-none bg-neon-tetriary-highlight"></div>
-      <div className="absolute right-0 w-[2px] h-[100%] border-transparent pointer-events-none bg-neon-tetriary-highlight"></div>
-      {children}
+      <RetroBox 
+        isActive={isOnHover}
+      >
+        {children}
+      </RetroBox>
     </button>
   );
 }

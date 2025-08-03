@@ -20,8 +20,11 @@ export function RetroSearchBar({
   placeholder = "Search...",
 }) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [isOnFocus, setIsOnFocus] = useState(false);
   return (
-    <RetroBox>
+    <RetroBox
+      isActive={true}
+    >
       <input
         type="text"
         className="
@@ -35,6 +38,7 @@ export function RetroSearchBar({
           setSearchTerm(e.target.value);
           onUpdate(e.target.value);
         }}
+        onFocus={() => setIsOnFocus(true)}
       ></input>
     </RetroBox>
   );
