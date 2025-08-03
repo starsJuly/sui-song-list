@@ -362,7 +362,7 @@ export default function Home() {
             </RetroWindow>
             <RetroWindow
               title={"MUSIC.exe"}
-              className="relative top-[-60rem]"
+              className="relative top-[-50rem]"
             >
               <RetroSongList 
                 songList={song_list}
@@ -388,7 +388,7 @@ export default function Home() {
               </div>
             </RetroWindow>
             <RetroWindow
-              title={"SUI_NEON.png"}
+              title={"SUI_JULY_2025.png"}
               className="relative top-[-160rem] left-[-5rem] w-[20rem]"
             >
               <div className="">

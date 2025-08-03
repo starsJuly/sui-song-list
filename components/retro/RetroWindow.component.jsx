@@ -19,14 +19,17 @@ import {
 } from "framer-motion";
 import Draggable from "react-draggable";
 
+let globalWindowIndex = 100;
+
 export function RetroBox({ 
   variant = "neon", 
+  onClick,
   isActive = false,
   className,
   children 
 }) {
   return (
-    <div className={clsx("relative overflow-hidden", className)}>
+    <div className={clsx("relative overflow-hidden", className)} onClick={onClick}>
       {
         isActive === false ? (
           <>
@@ -114,7 +117,14 @@ export function RetroWindow({
   const nodeRef = useRef(null);
 
   const window = (
-    <RetroBox className={clsx("bg-neon-background-1")}>
+    <RetroBox
+      className={clsx("bg-neon-background-1")}
+      onClick={() => {
+        if (nodeRef.current) {
+          nodeRef.current.style.zIndex = globalWindowIndex++;
+        }
+      }}
+    >
       {/* top */}
       <div
         className="
@@ -230,6 +240,7 @@ export function RetroWindowContainer({
           key,
           onStart: () => bringToTop(key),
           onMouseDown: () => bringToTop(key),
+          onClick: () => console.log(key),
           style: {
             position: "absolute",
             zIndex: 100 + z,
