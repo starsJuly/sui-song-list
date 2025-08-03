@@ -60,6 +60,7 @@ import sui from '../public/assets/images/sui.png'
 import sui_new from '../public/assets/images/sui_new.webp'
 import sui_mixup from '../public/assets/images/sui_mixup.webp'
 import sui_neon from '../public/assets/images/sui_neon.webp'
+import sui_wodemaya from '../public/assets/images/sui_wodemaya.png'
 
 import {
   BsPalette2
@@ -88,8 +89,16 @@ function getSnapshot() {
   return (window.localStorage.getItem('theme') || 'shining');
 }
 
+function getSuiSnapshot() {
+  return (JSON.parse(window.localStorage.getItem('sui')) || 'false');
+}
+
 export function useThemeName() {
   return useSyncExternalStore(subscribe, getSnapshot, () => []);
+}
+
+export function useSuiStatus() {
+  return useSyncExternalStore(subscribe, getSuiSnapshot, () => []);
 }
 
 function ActivityImage(props) {
@@ -349,6 +358,8 @@ export default function Home() {
     if (liveWindowsCount > 0) return;
     console.log('Generating random windows...');
   });
+
+  const suiStatus = useSuiStatus();
     
   if (themeName == 'neon') {
     return (
@@ -363,9 +374,9 @@ export default function Home() {
           <link rel="icon" type="image/x-icon" href="/favicon.png"></link>
         </Head>
           <div className="fixed inset-0">
-            <div className="absolute left-[20%] top-0 w-full">
+            <div className={suiStatus === true ? "absolute left-[30%] top-0 w-full" : "absolute left-[20%] top-0 w-full"}>
               <Image
-                src={sui}
+                src={suiStatus === true ? sui_wodemaya : sui}
                 alt='sui'
                 loader={({ src }) => src}
                 className="absolute w-full h-full object-cover"
@@ -477,7 +488,12 @@ export default function Home() {
               liveWindowsCount == 0 && (
                 <RetroWindow
                   title={"你在干什么"}
-                  onClose={() => setCloseMe(true)}
+                  onClose={() => {
+                    setCloseMe(true);
+                    if (typeof window !== 'undefined') {
+                      localStorage.setItem('sui', JSON.stringify(true));
+                    }
+                  }}
                 >
                   <div className="p-4">
                     <p>饼干岁 你在吗？</p>
