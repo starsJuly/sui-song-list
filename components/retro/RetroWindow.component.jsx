@@ -26,10 +26,11 @@ export function RetroBox({
   onClick,
   isActive = false,
   className,
-  children 
+  children, 
+  style = {}
 }) {
   return (
-    <div className={clsx("relative overflow-hidden", className)} onClick={onClick}>
+    <div className={clsx("relative overflow-hidden", className)} onClick={onClick} style={style}>
       {
         isActive === false ? (
           <>
@@ -91,6 +92,8 @@ export function RetroWindow({
   widthClass = "w-80",
   className,
   children,
+  style,
+  onClose = () => {},
 }) {
   const theme = {
     neon: {
@@ -124,6 +127,7 @@ export function RetroWindow({
           nodeRef.current.style.zIndex = globalWindowIndex++;
         }
       }}
+      style={style}
     >
       {/* top */}
       <div
@@ -166,6 +170,10 @@ export function RetroWindow({
             bg-neon-action-background
             text-[1.5rem] mt-[2px] mb-[1px] flex items-center
           "
+            onClick={(e) => {
+              onClose(e);
+              nodeRef.current.style.visibility = "hidden";
+            }}
           >
             <MdClose />
           </RetroBox>

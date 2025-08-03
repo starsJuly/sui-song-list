@@ -29,6 +29,7 @@ import {
 } from '../components/retro/RetroWindow.component'
 import RetroSongList from '../components/retro/RetroSongList.component'
 import clsx from 'clsx'
+import { motion } from 'framer-motion'
 
 import { 
   eff_get, 
@@ -290,6 +291,64 @@ export default function Home() {
   const liverName = config.Name;
   
   const [variant, setVariant] = useState('neon'); // 'neon' | 'classic'
+  const [liveWindowsCount, setLiveWindowsCount] = useState(6);
+  const [closeMe, setCloseMe] = useState(false);
+
+  let randomGeneratedWindows = [];
+  const tellme = [
+    "你在干什么？",
+    "我会看着你",
+    "你去别人的直播间了吗？",
+    "没说话的都死刑",
+    "不准送别人五朵小花花",
+    "降低你的权重",
+    "不准和别人说晚安",
+    "总感觉你今天好像变冷淡了",
+    "你要一直喜欢我好吗",
+    "快说啊",
+    "一天只能跟除我以外的一个人，说一句话",
+    "你不准看别的虚拟主播",
+    "你不是跟我签订了契约了吗？",
+    "悄悄离开的你在干什么？",
+    "我刚刚在窗外趴了好久，怎么这么喜欢乱动呢？",
+    "不要这么随便就哭啊",
+    "你上次断的肋骨应该还没好完吧",
+    "想跑啊想离开我吧",
+    "你要干嘛去啊，说啊讲啊",
+    "你知不知道啊？",
+    "你要乖乖待在我的身边",
+    "你要听话",
+    "不会说话是吧？",
+    "哭什么",
+    "你为什么不听我的",
+    "今天有减少对我的喜欢吗",
+    "你跟别人说晚安只能说晚安句号",
+    "别人有事找你你只能说嗯点头",
+    "出轨到别的地方了吗",
+    "我有点小手段可以查出来",
+    "你已经对我的生活没有兴趣了",
+    "你愿意错过今天的岁己",
+    "说不定岁己今天情绪特别低落",
+    "我今天很想被安慰，安慰我的人不是你",
+    "我的不安",
+    "你也不知道我今天干了什么",
+    "我今天讲了什么你可能也不知道"
+  ]
+
+  for (let i = 0; i < 0x100; ++i) {
+    const randomTitle = tellme[Math.floor(Math.random() * tellme.length)];
+    const randomContent = tellme[Math.floor(Math.random() * tellme.length)];
+    randomGeneratedWindows.push({
+      title: randomTitle,
+      content: randomContent,
+    });
+  }
+
+  useEffect(() => {
+    console.log('liveWindowsCount: ', liveWindowsCount);
+    if (liveWindowsCount > 0) return;
+    console.log('Generating random windows...');
+  });
     
   if (themeName == 'neon') {
     return (
@@ -315,9 +374,12 @@ export default function Home() {
           </div>
         <section className={"main-section absolute"}>
           <RetroWindowContainer>
+          {liveWindowsCount > 0 && (
+            <>
             <RetroWindow
               title={"SUI_1.png"}
               className="relative top-[36rem] left-[25rem] w-[50rem]"
+              onClose={() => setLiveWindowsCount(c => c - 1)}
             >
               <div className="">
                 <Image
@@ -333,6 +395,7 @@ export default function Home() {
             <RetroWindow
               title={"SUI_MIXUP.png"}
               className="relative top-[10rem] left-[-10rem] w-[50rem]"
+              onClose={() => setLiveWindowsCount(c => c - 1)}
             >
               <div className="">
                 <Image
@@ -348,6 +411,7 @@ export default function Home() {
             <RetroWindow
               title={"SUI_SHINING.png"}
               className="relative top-[-65rem] left-[5rem] w-[30rem]"
+              onClose={() => setLiveWindowsCount(c => c - 1)}
             >
               <div className="">
                 <Image
@@ -363,6 +427,7 @@ export default function Home() {
             <RetroWindow
               title={"MUSIC.exe"}
               className="relative top-[-50rem]"
+              onClose={() => setLiveWindowsCount(c => c - 1)}
             >
               <RetroSongList 
                 songList={song_list}
@@ -372,6 +437,7 @@ export default function Home() {
               variant={variant}
               title={"README.md"}
               className="relative w-[30rem] top-[-130rem]"
+              onClose={() => setLiveWindowsCount(c => c - 1)}
             >
               <div className="space-y-2 text-[1.3rem]">
                 <p className="text-title">{liverName}</p>
@@ -390,6 +456,7 @@ export default function Home() {
             <RetroWindow
               title={"SUI_JULY_2025.png"}
               className="relative top-[-160rem] left-[-5rem] w-[20rem]"
+              onClose={() => setLiveWindowsCount(c => c - 1)}
             >
               <div className="">
                 <Image
@@ -402,8 +469,55 @@ export default function Home() {
                 />
               </div>
             </RetroWindow>
+            </>
+            )}
           </RetroWindowContainer>
+          <>
+            {
+              liveWindowsCount == 0 && (
+                <RetroWindow
+                  title={"你在干什么"}
+                  onClose={() => setCloseMe(true)}
+                >
+                  <div className="p-4">
+                    <p>饼干岁 你在吗？</p>
+                  </div>
+                </RetroWindow>
+              )
+            }
+          </>
         </section>
+        {
+          closeMe && (
+            randomGeneratedWindows.map((window, index) => (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="absolute"
+                style={{ top: `${Math.random() * 100}vh`, left: `${Math.random() * 100}vw`, position: 'absolute' }}
+                key={index}
+              >
+                <RetroWindow
+                  key={index}
+                  title={window.title}
+                  className="w-[30rem] absolute"
+                  onClose={() => setLiveWindowsCount(c => c - 1)}
+                >
+                  <div className="p-4">
+                    {
+                      Math.random() < 0.5 ? (
+                        <p className="text-neonAccent">{window.content}</p>
+                      ) : (
+                        <p>{window.content}</p>
+                      )
+                    }
+                  </div>
+                </RetroWindow>
+              </motion.div>
+            ))
+          )
+        }
       </div>
     );
   }
