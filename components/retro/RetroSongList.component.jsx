@@ -132,10 +132,10 @@ export default function RetroSongList({
             setPageIndex(1);
             return;
           }
-          const filteredSongs = filterSong(songList, searchTerm, filterState);
+          const filteredSongs = filterSong(songList, searchTerm.trim(), filterState);
           setInputList(filteredSongs);
-          setPageIndex(1);
           recompute();
+          setPageIndex(1);
         }}
       />
       <div className="flex-1 overflow-auto">
